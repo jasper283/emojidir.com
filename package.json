@@ -1,0 +1,68 @@
+{
+  "name": "emoji-directory",
+  "version": "2.0.1",
+  "description": "Emoji directory - 基于 Shadcn UI 的 Microsoft Fluent Emoji 浏览器",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:dev": "npm run generate-index && next build",
+    "build:with-assets": "npm run generate-index && next build && npm run copy-assets",
+    "start": "next start",
+    "lint": "next lint",
+    "generate-index": "node scripts/generate-index.js",
+    "copy-assets": "node scripts/copy-assets.js",
+    "upload-to-r2": "node scripts/upload-to-r2.js",
+    "upload-to-r2:aws": "./scripts/upload-to-r2-aws.sh",
+    "setup-r2": "./scripts/setup-r2-credentials.sh",
+    "rename-assets": "node scripts/rename-assets.js",
+    "rename-assets:dry-run": "node scripts/rename-assets.js --dry-run"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.0.0",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@tailwindcss/typography": "^0.5.19",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.546.0",
+    "next": "14.2.15",
+    "next-intl": "^4.3.12",
+    "next-mdx-remote": "^5.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reading-time": "^1.5.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.11",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
+  }
+}

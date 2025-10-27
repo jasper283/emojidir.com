@@ -1,0 +1,332 @@
+{
+  "common": {
+    "appName": "Emoji Directory",
+    "search": "Search",
+    "searchPlaceholder": "Search emoji by name or keyword...",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "platform": "Platform",
+    "style": "Style",
+    "results": "Results",
+    "found": "Found",
+    "emojis": "emojis",
+    "categories": "categories",
+    "totalEmojis": "total emojis",
+    "copyToClipboard": "Copy to clipboard",
+    "copied": "Copied!",
+    "close": "Close",
+    "details": "Details",
+    "download": "Download",
+    "downloading": "Downloading...",
+    "detected": "Detected",
+    "usingAppleNative": "Using Apple native emoji",
+    "usingWindowsNative": "Using Windows native emoji (Segoe UI)",
+    "usingAndroidNative": "Using Noto Emoji (Android native)",
+    "usingNotoFallback": "Using Noto Emoji as fallback",
+    "unknownSystem": "Unknown system",
+    "all": "All",
+    "openMainMenu": "Open main menu",
+    "closeMenu": "Close menu",
+    "categoryShortNames": {
+      "Smileys & Emotion": "Smileys",
+      "People & Body": "People",
+      "Animals & Nature": "Animals",
+      "Food & Drink": "Food",
+      "Travel & Places": "Travel",
+      "Activities": "Activities",
+      "Objects": "Objects",
+      "Symbols": "Symbols",
+      "Flags": "Flags",
+      "Component": "Component"
+    }
+  },
+  "header": {
+    "title": "Emoji Directory",
+    "description": "Browse and search emoji collections"
+  },
+  "nav": {
+    "categories": "Categories",
+    "platforms": "Platforms",
+    "viewAll": "View All",
+    "blog": "Blog"
+  },
+  "footer": {
+    "appName": "Emoji Directory",
+    "supportedPlatforms": "Supports Fluent Emoji, Noto Emoji and System Emoji (displayed as system Unicode emoji on your device)",
+    "statsText": "{count} emojis | {categories} categories",
+    "description": "Explore and download emojis from multiple design systems — Apple, Google, Microsoft, and more, all in one place.",
+    "copyright": "All rights reserved.",
+    "sections": {
+      "resources": "Resources",
+      "support": "Support",
+      "about": "About",
+      "legal": "Legal",
+      "credits": "Credits"
+    },
+    "links": {
+      "unicodePlatform": "System Emoji",
+      "allEmojis": "All Emojis",
+      "blog": "Blog",
+      "documentation": "Documentation",
+      "feedback": "Feedback",
+      "aboutUs": "About Us",
+      "openSource": "Open Source",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "license": "License",
+      "fluentEmoji": "Fluent Emoji (Microsoft)",
+      "notoEmoji": "Noto Emoji (Google)"
+    }
+  },
+  "platforms": {
+    "fluent": "Fluent Emoji",
+    "nato": "Noto Emoji",
+    "unicode": "System Emoji"
+  },
+  "platformDescriptions": {
+    "fluent": "Explore Microsoft's Fluent Emoji — a modern 3D emoji set designed for Windows and Microsoft products.",
+    "nato": "Discover Google's Noto Emoji — a flat, minimalist emoji set used across Android and Google platforms.",
+    "unicode": "View emojis as they appear on your device. System Emoji are displayed using your platform's native Unicode rendering."
+  },
+  "styles": {
+    "3d": "3D",
+    "color": "Color",
+    "flat": "Flat",
+    "high-contrast": "High Contrast"
+  },
+  "categories": {
+    "all": "All",
+    "Smileys & Emotion": "Smileys & Emotion",
+    "People & Body": "People & Body",
+    "Animals & Nature": "Animals & Nature",
+    "Food & Drink": "Food & Drink",
+    "Travel & Places": "Travel & Places",
+    "Activities": "Activities",
+    "Objects": "Objects",
+    "Symbols": "Symbols",
+    "Flags": "Flags",
+    "Component": "Component"
+  },
+  "search": {
+    "searchLabel": "Search:",
+    "noResults": "No emoji found",
+    "tryDifferentKeywords": "Try different keywords"
+  },
+  "pagination": {
+    "showing": "Showing {start} to {end} of {total} items",
+    "first": "First",
+    "previous": "Previous",
+    "next": "Next",
+    "last": "Last"
+  },
+  "landing": {
+    "hero": {
+      "title": "Match Ideas with Emoji",
+      "subtitle": "Explore and download Emojis from every platform — find the perfect way to express your ideas.",
+      "searchPlaceholder": "Try: 🐱 cat, 🎉 party, ❤️ love",
+      "ctaButton": "Start Exploring"
+    },
+    "categories": {
+      "title": "Explore by Category",
+      "subtitle": "Find emojis organized by themes and topics",
+      "representatives": {
+        "Smileys & Emotion": "😃",
+        "People & Body": "👋",
+        "Animals & Nature": "🐶",
+        "Food & Drink": "🍔",
+        "Travel & Places": "✈️",
+        "Activities": "⚽",
+        "Objects": "💡",
+        "Symbols": "🔣",
+        "Flags": "🏁"
+      }
+    },
+    "platforms": {
+      "title": "Choose Your Platform",
+      "subtitle": "Select from different emoji design systems"
+    },
+    "features": {
+      "title": "Features",
+      "subtitle": "Everything you need to find and use emojis",
+      "smartSearch": {
+        "icon": "🔍",
+        "title": "Smart Search",
+        "description": "Search by keyword, meaning, or category in multiple languages."
+      },
+      "multiPlatform": {
+        "icon": "🖼️",
+        "title": "Multi-Platform Support",
+        "description": "Apple, Google, Microsoft Fluent Emojis — all included."
+      },
+      "freeDownload": {
+        "icon": "💾",
+        "title": "Free Downloads",
+        "description": "Download PNG or SVG files with one click."
+      },
+      "noLogin": {
+        "icon": "🪄",
+        "title": "No Login Required",
+        "description": "Access everything instantly — no signup hassle."
+      }
+    },
+    "cta": {
+      "explore": "Explore Emojis",
+      "viewAll": "View All"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated",
+    "intro": {
+      "title": "Introduction",
+      "content": "Welcome to Emoji Directory. We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we handle your information when you use our service."
+    },
+    "infoWeCollect": {
+      "title": "Information We Collect",
+      "content": "We collect minimal information to provide and improve our service:",
+      "items": {
+        "browsing": "Browsing data: Pages you visit, search queries, and emojis you interact with",
+        "device": "Device information: Browser type, device type, and operating system",
+        "usage": "Usage statistics: How you interact with our features"
+      }
+    },
+    "howWeUse": {
+      "title": "How We Use Your Information",
+      "content": "We use the collected information to:",
+      "items": {
+        "improve": "Improve and optimize our service",
+        "understand": "Understand user preferences and behavior",
+        "maintain": "Maintain security and prevent abuse"
+      }
+    },
+    "dataStorage": {
+      "title": "Data Storage and Security",
+      "content": "We store minimal data locally in your browser using cookies and local storage. We do not collect or store personal identifiable information on our servers. All emoji downloads are processed client-side or through secure CDN services."
+    },
+    "thirdParty": {
+      "title": "Third-Party Services",
+      "content": "We may use third-party services for:",
+      "items": {
+        "hosting": "Website hosting and infrastructure",
+        "cdn": "Content Delivery Network (CDN) for emoji assets",
+        "analytics": "Anonymous analytics to improve user experience"
+      }
+    },
+    "cookies": {
+      "title": "Cookies",
+      "content": "We use cookies to remember your preferences (like language selection and platform choice) and to provide a better user experience. You can disable cookies in your browser settings, but some features may not work properly."
+    },
+    "yourRights": {
+      "title": "Your Rights",
+      "content": "You have the right to:",
+      "items": {
+        "access": "Access the information we have about you",
+        "correct": "Request correction of inaccurate data",
+        "delete": "Request deletion of your data",
+        "optout": "Opt-out of data collection by clearing your browser data"
+      }
+    },
+    "childrens": {
+      "title": "Children's Privacy",
+      "content": "Our service is intended for general audiences. We do not knowingly collect personal information from children under 13 years of age."
+    },
+    "changes": {
+      "title": "Changes to This Policy",
+      "content": "We may update this privacy policy from time to time. We will notify users of any significant changes by updating the 'Last Updated' date at the top of this page."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have any questions about this privacy policy, please contact us through our GitHub repository or email us at privacy@emojidirectory.com."
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last Updated",
+    "intro": {
+      "title": "Introduction",
+      "content": "Welcome to Emoji Directory. By accessing or using our service, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our service."
+    },
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "content": "By accessing and using Emoji Directory, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, you should not access or use this service."
+    },
+    "useOfService": {
+      "title": "Use of Service",
+      "content": "Emoji Directory provides a platform to explore, search, and download emoji graphics. You may use our service to:",
+      "items": {
+        "search": "Search and browse emoji collections",
+        "browse": "View emoji details and information",
+        "download": "Download emoji graphics for personal or commercial use (subject to respective emoji licenses)"
+      }
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "content": "The Emoji Directory website, its design, code, and original content are owned by Emoji Directory and protected by intellectual property laws. However, the emoji graphics themselves are sourced from various providers and are subject to their respective licenses."
+    },
+    "emojiLicenses": {
+      "title": "Emoji Licenses",
+      "content": "Different emoji collections on our platform have different licenses:",
+      "items": {
+        "fluent": "Licensed under MIT License by Microsoft",
+        "noto": "Licensed under Apache License 2.0 and SIL Open Font License by Google",
+        "unicode": "Platform-specific emojis are rendered by your operating system and are subject to the respective platform's terms",
+        "unicodeTitle": "System Emoji"
+      }
+    },
+    "prohibited": {
+      "title": "Prohibited Activities",
+      "content": "You agree not to:",
+      "items": {
+        "illegal": "Use the service for any illegal purpose",
+        "harm": "Attempt to harm, disrupt, or interfere with the service",
+        "misrepresent": "Impersonate others or misrepresent your affiliation",
+        "interfere": "Interfere with or disrupt the service or servers",
+        "scrape": "Use automated tools to scrape or download content in bulk without permission"
+      }
+    },
+    "disclaimer": {
+      "title": "Disclaimer of Warranties",
+      "content": "Emoji Directory is provided 'as is' and 'as available' without any warranties of any kind, either express or implied. We do not guarantee that the service will be uninterrupted, secure, or error-free."
+    },
+    "limitation": {
+      "title": "Limitation of Liability",
+      "content": "To the maximum extent permitted by law, Emoji Directory shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use the service."
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "content": "We reserve the right to modify these terms at any time. We will notify users of any material changes by updating the 'Last Updated' date. Your continued use of the service after changes constitutes acceptance of the modified terms."
+    },
+    "termination": {
+      "title": "Termination",
+      "content": "We reserve the right to terminate or suspend access to our service immediately, without prior notice or liability, for any reason, including breach of these Terms of Service."
+    },
+    "governing": {
+      "title": "Governing Law",
+      "content": "These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which Emoji Directory operates, without regard to its conflict of law provisions."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have any questions about these Terms of Service, please contact us through our GitHub repository or email us at hi@emojidir.com."
+    }
+  },
+  "notFound": {
+    "message": "Page not found",
+    "backToHome": "Back to home"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Read our latest articles and updates",
+    "description": "Explore articles about emojis, design, and more",
+    "allPosts": "All Posts",
+    "noPosts": "No blog posts available yet",
+    "filterByTag": "Filter by Tag",
+    "readMore": "Read More",
+    "by": "by",
+    "backToBlog": "Back to Blog",
+    "relatedPosts": "Related Posts",
+    "publishedOn": "Published on",
+    "readingTime": "Reading Time",
+    "share": "Share",
+    "tags": "Tags"
+  }
+}

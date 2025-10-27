@@ -1,0 +1,332 @@
+{
+  "common": {
+    "appName": "Emoji Directory",
+    "search": "検索",
+    "searchPlaceholder": "名前やキーワードで絵文字を検索...",
+    "category": "カテゴリ",
+    "allCategories": "すべてのカテゴリ",
+    "platform": "プラットフォーム",
+    "style": "スタイル",
+    "results": "結果",
+    "found": "見つかりました",
+    "emojis": "個の絵文字",
+    "categories": "カテゴリ",
+    "totalEmojis": "絵文字の総数",
+    "copyToClipboard": "クリップボードにコピー",
+    "copied": "コピーしました！",
+    "close": "閉じる",
+    "details": "詳細",
+    "download": "ダウンロード",
+    "downloading": "ダウンロード中...",
+    "detected": "検出",
+    "usingAppleNative": "Apple ネイティブ絵文字を使用",
+    "usingWindowsNative": "Windows ネイティブ絵文字 (Segoe UI) を使用",
+    "usingAndroidNative": "Noto Emoji (Android ネイティブ) を使用",
+    "usingNotoFallback": "Noto Emoji をフォールバックとして使用",
+    "unknownSystem": "不明なシステム",
+    "all": "すべて",
+    "openMainMenu": "メインメニューを開く",
+    "closeMenu": "メニューを閉じる",
+    "categoryShortNames": {
+      "Smileys & Emotion": "絵文字",
+      "People & Body": "人物",
+      "Animals & Nature": "動物",
+      "Food & Drink": "食べ物",
+      "Travel & Places": "旅行",
+      "Activities": "アクティビティ",
+      "Objects": "オブジェクト",
+      "Symbols": "シンボル",
+      "Flags": "旗",
+      "Component": "コンポーネント"
+    }
+  },
+  "header": {
+    "title": "Emoji Directory",
+    "description": "絵文字コレクションを閲覧・検索"
+  },
+  "nav": {
+    "categories": "カテゴリ",
+    "platforms": "プラットフォーム",
+    "viewAll": "すべて表示",
+    "blog": "ブログ"
+  },
+  "footer": {
+    "appName": "Emoji Directory",
+    "supportedPlatforms": "Fluent Emoji、Noto Emoji、システム絵文字（デバイス上でネイティブUnicode絵文字として表示）をサポート",
+    "statsText": "{count}個の絵文字 | {categories}カテゴリ",
+    "description": "Apple、Google、Microsoftなどの複数のデザインシステムから絵文字を探索してダウンロード — すべてここに。",
+    "copyright": "全著作権所有。",
+    "sections": {
+      "resources": "リソース",
+      "support": "サポート",
+      "about": "について",
+      "legal": "法務",
+      "credits": "クレジット"
+    },
+    "links": {
+      "unicodePlatform": "システム絵文字",
+      "allEmojis": "すべての絵文字",
+      "blog": "ブログ",
+      "documentation": "ドキュメント",
+      "feedback": "フィードバック",
+      "aboutUs": "私たちについて",
+      "openSource": "オープンソース",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約",
+      "license": "ライセンス",
+      "fluentEmoji": "Fluent Emoji (Microsoft)",
+      "notoEmoji": "Noto Emoji (Google)"
+    }
+  },
+  "platforms": {
+    "fluent": "Fluent Emoji",
+    "nato": "Noto Emoji",
+    "unicode": "システム絵文字"
+  },
+  "platformDescriptions": {
+    "fluent": "MicrosoftのFluent Emojiを探索 — WindowsとMicrosoft製品向けに設計されたモダンな3D絵文字セット。",
+    "nato": "GoogleのNoto Emojiを発見 — AndroidとGoogleプラットフォームで使用されるフラットでミニマルな絵文字セット。",
+    "unicode": "デバイスでの絵文字の表示を確認。システム絵文字は、プラットフォームのネイティブUnicodeレンダリングを使用して表示されます。"
+  },
+  "styles": {
+    "3d": "3D",
+    "color": "カラー",
+    "flat": "フラット",
+    "high-contrast": "ハイコントラスト"
+  },
+  "categories": {
+    "all": "すべて",
+    "Smileys & Emotion": "顔文字と感情",
+    "People & Body": "人と身体",
+    "Animals & Nature": "動物と自然",
+    "Food & Drink": "食べ物と飲み物",
+    "Travel & Places": "旅行と場所",
+    "Activities": "アクティビティ",
+    "Objects": "オブジェクト",
+    "Symbols": "シンボル",
+    "Flags": "旗",
+    "Component": "コンポーネント"
+  },
+  "search": {
+    "searchLabel": "検索:",
+    "noResults": "絵文字が見つかりません",
+    "tryDifferentKeywords": "別のキーワードを試してください"
+  },
+  "pagination": {
+    "showing": "{start}から{end}まで表示、全{total}件",
+    "first": "最初",
+    "previous": "前へ",
+    "next": "次へ",
+    "last": "最後"
+  },
+  "landing": {
+    "hero": {
+      "title": "アイデアとEmojiをマッチング",
+      "subtitle": "全ての絵文字を一箇所で。アイデアにぴったりの表現を。",
+      "searchPlaceholder": "試す：🐱 猫, 🎉 パーティー, ❤️ 愛",
+      "ctaButton": "探索を開始"
+    },
+    "categories": {
+      "title": "カテゴリ別に探索",
+      "subtitle": "テーマやトピック別に整理された絵文字を見つける",
+      "representatives": {
+        "Smileys & Emotion": "😃",
+        "People & Body": "👋",
+        "Animals & Nature": "🐶",
+        "Food & Drink": "🍔",
+        "Travel & Places": "✈️",
+        "Activities": "⚽",
+        "Objects": "💡",
+        "Symbols": "🔣",
+        "Flags": "🏁"
+      }
+    },
+    "platforms": {
+      "title": "プラットフォームを選択",
+      "subtitle": "さまざまな絵文字デザインシステムから選択"
+    },
+    "features": {
+      "title": "機能",
+      "subtitle": "絵文字を見つけて使用するために必要なすべて",
+      "smartSearch": {
+        "icon": "🔍",
+        "title": "スマート検索",
+        "description": "キーワード、意味、カテゴリで多言語検索。"
+      },
+      "multiPlatform": {
+        "icon": "🖼️",
+        "title": "マルチプラットフォーム対応",
+        "description": "Apple、Google、Microsoft Fluent絵文字をすべて含む。"
+      },
+      "freeDownload": {
+        "icon": "💾",
+        "title": "無料ダウンロード",
+        "description": "ワンクリックでPNGまたはSVGファイルをダウンロード。"
+      },
+      "noLogin": {
+        "icon": "🪄",
+        "title": "ログイン不要",
+        "description": "すぐにすべてにアクセス——登録の手間なし。"
+      }
+    },
+    "cta": {
+      "explore": "絵文字を探索",
+      "viewAll": "すべて表示"
+    }
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "lastUpdated": "最終更新",
+    "intro": {
+      "title": "はじめに",
+      "content": "Emoji Directoryへようこそ。私たちはお客様のプライバシーを尊重し、個人データの保護に努めています。このプライバシーポリシーは、サービス利用時の情報の取り扱いについて説明します。"
+    },
+    "infoWeCollect": {
+      "title": "収集する情報",
+      "content": "サービスの提供と改善のため、最小限の情報を収集します：",
+      "items": {
+        "browsing": "閲覧データ：訪問したページ、検索クエリ、操作した絵文字",
+        "device": "デバイス情報：ブラウザの種類、デバイスの種類、オペレーティングシステム",
+        "usage": "使用統計：機能の使用方法"
+      }
+    },
+    "howWeUse": {
+      "title": "情報の使用方法",
+      "content": "収集した情報は以下の目的で使用します：",
+      "items": {
+        "improve": "サービスの改善と最適化",
+        "understand": "ユーザーの好みと行動の理解",
+        "maintain": "セキュリティの維持と不正使用の防止"
+      }
+    },
+    "dataStorage": {
+      "title": "データの保存とセキュリティ",
+      "content": "最小限のデータをCookieとローカルストレージを使用してブラウザに保存します。サーバー上で個人を特定できる情報を収集または保存することはありません。すべての絵文字のダウンロードは、クライアント側または安全なCDNサービスを通じて処理されます。"
+    },
+    "thirdParty": {
+      "title": "サードパーティサービス",
+      "content": "以下の目的でサードパーティサービスを使用する場合があります：",
+      "items": {
+        "hosting": "ウェブサイトのホスティングとインフラストラクチャ",
+        "cdn": "絵文字アセットのコンテンツ配信ネットワーク（CDN）",
+        "analytics": "ユーザーエクスペリエンス向上のための匿名分析"
+      }
+    },
+    "cookies": {
+      "title": "Cookie",
+      "content": "お客様の設定（言語選択やプラットフォーム選択など）を記憶し、より良いユーザーエクスペリエンスを提供するためにCookieを使用します。ブラウザの設定でCookieを無効にできますが、一部の機能が正常に動作しない場合があります。"
+    },
+    "yourRights": {
+      "title": "お客様の権利",
+      "content": "お客様には以下の権利があります：",
+      "items": {
+        "access": "保有している情報へのアクセス",
+        "correct": "不正確なデータの修正の要求",
+        "delete": "データの削除の要求",
+        "optout": "ブラウザデータを消去してデータ収集をオプトアウト"
+      }
+    },
+    "childrens": {
+      "title": "子供のプライバシー",
+      "content": "当サービスは一般の視聴者を対象としています。13歳未満の子供から故意に個人情報を収集することはありません。"
+    },
+    "changes": {
+      "title": "ポリシーの変更",
+      "content": "このプライバシーポリシーは随時更新される場合があります。重要な変更がある場合は、このページの上部にある「最終更新」日付を更新してユーザーに通知します。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "content": "このプライバシーポリシーについてご質問がある場合は、GitHubリポジトリからお問い合わせいただくか、privacy@emojidirectory.comまでメールでお問い合わせください。"
+    }
+  },
+  "terms": {
+    "title": "利用規約",
+    "lastUpdated": "最終更新",
+    "intro": {
+      "title": "はじめに",
+      "content": "Emoji Directoryへようこそ。当サービスにアクセスまたは使用することにより、本利用規約に同意したものとみなされます。これらの規約に同意しない場合は、サービスを使用しないでください。"
+    },
+    "acceptance": {
+      "title": "規約の承諾",
+      "content": "Emoji Directoryにアクセスして使用することにより、本契約の条項と規定に同意し、拘束されることを承諾したものとみなされます。これらの条項に同意しない場合は、本サービスにアクセスまたは使用しないでください。"
+    },
+    "useOfService": {
+      "title": "サービスの使用",
+      "content": "Emoji Directoryは、絵文字グラフィックを探索、検索、ダウンロードするためのプラットフォームを提供します。当サービスを次の目的で使用できます：",
+      "items": {
+        "search": "絵文字コレクションの検索と閲覧",
+        "browse": "絵文字の詳細と情報の表示",
+        "download": "個人または商用目的での絵文字グラフィックのダウンロード（各絵文字のライセンスに従います）"
+      }
+    },
+    "intellectualProperty": {
+      "title": "知的財産",
+      "content": "Emoji Directoryのウェブサイト、そのデザイン、コード、オリジナルコンテンツはEmoji Directoryが所有し、知的財産法によって保護されています。ただし、絵文字グラフィック自体は様々なプロバイダーから提供されており、それぞれのライセンスに従います。"
+    },
+    "emojiLicenses": {
+      "title": "絵文字のライセンス",
+      "content": "プラットフォーム上の異なる絵文字コレクションには、異なるライセンスがあります：",
+      "items": {
+        "fluent": "MicrosoftによるMITライセンスの下でライセンス供与",
+        "noto": "GoogleによるApache License 2.0およびSIL Open Font Licenseの下でライセンス供与",
+        "unicode": "プラットフォーム固有の絵文字はオペレーティングシステムによってレンダリングされ、各プラットフォームの条項に従います",
+        "unicodeTitle": "システム絵文字"
+      }
+    },
+    "prohibited": {
+      "title": "禁止事項",
+      "content": "お客様は以下を行わないことに同意します：",
+      "items": {
+        "illegal": "違法な目的でサービスを使用すること",
+        "harm": "サービスを害したり、妨害したり、干渉しようとすること",
+        "misrepresent": "他人になりすましたり、所属を偽ったりすること",
+        "interfere": "サービスやサーバーを妨害または破壊すること",
+        "scrape": "許可なく自動化ツールを使用してコンテンツを大量にスクレイピングまたはダウンロードすること"
+      }
+    },
+    "disclaimer": {
+      "title": "保証の否認",
+      "content": "Emoji Directoryは「現状のまま」および「利用可能な状態で」提供され、明示または黙示を問わず、いかなる種類の保証もありません。サービスが中断されず、安全で、エラーがないことを保証しません。"
+    },
+    "limitation": {
+      "title": "責任の制限",
+      "content": "法律で許容される最大限の範囲において、Emoji Directoryは、サービスの使用または使用不能に起因する間接的、付随的、特別、結果的、または懲罰的損害について責任を負いません。"
+    },
+    "changes": {
+      "title": "規約の変更",
+      "content": "いつでもこれらの規約を変更する権利を留保します。「最終更新」日付を更新することで、重要な変更をユーザーに通知します。変更後もサービスを継続して使用することは、修正された規約を承諾したものとみなされます。"
+    },
+    "termination": {
+      "title": "終了",
+      "content": "利用規約違反を含む理由により、事前通知や責任なしに、サービスへのアクセスを即座に終了または停止する権利を留保します。"
+    },
+    "governing": {
+      "title": "準拠法",
+      "content": "これらの規約は、法の抵触に関する規定を考慮せず、Emoji Directoryが運営されている管轄区域の法律に準拠し、解釈されるものとします。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "content": "これらの利用規約についてご質問がある場合は、GitHubリポジトリからお問い合わせいただくか、hi@emojidir.comまでメールでお問い合わせください。"
+    }
+  },
+  "notFound": {
+    "message": "ページが見つかりません",
+    "backToHome": "ホームに戻る"
+  },
+  "blog": {
+    "title": "ブログ",
+    "subtitle": "最新の記事とアップデートをお読みください",
+    "description": "絵文字、デザインなどに関する記事を探索する",
+    "allPosts": "すべての記事",
+    "noPosts": "ブログ記事はまだありません",
+    "filterByTag": "タグで絞り込む",
+    "readMore": "続きを読む",
+    "by": "著者",
+    "backToBlog": "ブログに戻る",
+    "relatedPosts": "関連記事",
+    "publishedOn": "公開日",
+    "readingTime": "読了時間",
+    "share": "共有",
+    "tags": "タグ"
+  }
+}

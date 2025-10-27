@@ -1,0 +1,332 @@
+{
+  "common": {
+    "appName": "Emoji Directory",
+    "search": "검색",
+    "searchPlaceholder": "이름이나 키워드로 이모지 검색...",
+    "category": "카테고리",
+    "allCategories": "모든 카테고리",
+    "platform": "플랫폼",
+    "style": "스타일",
+    "results": "결과",
+    "found": "찾음",
+    "emojis": "개의 이모지",
+    "categories": "카테고리",
+    "totalEmojis": "전체 이모지",
+    "copyToClipboard": "클립보드에 복사",
+    "copied": "복사됨!",
+    "close": "닫기",
+    "details": "상세 정보",
+    "download": "다운로드",
+    "downloading": "다운로드 중...",
+    "detected": "감지됨",
+    "usingAppleNative": "Apple 네이티브 이모지 사용",
+    "usingWindowsNative": "Windows 네이티브 이모지 (Segoe UI) 사용",
+    "usingAndroidNative": "Noto Emoji (Android 네이티브) 사용",
+    "usingNotoFallback": "Noto Emoji를 폴백으로 사용",
+    "unknownSystem": "알 수 없는 시스템",
+    "all": "전체",
+    "openMainMenu": "메인 메뉴 열기",
+    "closeMenu": "메뉴 닫기",
+    "categoryShortNames": {
+      "Smileys & Emotion": "이모티콘",
+      "People & Body": "사람",
+      "Animals & Nature": "동물",
+      "Food & Drink": "음식",
+      "Travel & Places": "여행",
+      "Activities": "활동",
+      "Objects": "물건",
+      "Symbols": "기호",
+      "Flags": "깃발",
+      "Component": "구성요소"
+    }
+  },
+  "header": {
+    "title": "Emoji Directory",
+    "description": "이모지 컬렉션 찾아보기 및 검색"
+  },
+  "nav": {
+    "categories": "카테고리",
+    "platforms": "플랫폼",
+    "viewAll": "모두 보기",
+    "blog": "블로그"
+  },
+  "footer": {
+    "appName": "Emoji Directory",
+    "supportedPlatforms": "Fluent Emoji, Noto Emoji 및 시스템 이모지(기기에서 네이티브 Unicode 이모지로 표시) 지원",
+    "statsText": "{count}개 이모지 | {categories}개 카테고리",
+    "description": "Apple, Google, Microsoft 등 여러 디자인 시스템의 이모지를 한 곳에서 탐색하고 다운로드하세요.",
+    "copyright": "저작권 소유.",
+    "sections": {
+      "resources": "리소스",
+      "support": "지원",
+      "about": "정보",
+      "legal": "법무",
+      "credits": "크레딧"
+    },
+    "links": {
+      "unicodePlatform": "시스템 이모지",
+      "allEmojis": "모든 이모지",
+      "blog": "블로그",
+      "documentation": "문서",
+      "feedback": "피드백",
+      "aboutUs": "회사 소개",
+      "openSource": "오픈 소스",
+      "privacy": "개인정보 처리방침",
+      "terms": "서비스 약관",
+      "license": "라이선스",
+      "fluentEmoji": "Fluent Emoji (Microsoft)",
+      "notoEmoji": "Noto Emoji (Google)"
+    }
+  },
+  "platforms": {
+    "fluent": "Fluent Emoji",
+    "nato": "Noto Emoji",
+    "unicode": "시스템 이모지"
+  },
+  "platformDescriptions": {
+    "fluent": "Microsoft의 Fluent Emoji를 탐색하세요 — Windows와 Microsoft 제품을 위해 설계된 현대적인 3D 이모지 세트.",
+    "nato": "Google의 Noto Emoji를 발견하세요 — Android와 Google 플랫폼에서 사용되는 평면적이고 미니멀한 이모지 세트.",
+    "unicode": "기기에서 이모지가 어떻게 보이는지 확인하세요. 시스템 이모지는 플랫폼의 네이티브 Unicode 렌더링을 사용하여 표시됩니다."
+  },
+  "styles": {
+    "3d": "3D",
+    "color": "컬러",
+    "flat": "플랫",
+    "high-contrast": "고대비"
+  },
+  "categories": {
+    "all": "전체",
+    "Smileys & Emotion": "스마일리 및 감정",
+    "People & Body": "사람 및 신체",
+    "Animals & Nature": "동물 및 자연",
+    "Food & Drink": "음식 및 음료",
+    "Travel & Places": "여행 및 장소",
+    "Activities": "활동",
+    "Objects": "물건",
+    "Symbols": "기호",
+    "Flags": "깃발",
+    "Component": "구성요소"
+  },
+  "search": {
+    "searchLabel": "검색:",
+    "noResults": "이모지를 찾을 수 없습니다",
+    "tryDifferentKeywords": "다른 키워드를 시도해보세요"
+  },
+  "pagination": {
+    "showing": "{start}부터 {end}까지 표시, 총 {total}개",
+    "first": "처음",
+    "previous": "이전",
+    "next": "다음",
+    "last": "마지막"
+  },
+  "landing": {
+    "hero": {
+      "title": "아이디어와 Emoji 매칭",
+      "subtitle": "모든 이모지, 한곳에서. 아이디어에 어울리는 표현을.",
+      "searchPlaceholder": "시도: 🐱 고양이, 🎉 파티, ❤️ 사랑",
+      "ctaButton": "탐색 시작"
+    },
+    "categories": {
+      "title": "카테고리별 탐색",
+      "subtitle": "테마와 주제별로 정리된 이모지 찾기",
+      "representatives": {
+        "Smileys & Emotion": "😃",
+        "People & Body": "👋",
+        "Animals & Nature": "🐶",
+        "Food & Drink": "🍔",
+        "Travel & Places": "✈️",
+        "Activities": "⚽",
+        "Objects": "💡",
+        "Symbols": "🔣",
+        "Flags": "🏁"
+      }
+    },
+    "platforms": {
+      "title": "플랫폼 선택",
+      "subtitle": "다양한 이모지 디자인 시스템에서 선택"
+    },
+    "features": {
+      "title": "기능",
+      "subtitle": "이모지를 찾고 사용하는 데 필요한 모든 것",
+      "smartSearch": {
+        "icon": "🔍",
+        "title": "스마트 검색",
+        "description": "키워드, 의미 또는 카테고리로 다국어 검색."
+      },
+      "multiPlatform": {
+        "icon": "🖼️",
+        "title": "멀티 플랫폼 지원",
+        "description": "Apple, Google, Microsoft Fluent 이모지 모두 포함."
+      },
+      "freeDownload": {
+        "icon": "💾",
+        "title": "무료 다운로드",
+        "description": "원클릭으로 PNG 또는 SVG 파일 다운로드."
+      },
+      "noLogin": {
+        "icon": "🪄",
+        "title": "로그인 불필요",
+        "description": "즉시 모든 것에 접근 — 가입 번거로움 없음."
+      }
+    },
+    "cta": {
+      "explore": "이모지 탐색",
+      "viewAll": "모두 보기"
+    }
+  },
+  "privacy": {
+    "title": "개인정보 처리방침",
+    "lastUpdated": "최종 업데이트",
+    "intro": {
+      "title": "소개",
+      "content": "Emoji Directory에 오신 것을 환영합니다. 우리는 귀하의 개인정보를 존중하며 개인 데이터 보호에 최선을 다하고 있습니다. 본 개인정보 처리방침은 서비스 이용 시 정보 처리 방법을 설명합니다."
+    },
+    "infoWeCollect": {
+      "title": "수집하는 정보",
+      "content": "서비스 제공 및 개선을 위해 최소한의 정보를 수집합니다:",
+      "items": {
+        "browsing": "브라우징 데이터: 방문한 페이지, 검색어, 상호작용한 이모지",
+        "device": "기기 정보: 브라우저 종류, 기기 종류, 운영 체제",
+        "usage": "사용 통계: 기능 사용 방법"
+      }
+    },
+    "howWeUse": {
+      "title": "정보 사용 방법",
+      "content": "수집된 정보는 다음과 같이 사용됩니다:",
+      "items": {
+        "improve": "서비스 개선 및 최적화",
+        "understand": "사용자 선호도 및 행동 이해",
+        "maintain": "보안 유지 및 오용 방지"
+      }
+    },
+    "dataStorage": {
+      "title": "데이터 저장 및 보안",
+      "content": "쿠키와 로컬 스토리지를 사용하여 브라우저에 최소한의 데이터를 저장합니다. 서버에서 개인 식별 정보를 수집하거나 저장하지 않습니다. 모든 이모지 다운로드는 클라이언트 측 또는 안전한 CDN 서비스를 통해 처리됩니다."
+    },
+    "thirdParty": {
+      "title": "제3자 서비스",
+      "content": "다음 목적으로 제3자 서비스를 사용할 수 있습니다:",
+      "items": {
+        "hosting": "웹사이트 호스팅 및 인프라",
+        "cdn": "이모지 자산을 위한 콘텐츠 전송 네트워크(CDN)",
+        "analytics": "사용자 경험 개선을 위한 익명 분석"
+      }
+    },
+    "cookies": {
+      "title": "쿠키",
+      "content": "귀하의 기본 설정(언어 선택 및 플랫폼 선택 등)을 기억하고 더 나은 사용자 경험을 제공하기 위해 쿠키를 사용합니다. 브라우저 설정에서 쿠키를 비활성화할 수 있지만 일부 기능이 제대로 작동하지 않을 수 있습니다."
+    },
+    "yourRights": {
+      "title": "귀하의 권리",
+      "content": "귀하는 다음과 같은 권리가 있습니다:",
+      "items": {
+        "access": "보유하고 있는 정보에 대한 액세스",
+        "correct": "부정확한 데이터의 수정 요청",
+        "delete": "데이터의 삭제 요청",
+        "optout": "브라우저 데이터를 지워 데이터 수집 거부"
+      }
+    },
+    "childrens": {
+      "title": "아동 개인정보",
+      "content": "당사의 서비스는 일반 관객을 대상으로 합니다. 13세 미만의 어린이로부터 고의로 개인 정보를 수집하지 않습니다."
+    },
+    "changes": {
+      "title": "방침 변경",
+      "content": "본 개인정보 처리방침은 수시로 업데이트될 수 있습니다. 중요한 변경 사항이 있을 경우 이 페이지 상단의 '최종 업데이트' 날짜를 업데이트하여 사용자에게 알립니다."
+    },
+    "contact": {
+      "title": "문의하기",
+      "content": "본 개인정보 처리방침에 대해 질문이 있으시면 GitHub 저장소를 통해 문의하거나 privacy@emojidirectory.com으로 이메일을 보내주세요."
+    }
+  },
+  "terms": {
+    "title": "서비스 약관",
+    "lastUpdated": "최종 업데이트",
+    "intro": {
+      "title": "소개",
+      "content": "Emoji Directory에 오신 것을 환영합니다. 서비스에 액세스하거나 사용함으로써 본 서비스 약관에 동의하는 것으로 간주됩니다. 이 약관에 동의하지 않으면 서비스를 사용하지 마십시오."
+    },
+    "acceptance": {
+      "title": "약관 수락",
+      "content": "Emoji Directory에 액세스하고 사용함으로써 본 계약의 조건과 규정에 동의하고 구속되는 것에 동의합니다. 이 조건에 동의하지 않으면 본 서비스에 액세스하거나 사용하지 마십시오."
+    },
+    "useOfService": {
+      "title": "서비스 사용",
+      "content": "Emoji Directory는 이모지 그래픽을 탐색, 검색 및 다운로드할 수 있는 플랫폼을 제공합니다. 다음 목적으로 서비스를 사용할 수 있습니다:",
+      "items": {
+        "search": "이모지 컬렉션 검색 및 탐색",
+        "browse": "이모지 세부 정보 및 정보 보기",
+        "download": "개인 또는 상업적 용도로 이모지 그래픽 다운로드(각 이모지 라이선스에 따름)"
+      }
+    },
+    "intellectualProperty": {
+      "title": "지적 재산권",
+      "content": "Emoji Directory 웹사이트, 디자인, 코드 및 원본 콘텐츠는 Emoji Directory가 소유하며 지적 재산권법으로 보호됩니다. 그러나 이모지 그래픽 자체는 다양한 제공업체에서 제공되며 각각의 라이선스를 따릅니다."
+    },
+    "emojiLicenses": {
+      "title": "이모지 라이선스",
+      "content": "플랫폼의 다양한 이모지 컬렉션에는 다양한 라이선스가 있습니다:",
+      "items": {
+        "fluent": "Microsoft에서 MIT 라이선스로 제공",
+        "noto": "Google에서 Apache License 2.0 및 SIL Open Font License로 제공",
+        "unicode": "플랫폼별 이모지는 운영 체제에서 렌더링되며 각 플랫폼의 약관을 따릅니다",
+        "unicodeTitle": "시스템 이모지"
+      }
+    },
+    "prohibited": {
+      "title": "금지 활동",
+      "content": "다음을 하지 않기로 동의합니다:",
+      "items": {
+        "illegal": "불법적인 목적으로 서비스 사용",
+        "harm": "서비스를 손상시키거나 방해하거나 간섭하려는 시도",
+        "misrepresent": "다른 사람을 사칭하거나 소속을 허위로 표시",
+        "interfere": "서비스 또는 서버를 방해하거나 파괴",
+        "scrape": "허가 없이 자동화 도구를 사용하여 콘텐츠를 대량으로 스크랩하거나 다운로드"
+      }
+    },
+    "disclaimer": {
+      "title": "보증 부인",
+      "content": "Emoji Directory는 '있는 그대로' 및 '사용 가능한' 상태로 제공되며 명시적 또는 묵시적 보증이 없습니다. 서비스가 중단되지 않고 안전하며 오류가 없다고 보장하지 않습니다."
+    },
+    "limitation": {
+      "title": "책임 제한",
+      "content": "법률이 허용하는 최대 범위 내에서 Emoji Directory는 서비스 사용 또는 사용 불능으로 인한 간접적, 부수적, 특별, 결과적 또는 징벌적 손해에 대해 책임을 지지 않습니다."
+    },
+    "changes": {
+      "title": "약관 변경",
+      "content": "언제든지 이 약관을 수정할 권리를 보유합니다. '최종 업데이트' 날짜를 업데이트하여 중요한 변경 사항을 사용자에게 알립니다. 변경 후 서비스를 계속 사용하면 수정된 약관에 동의하는 것으로 간주됩니다."
+    },
+    "termination": {
+      "title": "종료",
+      "content": "본 서비스 약관 위반을 포함한 이유로 사전 통지 또는 책임 없이 서비스에 대한 액세스를 즉시 종료하거나 일시 중단할 권리를 보유합니다."
+    },
+    "governing": {
+      "title": "준거법",
+      "content": "본 약관은 법률 충돌 조항에 관계없이 Emoji Directory가 운영되는 관할권의 법률에 따라 규율되고 해석됩니다."
+    },
+    "contact": {
+      "title": "문의하기",
+      "content": "본 서비스 약관에 대해 질문이 있으시면 GitHub 저장소를 통해 문의하거나 hi@emojidir.com으로 이메일을 보내주세요."
+    }
+  },
+  "notFound": {
+    "message": "페이지를 찾을 수 없습니다",
+    "backToHome": "홈으로 돌아가기"
+  },
+  "blog": {
+    "title": "블로그",
+    "subtitle": "최신 기사 및 업데이트 읽기",
+    "description": "이모지, 디자인 등에 관한 기사 탐색",
+    "allPosts": "모든 게시물",
+    "noPosts": "아직 블로그 게시물이 없습니다",
+    "filterByTag": "태그로 필터링",
+    "readMore": "더 읽기",
+    "by": "작성자",
+    "backToBlog": "블로그로 돌아가기",
+    "relatedPosts": "관련 게시물",
+    "publishedOn": "게시일",
+    "readingTime": "읽는 시간",
+    "share": "공유",
+    "tags": "태그"
+  }
+}

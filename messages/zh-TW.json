@@ -1,0 +1,332 @@
+{
+  "common": {
+    "appName": "Emoji Directory",
+    "search": "搜尋",
+    "searchPlaceholder": "按名稱或關鍵字搜尋表情符號...",
+    "category": "分類",
+    "allCategories": "所有分類",
+    "platform": "平台",
+    "style": "風格",
+    "results": "結果",
+    "found": "找到",
+    "emojis": "個表情",
+    "categories": "分類",
+    "totalEmojis": "表情總數",
+    "copyToClipboard": "複製到剪貼簿",
+    "copied": "已複製！",
+    "close": "關閉",
+    "details": "詳細資訊",
+    "download": "下載",
+    "downloading": "下載中...",
+    "detected": "檢測到",
+    "usingAppleNative": "使用 Apple 原生 emoji",
+    "usingWindowsNative": "使用 Windows 原生 emoji (Segoe UI)",
+    "usingAndroidNative": "使用 Noto Emoji (Android 原生)",
+    "usingNotoFallback": "使用 Noto Emoji 作為降級",
+    "unknownSystem": "未知系統",
+    "all": "全部",
+    "openMainMenu": "打開主菜單",
+    "closeMenu": "關閉菜單",
+    "categoryShortNames": {
+      "Smileys & Emotion": "表情",
+      "People & Body": "人物",
+      "Animals & Nature": "動物",
+      "Food & Drink": "食物",
+      "Travel & Places": "旅行",
+      "Activities": "活動",
+      "Objects": "物品",
+      "Symbols": "符號",
+      "Flags": "旗幟",
+      "Component": "組件"
+    }
+  },
+  "header": {
+    "title": "Emoji Directory",
+    "description": "瀏覽和搜尋表情符號集合"
+  },
+  "nav": {
+    "categories": "分類",
+    "platforms": "平台",
+    "viewAll": "查看全部",
+    "blog": "部落格"
+  },
+  "footer": {
+    "appName": "Emoji Directory",
+    "supportedPlatforms": "支援 Fluent Emoji、Noto Emoji 和系統表情符號（在您的裝置上顯示為原生 Unicode 表情符號）",
+    "statsText": "共 {count} 個表情 | {categories} 個分類",
+    "description": "探索和下載來自多個設計系統的表情符號 — Apple、Google、Microsoft 等，全部集中在一個地方。",
+    "copyright": "版權所有。",
+    "sections": {
+      "resources": "資源",
+      "support": "支援",
+      "about": "關於",
+      "legal": "法律",
+      "credits": "致謝"
+    },
+    "links": {
+      "unicodePlatform": "系統表情符號",
+      "allEmojis": "所有表情",
+      "blog": "部落格",
+      "documentation": "文件",
+      "feedback": "回饋",
+      "aboutUs": "關於我們",
+      "openSource": "開源專案",
+      "privacy": "隱私權政策",
+      "terms": "服務條款",
+      "license": "授權",
+      "fluentEmoji": "Fluent Emoji (Microsoft)",
+      "notoEmoji": "Noto Emoji (Google)"
+    }
+  },
+  "platforms": {
+    "fluent": "Fluent Emoji",
+    "nato": "Noto Emoji",
+    "unicode": "系統表情符號"
+  },
+  "platformDescriptions": {
+    "fluent": "探索微軟的 Fluent Emoji — 專為 Windows 和微軟產品設計的現代 3D 表情符號集。",
+    "nato": "發現谷歌的 Noto Emoji — 在 Android 和谷歌平台上使用的扁平、極簡表情符號集。",
+    "unicode": "查看表情符號在您裝置上的顯示效果。系統表情符號使用您平台的原生 Unicode 渲染顯示。"
+  },
+  "styles": {
+    "3d": "3D",
+    "color": "彩色",
+    "flat": "扁平",
+    "high-contrast": "高對比"
+  },
+  "categories": {
+    "all": "全部",
+    "Smileys & Emotion": "笑臉與情緒",
+    "People & Body": "人物與身體",
+    "Animals & Nature": "動物與自然",
+    "Food & Drink": "食物與飲料",
+    "Travel & Places": "旅行與地點",
+    "Activities": "活動",
+    "Objects": "物品",
+    "Symbols": "符號",
+    "Flags": "旗幟",
+    "Component": "組件"
+  },
+  "search": {
+    "searchLabel": "搜尋:",
+    "noResults": "找不到表情符號",
+    "tryDifferentKeywords": "請嘗試其他關鍵字"
+  },
+  "pagination": {
+    "showing": "顯示 {start} 到 {end} 項，共 {total} 項",
+    "first": "首頁",
+    "previous": "上一頁",
+    "next": "下一頁",
+    "last": "末頁"
+  },
+  "landing": {
+    "hero": {
+      "title": "創意匹配 Emoji",
+      "subtitle": "探索並下載來自各個平台的 Emoji — 找到表達想法的完美方式。",
+      "searchPlaceholder": "試試：🐱 貓, 🎉 派對, ❤️ 愛",
+      "ctaButton": "開始探索"
+    },
+    "categories": {
+      "title": "按分類瀏覽",
+      "subtitle": "查找按主題和話題組織的表情符號",
+      "representatives": {
+        "Smileys & Emotion": "😃",
+        "People & Body": "👋",
+        "Animals & Nature": "🐶",
+        "Food & Drink": "🍔",
+        "Travel & Places": "✈️",
+        "Activities": "⚽",
+        "Objects": "💡",
+        "Symbols": "🔣",
+        "Flags": "🏁"
+      }
+    },
+    "platforms": {
+      "title": "選擇您的平台",
+      "subtitle": "從不同的表情符號設計系統中選擇"
+    },
+    "features": {
+      "title": "功能特性",
+      "subtitle": "找到和使用表情符號所需的一切",
+      "smartSearch": {
+        "icon": "🔍",
+        "title": "智能搜尋",
+        "description": "透過關鍵詞、含義或分類進行多語言搜尋。"
+      },
+      "multiPlatform": {
+        "icon": "🖼️",
+        "title": "多平台支援",
+        "description": "包含 Apple、Google、Microsoft Fluent 表情符號。"
+      },
+      "freeDownload": {
+        "icon": "💾",
+        "title": "免費下載",
+        "description": "一鍵下載 PNG 或 SVG 文件。"
+      },
+      "noLogin": {
+        "icon": "🪄",
+        "title": "無需登入",
+        "description": "即時訪問所有內容——無需註冊。"
+      }
+    },
+    "cta": {
+      "explore": "探索表情符號",
+      "viewAll": "查看全部"
+    }
+  },
+  "privacy": {
+    "title": "隱私政策",
+    "lastUpdated": "最後更新",
+    "intro": {
+      "title": "簡介",
+      "content": "歡迎使用 Emoji Directory。我們尊重您的隱私並致力於保護您的個人資料。本隱私政策說明了您使用我們服務時我們如何處理您的資訊。"
+    },
+    "infoWeCollect": {
+      "title": "我們收集的資訊",
+      "content": "我們收集最少的資訊以提供和改進我們的服務：",
+      "items": {
+        "browsing": "瀏覽資料：您訪問的頁面、搜尋查詢和您互動的表情符號",
+        "device": "裝置資訊：瀏覽器類型、裝置類型和作業系統",
+        "usage": "使用統計：您如何與我們的功能互動"
+      }
+    },
+    "howWeUse": {
+      "title": "我們如何使用您的資訊",
+      "content": "我們使用收集的資訊來：",
+      "items": {
+        "improve": "改進和優化我們的服務",
+        "understand": "了解使用者偏好和行為",
+        "maintain": "維護安全並防止濫用"
+      }
+    },
+    "dataStorage": {
+      "title": "資料儲存與安全",
+      "content": "我們使用 Cookie 和本機儲存在您的瀏覽器中儲存最少的資料。我們不在伺服器上收集或儲存個人身份資訊。所有表情符號下載都在客戶端處理或透過安全的 CDN 服務進行。"
+    },
+    "thirdParty": {
+      "title": "第三方服務",
+      "content": "我們可能使用第三方服務用於：",
+      "items": {
+        "hosting": "網站託管和基礎設施",
+        "cdn": "表情符號資源的內容分發網路（CDN）",
+        "analytics": "匿名分析以改善使用者體驗"
+      }
+    },
+    "cookies": {
+      "title": "Cookie",
+      "content": "我們使用 Cookie 來記住您的偏好（如語言選擇和平台選擇）並提供更好的使用者體驗。您可以在瀏覽器設定中停用 Cookie，但某些功能可能無法正常運作。"
+    },
+    "yourRights": {
+      "title": "您的權利",
+      "content": "您有權：",
+      "items": {
+        "access": "訪問我們擁有的關於您的資訊",
+        "correct": "請求更正不準確的資料",
+        "delete": "請求刪除您的資料",
+        "optout": "透過清除瀏覽器資料選擇退出資料收集"
+      }
+    },
+    "childrens": {
+      "title": "兒童隱私",
+      "content": "我們的服務面向普通受眾。我們不會故意收集 13 歲以下兒童的個人資訊。"
+    },
+    "changes": {
+      "title": "政策變更",
+      "content": "我們可能會不時更新本隱私政策。我們將透過更新本頁面頂部的「最後更新」日期來通知使用者任何重大變更。"
+    },
+    "contact": {
+      "title": "聯絡我們",
+      "content": "如果您對本隱私政策有任何疑問，請透過我們的 GitHub 儲存庫聯絡我們或發送電子郵件至 privacy@emojidirectory.com。"
+    }
+  },
+  "terms": {
+    "title": "服務條款",
+    "lastUpdated": "最後更新",
+    "intro": {
+      "title": "簡介",
+      "content": "歡迎使用 Emoji Directory。透過訪問或使用我們的服務，您同意受這些服務條款的約束。如果您不同意這些條款，請不要使用我們的服務。"
+    },
+    "acceptance": {
+      "title": "接受條款",
+      "content": "透過訪問和使用 Emoji Directory，您接受並同意受本協議的條款和規定的約束。如果您不同意這些條款，您不應訪問或使用本服務。"
+    },
+    "useOfService": {
+      "title": "服務使用",
+      "content": "Emoji Directory 提供一個平台來探索、搜尋和下載表情符號圖形。您可以使用我們的服務來：",
+      "items": {
+        "search": "搜尋和瀏覽表情符號集合",
+        "browse": "查看表情符號詳細資訊和資訊",
+        "download": "下載表情符號圖形供個人或商業使用（受各自表情符號授權的約束）"
+      }
+    },
+    "intellectualProperty": {
+      "title": "知識產權",
+      "content": "Emoji Directory 網站、其設計、程式碼和原創內容歸 Emoji Directory 所有，並受知識產權法保護。但是，表情符號圖形本身來自各種提供商，並受其各自授權的約束。"
+    },
+    "emojiLicenses": {
+      "title": "表情符號授權",
+      "content": "我們平台上的不同表情符號集合有不同的授權：",
+      "items": {
+        "fluent": "由 Microsoft 根據 MIT 授權",
+        "noto": "由 Google 根據 Apache License 2.0 和 SIL Open Font License 授權",
+        "unicode": "特定平台的表情符號由您的作業系統呈現，並受相應平台條款的約束",
+        "unicodeTitle": "系統表情符號"
+      }
+    },
+    "prohibited": {
+      "title": "禁止活動",
+      "content": "您同意不：",
+      "items": {
+        "illegal": "將服務用於任何非法目的",
+        "harm": "試圖損害、破壞或干擾服務",
+        "misrepresent": "冒充他人或歪曲您的隸屬關係",
+        "interfere": "干擾或破壞服務或伺服器",
+        "scrape": "未經許可使用自動化工具批次抓取或下載內容"
+      }
+    },
+    "disclaimer": {
+      "title": "免責聲明",
+      "content": "Emoji Directory 按「原樣」和「可用」提供，不提供任何明示或暗示的保證。我們不保證服務將不間斷、安全或無錯誤。"
+    },
+    "limitation": {
+      "title": "責任限制",
+      "content": "在法律允許的最大範圍內，Emoji Directory 不對因您使用或無法使用服務而導致的任何間接、附帶、特殊、後果性或懲罰性損害負責。"
+    },
+    "changes": {
+      "title": "條款變更",
+      "content": "我們保留隨時修改這些條款的權利。我們將透過更新「最後更新」日期來通知使用者任何重大變更。您在變更後繼續使用服務即表示接受修改後的條款。"
+    },
+    "termination": {
+      "title": "終止",
+      "content": "我們保留立即終止或暫停訪問我們服務的權利，無需事先通知或承擔責任，原因包括違反這些服務條款。"
+    },
+    "governing": {
+      "title": "管轄法律",
+      "content": "這些條款應受 Emoji Directory 營運所在司法管轄區的法律管轄和解釋，不考慮其法律衝突條款。"
+    },
+    "contact": {
+      "title": "聯絡我們",
+      "content": "如果您對這些服務條款有任何疑問，請透過我們的 GitHub 儲存庫聯絡我們或發送電子郵件至 hi@emojidir.com。"
+    }
+  },
+  "notFound": {
+    "message": "頁面未找到",
+    "backToHome": "返回首頁"
+  },
+  "blog": {
+    "title": "部落格",
+    "subtitle": "閱讀我們的最新文章和更新",
+    "description": "探索關於表情符號、設計等的文章",
+    "allPosts": "所有文章",
+    "noPosts": "暫無部落格文章",
+    "filterByTag": "按標籤篩選",
+    "readMore": "閱讀更多",
+    "by": "作者",
+    "backToBlog": "返回部落格",
+    "relatedPosts": "相關文章",
+    "publishedOn": "發布於",
+    "readingTime": "閱讀時長",
+    "share": "分享",
+    "tags": "標籤"
+  }
+}
