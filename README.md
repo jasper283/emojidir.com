@@ -1,4 +1,4 @@
-# EmojiDir - Universal Emoji Browser
+# EmojiDir - Global emoji directory & search platform. 
 
 📖 [简体中文](README.zh-CN.md)
 
