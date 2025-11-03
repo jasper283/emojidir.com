@@ -1,4 +1,5 @@
-import type { Emoji, EmojiIndex } from '@/types/emoji';
+import type { CompactEmojiIndex, Emoji, EmojiIndex } from '@/types/emoji';
+import { expandEmojiIndex } from '@/types/emoji';
 
 /**
  * 获取 emoji 在指定语言下的名称
@@ -99,8 +100,9 @@ export async function loadEmojiIndexForLocale(locale: string): Promise<EmojiInde
     const response = await fetch(`/data/emoji-index-${locale}.json`);
 
     if (response.ok) {
-      const data = await response.json();
-      return data as EmojiIndex;
+      const compactData = await response.json() as CompactEmojiIndex;
+      // 将缩写格式转换为完整格式
+      return expandEmojiIndex(compactData);
     }
 
     // 如果加载失败，回退到基础索引

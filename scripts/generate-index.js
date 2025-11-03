@@ -4,6 +4,24 @@ const path = require('path');
 const ASSETS_DIR = path.join(__dirname, '../assets/fluent-emoji');
 const OUTPUT_FILE = path.join(__dirname, '../data/emoji-index.json');
 
+/**
+ * 将样式键转换为缩写格式
+ */
+function getCompactStyleKey(styleKey) {
+  const styleMap = {
+    '3d': '3',
+    'color': 'c',
+    'flat': 'f',
+    'high-contrast': 'h',
+    '3d-default': '3d',
+    'color-default': 'cd',
+    'flat-default': 'fd',
+    'high-contrast-default': 'hd',
+  };
+
+  return styleMap[styleKey] || styleKey;
+}
+
 function generateIndex() {
   console.log('🔍 扫描 emoji 资源...');
 
@@ -40,8 +58,10 @@ function generateIndex() {
           if (files.length > 0) {
             // 标准化样式名称作为 key
             const styleKey = styleDir.toLowerCase().replace(/\s+/g, '-');
+            // 转换为缩写格式
+            const compactStyleKey = getCompactStyleKey(styleKey);
             // 使用实际的文件夹名称构建路径
-            styles[styleKey] = `assets/${folder}/${styleDir}/${files[0]}`;
+            styles[compactStyleKey] = `assets/${folder}/${styleDir}/${files[0]}`;
           }
         });
 
@@ -59,24 +79,27 @@ function generateIndex() {
             if (files.length > 0) {
               // 为深浅色主题添加特殊的样式键
               const styleKey = `${styleDir.toLowerCase().replace(/\s+/g, '-')}-default`;
-              styles[styleKey] = `assets/${folder}/default/${styleDir}/${files[0]}`;
+              // 转换为缩写格式
+              const compactStyleKey = getCompactStyleKey(styleKey);
+              styles[compactStyleKey] = `assets/${folder}/default/${styleDir}/${files[0]}`;
             }
           });
         }
 
+        // 使用缩写字段名
         const emoji = {
-          id: folder,
-          name: metadata.cldr || folder,
-          glyph: metadata.glyph || '',
-          group: metadata.group || 'Other',
-          keywords: metadata.keywords || [],
-          unicode: metadata.unicode || '',
-          tts: metadata.tts || '',
-          styles: styles,
+          i: folder,                           // id
+          n: metadata.cldr || folder,          // name
+          gl: metadata.glyph || '',            // glyph
+          gr: metadata.group || 'Other',       // group
+          k: metadata.keywords || [],          // keywords
+          u: metadata.unicode || '',           // unicode
+          t: metadata.tts || '',               // tts
+          s: styles,                           // styles
         };
 
         emojis.push(emoji);
-        categories.add(emoji.group);
+        categories.add(emoji.gr);
 
         if ((index + 1) % 100 === 0) {
           console.log(`  处理进度: ${index + 1}/${folders.length}`);
@@ -90,15 +113,16 @@ function generateIndex() {
   // 按分类组织
   const emojisByCategory = {};
   categories.forEach(cat => {
-    emojisByCategory[cat] = emojis.filter(e => e.group === cat);
+    emojisByCategory[cat] = emojis.filter(e => e.gr === cat);
   });
 
+  // 使用缩写的顶层字段名
   const data = {
-    emojis: emojis,
-    categories: Array.from(categories).sort(),
-    emojisByCategory: emojisByCategory,
-    totalCount: emojis.length,
-    generatedAt: new Date().toISOString(),
+    e: emojis,                              // emojis
+    c: Array.from(categories).sort(),       // categories
+    ec: emojisByCategory,                   // emojisByCategory
+    tc: emojis.length,                      // totalCount
+    g: new Date().toISOString(),            // generatedAt
   };
 
   // 确保 data 目录存在

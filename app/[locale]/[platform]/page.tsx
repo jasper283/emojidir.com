@@ -8,12 +8,13 @@ import { CollectionPageStructuredData } from '@/components/StructuredData';
 import { Badge } from '@/components/ui/badge';
 import { loadEmojiIndexForLocale, mergeEmojiIndexWithLocale, searchEmojis } from '@/lib/emoji-i18n';
 import { getEmojiDataForPlatform } from '@/lib/platforms';
-import type { Emoji, EmojiIndex, PlatformType, StyleType } from '@/types/emoji';
+import type { CompactEmojiIndex, Emoji, EmojiIndex, PlatformType, StyleType } from '@/types/emoji';
+import { expandEmojiIndex } from '@/types/emoji';
 import { useLocale, useTranslations } from 'next-intl';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-// 构建时导入数据
-import emojiIndexData from '@/data/emoji-index.json';
+// 构建时导入数据（缩写格式）
+import compactEmojiIndexData from '@/data/emoji-index.json';
 
 // 每页显示的emoji数量（7行 × 8列 = 56，适合所有屏幕尺寸）
 const ITEMS_PER_PAGE = 56;
@@ -23,7 +24,8 @@ function PlatformPageContent() {
   const locale = useLocale(); // 获取当前语言
   const params = useParams();
   const searchParams = useSearchParams();
-  const baseEmojiData = emojiIndexData as EmojiIndex;
+  // 将缩写格式转换为完整格式
+  const baseEmojiData = expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex);
 
   // 从 URL 获取平台参数
   const platformSlug = params.platform as string;

@@ -121,9 +121,9 @@ function integrateTranslations(indexFilePath, translations, locale, outputFilePa
     // 创建 Unicode 映射表以提高匹配率
     const unicodeMap = createUnicodeMap(translations);
 
-    // 为每个 emoji 添加翻译数据
-    indexData.emojis.forEach(emoji => {
-      const glyph = emoji.glyph;
+    // 为每个 emoji 添加翻译数据（使用缩写字段）
+    indexData.e.forEach(emoji => {
+      const glyph = emoji.gl;  // 使用缩写字段
       let translationData = null;
 
       // 方法1: 直接用 glyph 匹配
@@ -132,13 +132,13 @@ function integrateTranslations(indexFilePath, translations, locale, outputFilePa
         matchedByGlyph++;
       }
       // 方法2: 用 unicode 代码匹配
-      else if (emoji.unicode) {
+      else if (emoji.u) {  // 使用缩写字段
         // 尝试不同的 unicode 格式
         const unicodeVariants = [
-          emoji.unicode,
-          emoji.unicode.replace(/-/g, ''),
-          emoji.unicode.toLowerCase(),
-          emoji.unicode.toUpperCase()
+          emoji.u,
+          emoji.u.replace(/-/g, ''),
+          emoji.u.toLowerCase(),
+          emoji.u.toUpperCase()
         ];
 
         for (const variant of unicodeVariants) {
@@ -164,25 +164,29 @@ function integrateTranslations(indexFilePath, translations, locale, outputFilePa
       }
 
       if (translationData) {
-        // 添加当前语言的翻译
-        emoji.i18n[locale] = translationData;
+        // 添加当前语言的翻译（使用缩写字段）
+        emoji.i18n[locale] = {
+          n: translationData.name,      // name
+          k: translationData.keywords,  // keywords
+          t: translationData.tts        // tts
+        };
       } else {
         unmatchedCount++;
-        // 对于没有翻译的 emoji，使用原始英文数据
+        // 对于没有翻译的 emoji，使用原始英文数据（使用缩写字段）
         emoji.i18n[locale] = {
-          name: emoji.name,
-          keywords: emoji.keywords,
-          tts: emoji.tts
+          n: emoji.n,  // name
+          k: emoji.k,  // keywords
+          t: emoji.t   // tts
         };
       }
     });
 
-    // 更新分类数据
+    // 更新分类数据（使用缩写字段）
     const emojisByCategory = {};
-    indexData.categories.forEach(cat => {
-      emojisByCategory[cat] = indexData.emojis.filter(e => e.group === cat);
+    indexData.c.forEach(cat => {
+      emojisByCategory[cat] = indexData.e.filter(e => e.gr === cat);
     });
-    indexData.emojisByCategory = emojisByCategory;
+    indexData.ec = emojisByCategory;
 
     // 写入输出文件
     const outputDir = path.dirname(outputFilePath);

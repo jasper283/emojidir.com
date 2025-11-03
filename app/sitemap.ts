@@ -1,13 +1,15 @@
 import { locales } from '@/i18n/config';
 import { PLATFORM_CONFIGS } from '@/lib/platforms';
-import type { EmojiIndex } from '@/types/emoji';
+import type { CompactEmojiIndex } from '@/types/emoji';
+import { expandEmojiIndex } from '@/types/emoji';
 import { MetadataRoute } from 'next';
-// 构建时导入数据
-import emojiIndexData from '@/data/emoji-index.json';
+// 构建时导入数据（缩写格式）
+import compactEmojiIndexData from '@/data/emoji-index.json';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://emojidir.com';
-  const baseEmojiData = emojiIndexData as EmojiIndex;
+  // 将缩写格式转换为完整格式
+  const baseEmojiData = expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex);
   const platforms = Object.keys(PLATFORM_CONFIGS);
   const currentDate = new Date();
 

@@ -8,21 +8,23 @@ import { Button } from '@/components/ui/button';
 import { getAssetUrl } from '@/config/cdn';
 import { getEmojiKeywords, getEmojiName, loadEmojiIndexForLocale, mergeEmojiIndexWithLocale } from '@/lib/emoji-i18n';
 import { getEmojiDataForPlatform } from '@/lib/platforms';
-import type { Emoji, EmojiIndex, PlatformType } from '@/types/emoji';
+import type { CompactEmojiIndex, Emoji, EmojiIndex, PlatformType } from '@/types/emoji';
+import { expandEmojiIndex } from '@/types/emoji';
 import { ArrowLeft, Copy, Download } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-// 构建时导入数据
-import emojiIndexData from '@/data/emoji-index.json';
+// 构建时导入数据（缩写格式）
+import compactEmojiIndexData from '@/data/emoji-index.json';
 
 export default function EmojiDetailPage() {
   const t = useTranslations();
   const locale = useLocale(); // 使用 useLocale 获取当前语言
   const params = useParams();
   const router = useRouter();
-  const baseEmojiData = emojiIndexData as EmojiIndex;
+  // 将缩写格式转换为完整格式
+  const baseEmojiData = expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex);
 
   // 从 URL 获取参数
   const localeParam = params.locale as string;

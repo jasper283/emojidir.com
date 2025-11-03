@@ -1,13 +1,15 @@
 import { getAssetUrl } from '@/config/cdn';
 import { locales } from '@/i18n/config';
-import type { Emoji, EmojiIndex, PlatformType } from '@/types/emoji';
+import type { CompactEmojiIndex, Emoji, PlatformType } from '@/types/emoji';
+import { expandEmojiIndex } from '@/types/emoji';
 import type { Metadata } from 'next';
 // 构建时导入数据
 import { EmojiDetailStructuredData } from '@/components/StructuredData';
-import emojiIndexData from '@/data/emoji-index.json';
+import compactEmojiIndexData from '@/data/emoji-index.json';
 
 const baseUrl = 'https://emojidir.com';
-const baseEmojiData = emojiIndexData as EmojiIndex;
+// 将缩写格式转换为完整格式
+const baseEmojiData = expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex);
 
 export async function generateMetadata({
   params,
