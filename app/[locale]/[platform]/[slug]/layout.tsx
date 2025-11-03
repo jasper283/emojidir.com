@@ -32,7 +32,7 @@ export async function generateMetadata({
   // 平台名称多语言映射
   const platformNames: Record<string, Record<string, string>> = {
     'en': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'System Emoji' },
-    'zh-CN': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '系统表情符号' },
+    'zh-CN': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'Emoji大全' },
     'zh-TW': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '系統表情符號' },
     'ja': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'システム絵文字' },
     'ko': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '시스템 이모지' },
@@ -137,7 +137,7 @@ export default async function EmojiDetailLayout({
   // 平台名称多语言映射
   const platformNames: Record<string, Record<string, string>> = {
     'en': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'System Emoji' },
-    'zh-CN': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '系统Emoji' },
+    'zh-CN': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'Emoji大全' },
     'zh-TW': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '系統Emoji' },
     'ja': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'システム絵文字' },
     'ko': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '시스템 이모지' },

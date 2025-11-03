@@ -39,9 +39,9 @@ export async function generateMetadata({
     },
     'zh-CN': {
       'fluent': {
-        name: 'Fluent Emoji — Microsoft 3D Emoji Style | EmojiDir',
-        description: '探索微软的 Fluent Emoji — 专为 Windows 和微软产品设计的现代 3D 表情符号集。浏览、搜索和下载高质量的 PNG 和 SVG 文件。',
-        keywords: 'Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, EmojiDir'
+        name: 'Fluent Emoji 3D 表情合集｜微软风格 Emoji 下载',
+        description: '微软推出的 Fluent 3D Emoji 系列，风格精致可爱，适合网页、设计、演示等多种场景使用。浏览、搜索和下载高质量的 PNG 和 SVG 文件。',
+        keywords: 'fluent emoji, 3d emoji, 微软emoji, 3d表情, EmojiDir'
       },
       'nato': {
         name: 'Noto Emoji — Google Flat Emoji Style | EmojiDir',
@@ -49,9 +49,9 @@ export async function generateMetadata({
         keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, EmojiDir'
       },
       'unicode': {
-        name: 'System Emoji — Native Unicode Emoji Style | EmojiDir',
-        description: '查看表情符号在您设备上的显示效果。系统表情符号使用您平台的原生 Unicode 渲染显示。比较表情符号在不同系统上的外观。',
-        keywords: 'System Emoji, Unicode Emoji, Native Emoji, Default Emoji, EmojiDir'
+        name: '系统 Emoji 素材库｜苹果、安卓、微软原生表情大全',
+        description: '收录苹果、安卓、微软等多平台系统 Emoji，支持 PNG、SVG 下载。设计师找 Emoji 素材就上 EmojiDir！',
+        keywords: '系统emoji, 苹果emoji, 安卓emoji, 微软emoji, emoji下载, emoji素材, emoji大全'
       }
     },
     'zh-TW': {
