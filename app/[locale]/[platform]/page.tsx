@@ -24,8 +24,12 @@ function PlatformPageContent() {
   const locale = useLocale(); // 获取当前语言
   const params = useParams();
   const searchParams = useSearchParams();
-  // 将缩写格式转换为完整格式
-  const baseEmojiData = expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex);
+
+  // 将缩写格式转换为完整格式（使用 useMemo 缓存，避免每次渲染都创建新对象）
+  const baseEmojiData = useMemo(
+    () => expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex),
+    []
+  );
 
   // 从 URL 获取平台参数
   const platformSlug = params.platform as string;
