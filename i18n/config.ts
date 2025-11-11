@@ -1,5 +1,5 @@
 // 支持的语言列表
-export const locales = ['en', 'ja', 'ko', 'zh-TW', 'zh-CN'] as const;
+export const locales = ['en', 'ja', 'ko', 'zh-TW', 'zh-CN', 'pt-BR'] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
@@ -11,5 +11,6 @@ export const localeNames: Record<Locale, string> = {
   'ko': '한국어',
   'zh-TW': '繁體中文',
   'zh-CN': '简体中文',
+  'pt-BR': 'Português (Brasil)',
 };
 

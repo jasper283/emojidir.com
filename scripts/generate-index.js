@@ -157,7 +157,8 @@ if (fs.existsSync(cldrDir)) {
     'zh-hant': 'zh-TW',  // 支持小写文件名
     'ja': 'ja',
     'ko': 'ko',
-    'en': 'en'
+    'en': 'en',
+    'pt': 'pt-BR'
   };
 
   const cldrFiles = fs.readdirSync(cldrDir)

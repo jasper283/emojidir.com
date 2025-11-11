@@ -6,7 +6,7 @@ import type { Locale } from '@/i18n/config'
 import { locales } from '@/i18n/config'
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/mdx'
 import { format } from 'date-fns'
-import { enUS, ja, ko, zhCN } from 'date-fns/locale'
+import { enUS, ja, ko, ptBR, zhCN } from 'date-fns/locale'
 import { ArrowLeft, Calendar, Clock, Tag, User } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -20,6 +20,7 @@ const dateLocales = {
   'ja': ja,
   'ko': ko,
   'en': enUS,
+  'pt-BR': ptBR,
 }
 
 // 生成静态路径

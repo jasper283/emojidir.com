@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import type { Locale } from '@/i18n/config'
 import { getAllPosts, getAllTags } from '@/lib/mdx'
 import { format } from 'date-fns'
-import { enUS, ja, ko, zhCN } from 'date-fns/locale'
+import { enUS, ja, ko, ptBR, zhCN } from 'date-fns/locale'
 import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 
@@ -14,6 +14,7 @@ const dateLocales = {
   'ja': ja,
   'ko': ko,
   'en': enUS,
+  'pt-BR': ptBR,
 }
 
 export async function generateMetadata({

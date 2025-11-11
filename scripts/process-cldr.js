@@ -244,7 +244,8 @@ function main() {
     'zh-TW': 'zh-hant',  // 使用小写，匹配实际文件名
     'ja': 'ja',
     'ko': 'ko',
-    'en': 'en'
+    'en': 'en',
+    'pt-BR': 'pt'
   };
 
   const cldrFileName = localeMap[locale] || locale;

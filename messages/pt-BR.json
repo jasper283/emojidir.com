@@ -1,0 +1,332 @@
+{
+  "common": {
+    "appName": "Diretório de Emojis",
+    "search": "Buscar",
+    "searchPlaceholder": "Busque emoji por nome ou palavra-chave...",
+    "category": "Categoria",
+    "allCategories": "Todas as Categorias",
+    "platform": "Plataforma",
+    "style": "Estilo",
+    "results": "Resultados",
+    "found": "Encontrado",
+    "emojis": "emojis",
+    "categories": "categorias",
+    "totalEmojis": "total de emojis",
+    "copyToClipboard": "Copiar para área de transferência",
+    "copied": "Copiado!",
+    "close": "Fechar",
+    "details": "Detalhes",
+    "download": "Baixar",
+    "downloading": "Baixando...",
+    "detected": "Detectado",
+    "usingAppleNative": "Usando emoji nativo da Apple",
+    "usingWindowsNative": "Usando emoji nativo do Windows (Segoe UI)",
+    "usingAndroidNative": "Usando Noto Emoji (nativo do Android)",
+    "usingNotoFallback": "Usando Noto Emoji como alternativa",
+    "unknownSystem": "Sistema desconhecido",
+    "all": "Todos",
+    "openMainMenu": "Abrir menu principal",
+    "closeMenu": "Fechar menu",
+    "categoryShortNames": {
+      "Smileys & Emotion": "Sorrisos",
+      "People & Body": "Pessoas",
+      "Animals & Nature": "Animais",
+      "Food & Drink": "Comida",
+      "Travel & Places": "Viagem",
+      "Activities": "Atividades",
+      "Objects": "Objetos",
+      "Symbols": "Símbolos",
+      "Flags": "Bandeiras",
+      "Component": "Componente"
+    }
+  },
+  "header": {
+    "title": "Diretório de Emojis",
+    "description": "Navegue e pesquise coleções de emojis"
+  },
+  "nav": {
+    "categories": "Categorias",
+    "platforms": "Plataformas",
+    "viewAll": "Ver Todos",
+    "blog": "Blog"
+  },
+  "footer": {
+    "appName": "Diretório de Emojis",
+    "supportedPlatforms": "Suporta Fluent Emoji, Noto Emoji e System Emoji (exibido como emoji Unicode do sistema no seu dispositivo)",
+    "statsText": "{count} emojis | {categories} categorias",
+    "description": "Explore e baixe emojis de múltiplos sistemas de design — Apple, Google, Microsoft e muito mais, tudo em um só lugar.",
+    "copyright": "Todos os direitos reservados.",
+    "sections": {
+      "resources": "Recursos",
+      "support": "Suporte",
+      "about": "Sobre",
+      "legal": "Legal",
+      "credits": "Créditos"
+    },
+    "links": {
+      "unicodePlatform": "System Emoji",
+      "allEmojis": "Todos os Emojis",
+      "blog": "Blog",
+      "documentation": "Documentação",
+      "feedback": "Feedback",
+      "aboutUs": "Sobre Nós",
+      "openSource": "Código Aberto",
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Serviço",
+      "license": "Licença",
+      "fluentEmoji": "Fluent Emoji (Microsoft)",
+      "notoEmoji": "Noto Emoji (Google)"
+    }
+  },
+  "platforms": {
+    "fluent": "Fluent Emoji",
+    "nato": "Noto Emoji",
+    "unicode": "System Emoji"
+  },
+  "platformDescriptions": {
+    "fluent": "Explore o Fluent Emoji da Microsoft — um conjunto moderno de emojis 3D projetado para Windows e produtos Microsoft.",
+    "nato": "Descubra o Noto Emoji do Google — um conjunto de emojis plano e minimalista usado em plataformas Android e Google.",
+    "unicode": "Veja os emojis como eles aparecem no seu dispositivo. System Emojis são exibidos usando a renderização Unicode nativa da sua plataforma."
+  },
+  "styles": {
+    "3d": "3D",
+    "color": "Colorido",
+    "flat": "Plano",
+    "high-contrast": "Alto Contraste"
+  },
+  "categories": {
+    "all": "Todos",
+    "Smileys & Emotion": "Sorrisos e Emoções",
+    "People & Body": "Pessoas e Corpo",
+    "Animals & Nature": "Animais e Natureza",
+    "Food & Drink": "Comida e Bebida",
+    "Travel & Places": "Viagem e Lugares",
+    "Activities": "Atividades",
+    "Objects": "Objetos",
+    "Symbols": "Símbolos",
+    "Flags": "Bandeiras",
+    "Component": "Componente"
+  },
+  "search": {
+    "searchLabel": "Buscar:",
+    "noResults": "Nenhum emoji encontrado",
+    "tryDifferentKeywords": "Tente palavras-chave diferentes"
+  },
+  "pagination": {
+    "showing": "Mostrando {start} a {end} de {total} itens",
+    "first": "Primeiro",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "last": "Último"
+  },
+  "landing": {
+    "hero": {
+      "title": "Combine Ideias com Emojis",
+      "subtitle": "Explore e baixe Emojis de todas as plataformas — encontre a maneira perfeita de expressar suas ideias.",
+      "searchPlaceholder": "Tente: 🐱 gato, 🎉 festa, ❤️ amor",
+      "ctaButton": "Comece a Explorar"
+    },
+    "categories": {
+      "title": "Explore por Categoria",
+      "subtitle": "Encontre emojis organizados por temas e tópicos",
+      "representatives": {
+        "Smileys & Emotion": "😃",
+        "People & Body": "👋",
+        "Animals & Nature": "🐶",
+        "Food & Drink": "🍔",
+        "Travel & Places": "✈️",
+        "Activities": "⚽",
+        "Objects": "💡",
+        "Symbols": "🔣",
+        "Flags": "🏁"
+      }
+    },
+    "platforms": {
+      "title": "Escolha Sua Plataforma",
+      "subtitle": "Selecione entre diferentes sistemas de design de emoji"
+    },
+    "features": {
+      "title": "Recursos",
+      "subtitle": "Tudo o que você precisa para encontrar e usar emojis",
+      "smartSearch": {
+        "icon": "🔍",
+        "title": "Busca Inteligente",
+        "description": "Busque por palavra-chave, significado ou categoria em vários idiomas."
+      },
+      "multiPlatform": {
+        "icon": "🖼️",
+        "title": "Suporte Multi-Plataforma",
+        "description": "Apple, Google, Microsoft Fluent Emojis — todos incluídos."
+      },
+      "freeDownload": {
+        "icon": "💾",
+        "title": "Downloads Gratuitos",
+        "description": "Baixe arquivos PNG ou SVG com um clique."
+      },
+      "noLogin": {
+        "icon": "🪄",
+        "title": "Sem Necessidade de Login",
+        "description": "Acesse tudo instantaneamente — sem necessidade de cadastro."
+      }
+    },
+    "cta": {
+      "explore": "Explorar Emojis",
+      "viewAll": "Ver Todos"
+    }
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "lastUpdated": "Última Atualização",
+    "intro": {
+      "title": "Introdução",
+      "content": "Bem-vindo ao Diretório de Emojis. Respeitamos sua privacidade e estamos comprometidos em proteger seus dados pessoais. Esta política de privacidade explica como lidamos com suas informações quando você usa nosso serviço."
+    },
+    "infoWeCollect": {
+      "title": "Informações que Coletamos",
+      "content": "Coletamos informações mínimas para fornecer e melhorar nosso serviço:",
+      "items": {
+        "browsing": "Dados de navegação: Páginas que você visita, consultas de busca e emojis com os quais você interage",
+        "device": "Informações do dispositivo: Tipo de navegador, tipo de dispositivo e sistema operacional",
+        "usage": "Estatísticas de uso: Como você interage com nossos recursos"
+      }
+    },
+    "howWeUse": {
+      "title": "Como Usamos Suas Informações",
+      "content": "Usamos as informações coletadas para:",
+      "items": {
+        "improve": "Melhorar e otimizar nosso serviço",
+        "understand": "Entender preferências e comportamento do usuário",
+        "maintain": "Manter a segurança e prevenir abusos"
+      }
+    },
+    "dataStorage": {
+      "title": "Armazenamento e Segurança de Dados",
+      "content": "Armazenamos dados mínimos localmente no seu navegador usando cookies e armazenamento local. Não coletamos nem armazenamos informações pessoais identificáveis em nossos servidores. Todos os downloads de emojis são processados no lado do cliente ou através de serviços CDN seguros."
+    },
+    "thirdParty": {
+      "title": "Serviços de Terceiros",
+      "content": "Podemos usar serviços de terceiros para:",
+      "items": {
+        "hosting": "Hospedagem de site e infraestrutura",
+        "cdn": "Rede de Distribuição de Conteúdo (CDN) para recursos de emoji",
+        "analytics": "Análises anônimas para melhorar a experiência do usuário"
+      }
+    },
+    "cookies": {
+      "title": "Cookies",
+      "content": "Usamos cookies para lembrar suas preferências (como seleção de idioma e escolha de plataforma) e para fornecer uma melhor experiência ao usuário. Você pode desabilitar os cookies nas configurações do seu navegador, mas alguns recursos podem não funcionar corretamente."
+    },
+    "yourRights": {
+      "title": "Seus Direitos",
+      "content": "Você tem o direito de:",
+      "items": {
+        "access": "Acessar as informações que temos sobre você",
+        "correct": "Solicitar correção de dados imprecisos",
+        "delete": "Solicitar exclusão de seus dados",
+        "optout": "Optar por não participar da coleta de dados limpando os dados do seu navegador"
+      }
+    },
+    "childrens": {
+      "title": "Privacidade de Crianças",
+      "content": "Nosso serviço é destinado ao público em geral. Não coletamos intencionalmente informações pessoais de crianças menores de 13 anos."
+    },
+    "changes": {
+      "title": "Alterações nesta Política",
+      "content": "Podemos atualizar esta política de privacidade de tempos em tempos. Notificaremos os usuários de quaisquer alterações significativas atualizando a data 'Última Atualização' no topo desta página."
+    },
+    "contact": {
+      "title": "Entre em Contato",
+      "content": "Se você tiver alguma dúvida sobre esta política de privacidade, entre em contato conosco através do nosso repositório GitHub ou envie um e-mail para privacy@emojidirectory.com."
+    }
+  },
+  "terms": {
+    "title": "Termos de Serviço",
+    "lastUpdated": "Última Atualização",
+    "intro": {
+      "title": "Introdução",
+      "content": "Bem-vindo ao Diretório de Emojis. Ao acessar ou usar nosso serviço, você concorda em estar vinculado a estes Termos de Serviço. Se você não concordar com estes termos, não use nosso serviço."
+    },
+    "acceptance": {
+      "title": "Aceitação dos Termos",
+      "content": "Ao acessar e usar o Diretório de Emojis, você aceita e concorda em estar vinculado aos termos e disposições deste acordo. Se você não concordar com estes termos, não deve acessar ou usar este serviço."
+    },
+    "useOfService": {
+      "title": "Uso do Serviço",
+      "content": "O Diretório de Emojis fornece uma plataforma para explorar, pesquisar e baixar gráficos de emoji. Você pode usar nosso serviço para:",
+      "items": {
+        "search": "Pesquisar e navegar coleções de emojis",
+        "browse": "Ver detalhes e informações de emojis",
+        "download": "Baixar gráficos de emoji para uso pessoal ou comercial (sujeito às respectivas licenças de emoji)"
+      }
+    },
+    "intellectualProperty": {
+      "title": "Propriedade Intelectual",
+      "content": "O site do Diretório de Emojis, seu design, código e conteúdo original são de propriedade do Diretório de Emojis e protegidos por leis de propriedade intelectual. No entanto, os gráficos de emoji em si são provenientes de vários fornecedores e estão sujeitos às suas respectivas licenças."
+    },
+    "emojiLicenses": {
+      "title": "Licenças de Emoji",
+      "content": "Diferentes coleções de emoji em nossa plataforma têm licenças diferentes:",
+      "items": {
+        "fluent": "Licenciado sob Licença MIT pela Microsoft",
+        "noto": "Licenciado sob Licença Apache 2.0 e Licença de Fonte Aberta SIL pelo Google",
+        "unicode": "Emojis específicos da plataforma são renderizados pelo seu sistema operacional e estão sujeitos aos termos da respectiva plataforma",
+        "unicodeTitle": "System Emoji"
+      }
+    },
+    "prohibited": {
+      "title": "Atividades Proibidas",
+      "content": "Você concorda em não:",
+      "items": {
+        "illegal": "Usar o serviço para qualquer finalidade ilegal",
+        "harm": "Tentar prejudicar, interromper ou interferir com o serviço",
+        "misrepresent": "Se passar por outras pessoas ou deturpar sua afiliação",
+        "interfere": "Interferir ou interromper o serviço ou servidores",
+        "scrape": "Usar ferramentas automatizadas para fazer scraping ou baixar conteúdo em massa sem permissão"
+      }
+    },
+    "disclaimer": {
+      "title": "Isenção de Garantias",
+      "content": "O Diretório de Emojis é fornecido 'como está' e 'conforme disponível' sem quaisquer garantias de qualquer tipo, expressas ou implícitas. Não garantimos que o serviço será ininterrupto, seguro ou livre de erros."
+    },
+    "limitation": {
+      "title": "Limitação de Responsabilidade",
+      "content": "Na medida máxima permitida por lei, o Diretório de Emojis não será responsável por quaisquer danos indiretos, incidentais, especiais, consequenciais ou punitivos resultantes do seu uso ou incapacidade de usar o serviço."
+    },
+    "changes": {
+      "title": "Alterações nos Termos",
+      "content": "Reservamo-nos o direito de modificar estes termos a qualquer momento. Notificaremos os usuários de quaisquer alterações materiais atualizando a data 'Última Atualização'. Seu uso continuado do serviço após as alterações constitui aceitação dos termos modificados."
+    },
+    "termination": {
+      "title": "Rescisão",
+      "content": "Reservamo-nos o direito de encerrar ou suspender o acesso ao nosso serviço imediatamente, sem aviso prévio ou responsabilidade, por qualquer motivo, incluindo violação destes Termos de Serviço."
+    },
+    "governing": {
+      "title": "Lei Aplicável",
+      "content": "Estes Termos serão regidos e interpretados de acordo com as leis da jurisdição em que o Diretório de Emojis opera, sem considerar suas disposições sobre conflitos de leis."
+    },
+    "contact": {
+      "title": "Entre em Contato",
+      "content": "Se você tiver alguma dúvida sobre estes Termos de Serviço, entre em contato conosco através do nosso repositório GitHub ou envie um e-mail para hi@emojidir.com."
+    }
+  },
+  "notFound": {
+    "message": "Página não encontrada",
+    "backToHome": "Voltar para a página inicial"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Leia nossos últimos artigos e atualizações",
+    "description": "Explore artigos sobre emojis, design e muito mais",
+    "allPosts": "Todos os Posts",
+    "noPosts": "Nenhum post de blog disponível ainda",
+    "filterByTag": "Filtrar por Tag",
+    "readMore": "Leia Mais",
+    "by": "por",
+    "backToBlog": "Voltar ao Blog",
+    "relatedPosts": "Posts Relacionados",
+    "publishedOn": "Publicado em",
+    "readingTime": "Tempo de Leitura",
+    "share": "Compartilhar",
+    "tags": "Tags"
+  }
+}

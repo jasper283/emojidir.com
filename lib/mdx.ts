@@ -25,8 +25,11 @@ const contentDirectory = path.join(process.cwd(), 'content/blog')
 export async function getAllPosts(locale: Locale): Promise<BlogPost[]> {
   const localeDir = path.join(contentDirectory, locale)
 
-  // 如果目录不存在，返回空数组
+  // 如果目录不存在，尝试使用英文版本作为兜底
   if (!fs.existsSync(localeDir)) {
+    if (locale !== 'en') {
+      return getAllPosts('en')
+    }
     return []
   }
 
@@ -67,7 +70,11 @@ export async function getPostBySlug(
   try {
     const fullPath = path.join(contentDirectory, locale, `${slug}.mdx`)
 
+    // 如果找不到对应语言的文章，尝试使用英文版本
     if (!fs.existsSync(fullPath)) {
+      if (locale !== 'en') {
+        return getPostBySlug('en', slug)
+      }
       return null
     }
 
@@ -96,7 +103,11 @@ export async function getPostBySlug(
 export async function getAllPostSlugs(locale: Locale): Promise<string[]> {
   const localeDir = path.join(contentDirectory, locale)
 
+  // 如果目录不存在，尝试使用英文版本作为兜底
   if (!fs.existsSync(localeDir)) {
+    if (locale !== 'en') {
+      return getAllPostSlugs('en')
+    }
     return []
   }
 
