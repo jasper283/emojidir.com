@@ -12,9 +12,10 @@ import { useMemo, useState } from 'react';
 interface EmojiCardProps {
   emoji: Emoji;
   style: StyleType;
+  priority?: boolean; // 是否优先加载（用于首屏图片）
 }
 
-export default function EmojiCard({ emoji, style }: EmojiCardProps) {
+export default function EmojiCard({ emoji, style, priority = false }: EmojiCardProps) {
   const locale = useLocale();
   const params = useParams();
   const router = useRouter();
@@ -118,7 +119,8 @@ export default function EmojiCard({ emoji, style }: EmojiCardProps) {
               height={128}
               className="w-full h-full object-contain"
               onError={handleImageError}
-              loading="lazy"
+              priority={priority}
+              loading={priority ? undefined : "lazy"}
               placeholder="blur"
               blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmMWY1ZjkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlMmU3ZWYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, (max-width: 1280px) 20vw, 16vw"
