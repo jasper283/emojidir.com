@@ -57,19 +57,11 @@ export default function PlatformSwitcher({ currentPlatform }: PlatformSwitcherPr
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-2 rounded-lg border bg-card hover:bg-accent transition-colors"
+        className="flex items-center justify-center w-10 h-10 rounded-lg border bg-card hover:bg-accent transition-colors"
         aria-label="Change platform"
+        title={t(`platforms.${currentPlatformConfig.id}`)}
       >
-        <span className="text-base md:text-lg">{currentPlatformConfig.icon}</span>
-        <span className="hidden sm:inline text-sm font-medium">{t(`platforms.${currentPlatformConfig.id}`)}</span>
-        <svg
-          className={`hidden sm:block w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <span className="text-xl">{currentPlatformConfig.icon}</span>
       </button>
 
       {isOpen && (

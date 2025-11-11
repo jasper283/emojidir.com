@@ -22,87 +22,104 @@ export async function generateMetadata({
   const platformMetadata: Record<string, Record<string, { name: string; description: string; keywords: string }>> = {
     'en': {
       'fluent': {
-        name: 'Fluent Emoji — Microsoft 3D Emoji Style | EmojiDir',
-        description: 'Explore Microsoft\'s Fluent Emoji — a modern 3D emoji set designed for Windows and Microsoft products. Browse, search, and download high-quality PNG and SVG files.',
-        keywords: 'Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, EmojiDir'
+        name: 'Microsoft 3D Fluent Emoji Emojis — Copy, Paste & Download All Emojis',
+        description: 'Browse and download all Microsoft 3D Fluent Emoji emojis. Easily copy & paste emojis for free. Perfect for messages, social media, and projects.',
+        keywords: 'Microsoft 3D Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, copy paste emoji, download emoji'
       },
       'nato': {
-        name: 'Noto Emoji — Google Flat Emoji Style | EmojiDir',
-        description: 'Discover Google\'s Noto Emoji — a flat, minimalist emoji set used across Android and Google platforms. Search and download emoji in PNG and SVG formats.',
-        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, EmojiDir'
+        name: 'Noto Emoji Emojis — Copy, Paste & Download All Emojis',
+        description: 'Browse and download all Noto Emoji emojis. Easily copy & paste emojis for free. Perfect for messages, social media, and projects.',
+        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, copy paste emoji, download emoji'
       },
       'unicode': {
-        name: 'System Emoji — Native Unicode Emoji Style | EmojiDir',
-        description: 'View emojis as they appear on your device. System Emoji are displayed using your platform\'s native Unicode rendering. Compare how emojis look across different systems.',
-        keywords: 'System Emoji, Unicode Emoji, Native Emoji, Default Emoji, EmojiDir'
+        name: 'System Emoji Emojis — Copy, Paste & Download All Emojis',
+        description: 'Browse and download all System Emoji emojis. Easily copy & paste emojis for free. Perfect for messages, social media, and projects.',
+        keywords: 'System Emoji, Unicode Emoji, Native Emoji, Default Emoji, copy paste emoji, download emoji'
       }
     },
     'zh-CN': {
       'fluent': {
-        name: 'Fluent Emoji 3D 表情合集｜微软风格 Emoji 下载',
-        description: '微软推出的 Fluent 3D Emoji 系列，风格精致可爱，适合网页、设计、演示等多种场景使用。浏览、搜索和下载高质量的 PNG 和 SVG 文件。',
-        keywords: 'fluent emoji, 3d emoji, 微软emoji, 3d表情, EmojiDir'
+        name: '微软 3D Fluent Emoji — 复制、粘贴和下载所有表情',
+        description: '浏览和下载所有 Microsoft 3D Fluent Emoji 表情符号。轻松免费复制粘贴表情。非常适合消息、社交媒体和项目。',
+        keywords: 'Microsoft 3D Fluent Emoji, 微软表情, 3D表情, Windows表情, 复制粘贴表情, 下载表情'
       },
       'nato': {
-        name: 'Noto Emoji — Google Flat Emoji Style | EmojiDir',
-        description: '发现谷歌的 Noto Emoji — 在 Android 和谷歌平台上使用的扁平、极简表情符号集。搜索和下载 PNG、SVG 格式的表情符号。',
-        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, EmojiDir'
+        name: 'Noto Emoji 表情符号 — 复制、粘贴和下载所有表情',
+        description: '浏览和下载所有 Noto Emoji 表情符号。轻松免费复制粘贴表情。非常适合消息、社交媒体和项目。',
+        keywords: 'Noto Emoji, 谷歌表情, 安卓表情, 扁平表情, 复制粘贴表情, 下载表情'
       },
       'unicode': {
-        name: '系统 Emoji 素材库｜苹果、安卓、微软原生表情大全',
-        description: '收录苹果、安卓、微软等多平台系统 Emoji，支持 PNG、SVG 下载。设计师找 Emoji 素材就上 EmojiDir！',
-        keywords: '系统emoji, 苹果emoji, 安卓emoji, 微软emoji, emoji下载, emoji素材, emoji大全'
+        name: '系统 Emoji 表情符号 — 复制、粘贴和下载所有表情',
+        description: '浏览和下载所有系统 Emoji 表情符号。轻松免费复制粘贴表情。非常适合消息、社交媒体和项目。',
+        keywords: '系统表情, Unicode表情, 原生表情, 默认表情, 复制粘贴表情, 下载表情'
       }
     },
     'zh-TW': {
       'fluent': {
-        name: 'Fluent Emoji — Microsoft 3D Emoji Style | EmojiDir',
-        description: '探索微軟的 Fluent Emoji — 專為 Windows 和微軟產品設計的現代 3D 表情符號集。瀏覽、搜尋和下載高品質的 PNG 和 SVG 檔案。',
-        keywords: 'Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, EmojiDir'
+        name: 'Microsoft 3D Fluent Emoji 表情符號 — 複製、貼上和下載所有表情',
+        description: '瀏覽和下載所有 Microsoft 3D Fluent Emoji 表情符號。輕鬆免費複製貼上表情。非常適合訊息、社交媒體和專案。',
+        keywords: 'Microsoft 3D Fluent Emoji, 微軟表情, 3D表情, Windows表情, 複製貼上表情, 下載表情'
       },
       'nato': {
-        name: 'Noto Emoji — Google Flat Emoji Style | EmojiDir',
-        description: '發現谷歌的 Noto Emoji — 在 Android 和谷歌平台上使用的扁平、極簡表情符號集。搜尋和下載 PNG、SVG 格式的表情符號。',
-        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, EmojiDir'
+        name: 'Noto Emoji 表情符號 — 複製、貼上和下載所有表情',
+        description: '瀏覽和下載所有 Noto Emoji 表情符號。輕鬆免費複製貼上表情。非常適合訊息、社交媒體和專案。',
+        keywords: 'Noto Emoji, 谷歌表情, 安卓表情, 扁平表情, 複製貼上表情, 下載表情'
       },
       'unicode': {
-        name: 'System Emoji — Native Unicode Emoji Style | EmojiDir',
-        description: '查看表情符號在您裝置上的顯示效果。系統表情符號使用您平台的原生 Unicode 渲染顯示。比較表情符號在不同系統上的外觀。',
-        keywords: 'System Emoji, Unicode Emoji, Native Emoji, Default Emoji, EmojiDir'
+        name: '系統 Emoji 表情符號 — 複製、貼上和下載所有表情',
+        description: '瀏覽和下載所有系統 Emoji 表情符號。輕鬆免費複製貼上表情。非常適合訊息、社交媒體和專案。',
+        keywords: '系統表情, Unicode表情, 原生表情, 預設表情, 複製貼上表情, 下載表情'
       }
     },
     'ja': {
       'fluent': {
-        name: 'Fluent Emoji — Microsoft 3D Emoji Style | EmojiDir',
-        description: 'MicrosoftのFluent Emojiを探索 — WindowsとMicrosoft製品向けに設計されたモダンな3D絵文字セット。高品質なPNGとSVGファイルを閲覧、検索、ダウンロード。',
-        keywords: 'Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, EmojiDir'
+        name: 'Microsoft 3D Fluent Emoji 絵文字 — すべての絵文字をコピー、ペースト、ダウンロード',
+        description: 'すべてのMicrosoft 3D Fluent Emoji絵文字を閲覧してダウンロード。無料で簡単にコピー＆ペースト。メッセージ、ソーシャルメディア、プロジェクトに最適。',
+        keywords: 'Microsoft 3D Fluent Emoji, Microsoft絵文字, 3D絵文字, Windows絵文字, コピペ絵文字, ダウンロード絵文字'
       },
       'nato': {
-        name: 'Noto Emoji — Google Flat Emoji Style | EmojiDir',
-        description: 'GoogleのNoto Emojiを発見 — AndroidとGoogleプラットフォームで使用されるフラットでミニマルな絵文字セット。PNGとSVG形式で絵文字を検索、ダウンロード。',
-        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, EmojiDir'
+        name: 'Noto Emoji 絵文字 — すべての絵文字をコピー、ペースト、ダウンロード',
+        description: 'すべてのNoto Emoji絵文字を閲覧してダウンロード。無料で簡単にコピー＆ペースト。メッセージ、ソーシャルメディア、プロジェクトに最適。',
+        keywords: 'Noto Emoji, Google絵文字, Android絵文字, フラット絵文字, コピペ絵文字, ダウンロード絵文字'
       },
       'unicode': {
-        name: 'System Emoji — Native Unicode Emoji Style | EmojiDir',
-        description: 'デバイスでの絵文字の表示を確認。システム絵文字は、プラットフォームのネイティブUnicodeレンダリングを使用して表示されます。異なるシステムでの絵文字の見た目を比較。',
-        keywords: 'System Emoji, Unicode Emoji, Native Emoji, Default Emoji, EmojiDir'
+        name: 'システム Emoji 絵文字 — すべての絵文字をコピー、ペースト、ダウンロード',
+        description: 'すべてのシステムEmoji絵文字を閲覧してダウンロード。無料で簡単にコピー＆ペースト。メッセージ、ソーシャルメディア、プロジェクトに最適。',
+        keywords: 'システム絵文字, Unicode絵文字, ネイティブ絵文字, デフォルト絵文字, コピペ絵文字, ダウンロード絵文字'
       }
     },
     'ko': {
       'fluent': {
-        name: 'Fluent Emoji — Microsoft 3D Emoji Style | EmojiDir',
-        description: 'Microsoft의 Fluent Emoji를 탐색하세요 — Windows와 Microsoft 제품을 위해 설계된 현대적인 3D 이모지 세트. 고품질 PNG 및 SVG 파일을 찾아보고 검색하고 다운로드하세요.',
-        keywords: 'Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, EmojiDir'
+        name: 'Microsoft 3D Fluent Emoji 이모지 — 모든 이모지 복사, 붙여넣기 및 다운로드',
+        description: '모든 Microsoft 3D Fluent Emoji 이모지를 탐색하고 다운로드하세요. 무료로 쉽게 복사 및 붙여넣기. 메시지, 소셜 미디어 및 프로젝트에 완벽합니다.',
+        keywords: 'Microsoft 3D Fluent Emoji, Microsoft 이모지, 3D 이모지, Windows 이모지, 복사 붙여넣기 이모지, 다운로드 이모지'
       },
       'nato': {
-        name: 'Noto Emoji — Google Flat Emoji Style | EmojiDir',
-        description: 'Google의 Noto Emoji를 발견하세요 — Android와 Google 플랫폼에서 사용되는 평면적이고 미니멀한 이모지 세트. PNG 및 SVG 형식으로 이모지를 검색하고 다운로드하세요.',
-        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, EmojiDir'
+        name: 'Noto Emoji 이모지 — 모든 이모지 복사, 붙여넣기 및 다운로드',
+        description: '모든 Noto Emoji 이모지를 탐색하고 다운로드하세요. 무료로 쉽게 복사 및 붙여넣기. 메시지, 소셜 미디어 및 프로젝트에 완벽합니다.',
+        keywords: 'Noto Emoji, Google 이모지, Android 이모지, 플랫 이모지, 복사 붙여넣기 이모지, 다운로드 이모지'
       },
       'unicode': {
-        name: 'System Emoji — Native Unicode Emoji Style | EmojiDir',
-        description: '기기에서 이모지가 어떻게 보이는지 확인하세요. 시스템 이모지는 플랫폼의 네이티브 Unicode 렌더링을 사용하여 표시됩니다. 다른 시스템에서 이모지의 모습을 비교하세요.',
-        keywords: 'System Emoji, Unicode Emoji, Native Emoji, Default Emoji, EmojiDir'
+        name: '시스템 Emoji 이모지 — 모든 이모지 복사, 붙여넣기 및 다운로드',
+        description: '모든 시스템 Emoji 이모지를 탐색하고 다운로드하세요. 무료로 쉽게 복사 및 붙여넣기. 메시지, 소셜 미디어 및 프로젝트에 완벽합니다.',
+        keywords: '시스템 이모지, Unicode 이모지, 네이티브 이모지, 기본 이모지, 복사 붙여넣기 이모지, 다운로드 이모지'
+      }
+    },
+    'pt-BR': {
+      'fluent': {
+        name: 'Microsoft 3D Fluent Emoji Emojis — Copiar, Colar e Baixar Todos os Emojis',
+        description: 'Navegue e baixe todos os emojis Microsoft 3D Fluent Emoji. Copie e cole emojis gratuitamente com facilidade. Perfeito para mensagens, redes sociais e projetos.',
+        keywords: 'Microsoft 3D Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, copiar colar emoji, baixar emoji'
+      },
+      'nato': {
+        name: 'Noto Emoji Emojis — Copiar, Colar e Baixar Todos os Emojis',
+        description: 'Navegue e baixe todos os emojis Noto Emoji. Copie e cole emojis gratuitamente com facilidade. Perfeito para mensagens, redes sociais e projetos.',
+        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, copiar colar emoji, baixar emoji'
+      },
+      'unicode': {
+        name: 'Sistema Emoji Emojis — Copiar, Colar e Baixar Todos os Emojis',
+        description: 'Navegue e baixe todos os emojis do Sistema. Copie e cole emojis gratuitamente com facilidade. Perfeito para mensagens, redes sociais e projetos.',
+        keywords: 'Sistema Emoji, Unicode Emoji, Emoji Nativo, Emoji Padrão, copiar colar emoji, baixar emoji'
       }
     }
   };

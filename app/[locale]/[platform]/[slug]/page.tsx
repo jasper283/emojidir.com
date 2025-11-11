@@ -1,13 +1,12 @@
 'use client';
 
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 import PlatformSwitcher from '@/components/PlatformSwitcher';
 import { EmojiDetailStructuredData } from '@/components/StructuredData';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAssetUrl } from '@/config/cdn';
 import { getEmojiKeywords, getEmojiName, loadEmojiIndexForLocale, mergeEmojiIndexWithLocale } from '@/lib/emoji-i18n';
-import { getEmojiDataForPlatform } from '@/lib/platforms';
+import { getEmojiDataForPlatform, PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { CompactEmojiIndex, Emoji, EmojiIndex, PlatformType } from '@/types/emoji';
 import { expandEmojiIndex } from '@/types/emoji';
 import { ArrowLeft, Copy, Download } from 'lucide-react';
@@ -152,6 +151,41 @@ export default function EmojiDetailPage() {
     return `emoji_u${cleaned}`;
   };
 
+  // 获取多语言名称和关键词
+  const displayName = emoji ? getEmojiName(emoji, locale) : '';
+  const displayKeywords = emoji ? getEmojiKeywords(emoji, locale) : [];
+
+  // 获取其他平台的emoji数据
+  const otherPlatforms = useMemo(() => {
+    if (!emoji) return [];
+
+    const platforms = Object.keys(PLATFORM_CONFIGS) as PlatformType[];
+    return platforms
+      .filter(p => p !== selectedPlatform)
+      .map(platform => {
+        const platformData = getEmojiDataForPlatform(platform, localizedEmojiData);
+        const platformEmoji = platformData.emojis.find((e: Emoji) => e.id === emoji.id);
+        return {
+          platform,
+          emoji: platformEmoji,
+          name: t(`platforms.${platform}`)
+        };
+      })
+      .filter(item => item.emoji);
+  }, [emoji, selectedPlatform, localizedEmojiData, t]);
+
+  // 处理分类点击
+  const handleCategoryClick = useCallback(() => {
+    if (emoji) {
+      router.push(`/${localeParam}/${platformSlug}?category=${encodeURIComponent(emoji.group)}`);
+    }
+  }, [emoji, router, localeParam, platformSlug]);
+
+  // 处理关键词点击
+  const handleKeywordClick = useCallback((keyword: string) => {
+    router.push(`/${localeParam}/${platformSlug}?search=${encodeURIComponent(keyword)}`);
+  }, [router, localeParam, platformSlug]);
+
   // 下载emoji图片（通过API路由代理）
   const downloadEmoji = async (url: string, filename: string) => {
     setDownloading(true);
@@ -173,8 +207,8 @@ export default function EmojiDetailPage() {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
-      console.error('下载失败:', error);
-      alert('下载失败，请稍后重试');
+      console.error(`${t('common.downloadFailed')}:`, error);
+      alert(t('common.downloadFailedMessage'));
     } finally {
       setDownloading(false);
     }
@@ -184,13 +218,13 @@ export default function EmojiDetailPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Emoji Not Found</h1>
+          <h1 className="text-4xl font-bold mb-4">{t('common.emojiNotFound')}</h1>
           <p className="text-muted-foreground mb-6">
-            The emoji you&apos;re looking for doesn&apos;t exist.
+            {t('common.emojiNotFoundMessage')}
           </p>
           <Button onClick={() => router.push(`/${localeParam}/${platformSlug}`)}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Go Back
+            {t('common.goBack')}
           </Button>
         </div>
       </div>
@@ -199,10 +233,6 @@ export default function EmojiDetailPage() {
 
   // 判断是否有可下载的资源
   const hasDownloadableAsset = currentStyleUrl && currentStyleUrl.length > 0;
-
-  // 获取多语言名称和关键词
-  const displayName = emoji ? getEmojiName(emoji, locale) : '';
-  const displayKeywords = emoji ? getEmojiKeywords(emoji, locale) : [];
 
   return (
     <>
@@ -247,7 +277,6 @@ export default function EmojiDetailPage() {
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <PlatformSwitcher currentPlatform={selectedPlatform} />
-                <LanguageSwitcher />
               </div>
             </div>
           </div>
@@ -314,7 +343,7 @@ export default function EmojiDetailPage() {
                   variant={copiedType === 'unicode' ? 'default' : 'outline'}
                 >
                   <Copy className="w-4 h-4 mr-2" />
-                  {copiedType === 'unicode' ? t('common.copied') : 'Copy Unicode'}
+                  {copiedType === 'unicode' ? t('common.copied') : t('common.copyUnicode')}
                 </Button>
               </div>
 
@@ -334,7 +363,9 @@ export default function EmojiDetailPage() {
                     disabled={downloading}
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    {downloading ? 'Downloading...' : `Download ${currentSelectedStyle.toUpperCase()}`}
+                    {downloading ? t('common.downloading') : t('common.downloadFormat', {
+                      format: currentStyleUrl.endsWith('.svg') ? 'SVG' : 'PNG'
+                    })}
                   </Button>
                 </div>
               )}
@@ -342,7 +373,7 @@ export default function EmojiDetailPage() {
               {/* Download Section - Noto Emoji (Multiple Sizes) */}
               {selectedPlatform === 'nato' && (
                 <div className="w-full">
-                  <h4 className="text-sm font-semibold mb-3 text-center">Download Noto Emoji</h4>
+                  <h4 className="text-sm font-semibold mb-3 text-center">{t('common.downloadNotoEmoji')}</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {natoSizes.map((size) => (
                       <Button
@@ -358,7 +389,7 @@ export default function EmojiDetailPage() {
                         className="text-xs"
                       >
                         <Download className="w-3 h-3 mr-1" />
-                        {size}px
+                        PNG {size}px
                       </Button>
                     ))}
                   </div>
@@ -368,7 +399,7 @@ export default function EmojiDetailPage() {
               {/* Download Section - Unicode Platform (if has URL) */}
               {hasDownloadableAsset && selectedPlatform === 'unicode' && (
                 <div className="w-full">
-                  <h4 className="text-sm font-semibold mb-3 text-center">Download (Noto Emoji)</h4>
+                  <h4 className="text-sm font-semibold mb-3 text-center">{t('common.downloadNotoEmoji')}</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {natoSizes.map((size) => (
                       <Button
@@ -384,7 +415,7 @@ export default function EmojiDetailPage() {
                         className="text-xs"
                       >
                         <Download className="w-3 h-3 mr-1" />
-                        {size}px
+                        PNG {size}px
                       </Button>
                     ))}
                   </div>
@@ -400,7 +431,7 @@ export default function EmojiDetailPage() {
 
                 <div className="space-y-3 md:space-y-4">
                   <div>
-                    <label className="text-xs md:text-sm font-medium text-muted-foreground">Name</label>
+                    <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.name')}</label>
                     <p className="text-base md:text-lg font-semibold mt-1">{displayName}</p>
                     {displayName !== emoji.name && (
                       <p className="text-sm text-muted-foreground mt-1">{emoji.name}</p>
@@ -408,12 +439,12 @@ export default function EmojiDetailPage() {
                   </div>
 
                   <div>
-                    <label className="text-xs md:text-sm font-medium text-muted-foreground">Glyph</label>
+                    <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.glyph')}</label>
                     <p className="text-3xl md:text-4xl mt-2">{emoji.glyph}</p>
                   </div>
 
                   <div>
-                    <label className="text-xs md:text-sm font-medium text-muted-foreground">Unicode</label>
+                    <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.unicode')}</label>
                     <div className="flex items-center gap-2 mt-1">
                       <code className="text-sm md:text-lg font-mono bg-muted px-2 md:px-3 py-1 rounded">
                         U+{emoji.unicode.toUpperCase()}
@@ -424,7 +455,12 @@ export default function EmojiDetailPage() {
                   <div>
                     <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.category')}</label>
                     <div className="mt-2">
-                      <Badge variant="secondary" className="text-xs md:text-sm">
+                      <Badge
+                        variant="secondary"
+                        className="text-xs md:text-sm cursor-pointer hover:bg-secondary/80 transition-colors"
+                        onClick={handleCategoryClick}
+                        title={t('common.clickToBrowseCategory')}
+                      >
                         {t(`categories.${emoji.group}`)}
                       </Badge>
                     </div>
@@ -434,15 +470,62 @@ export default function EmojiDetailPage() {
 
               {/* Keywords */}
               <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
-                <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">Keywords</h3>
+                <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.keywords')}</h3>
                 <div className="flex flex-wrap gap-1.5 md:gap-2">
                   {displayKeywords.map((keyword: string, index: number) => (
-                    <Badge key={index} variant="outline" className="text-xs md:text-sm">
+                    <Badge
+                      key={index}
+                      variant="outline"
+                      className="text-xs md:text-sm cursor-pointer hover:bg-accent transition-colors"
+                      onClick={() => handleKeywordClick(keyword)}
+                      title={t('common.clickToSearch')}
+                    >
                       {keyword}
                     </Badge>
                   ))}
                 </div>
               </div>
+
+              {/* Other Platforms */}
+              {otherPlatforms.length > 0 && (
+                <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
+                  <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.otherPlatforms')}</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {otherPlatforms.map(({ platform, emoji: platformEmoji, name }) => {
+                      const platformSlugName = `${platform}-emoji`;
+                      const styleKeys = Object.keys(platformEmoji?.styles || {});
+                      const firstStyle = styleKeys[0];
+                      const imageUrl = platformEmoji?.styles[firstStyle];
+
+                      return (
+                        <button
+                          key={platform}
+                          onClick={() => router.push(`/${localeParam}/${platformSlugName}/${slugParam}`)}
+                          className="flex flex-col items-center gap-2 p-3 rounded-lg border-2 border-border hover:border-primary hover:bg-accent transition-all duration-200 group"
+                          title={t('common.viewOnPlatform', { platform: name })}
+                        >
+                          <div className="w-16 h-16 flex items-center justify-center bg-muted/30 rounded-lg group-hover:scale-110 transition-transform">
+                            {imageUrl ? (
+                              <Image
+                                src={getAssetUrl(imageUrl)}
+                                alt={platformEmoji?.name || ''}
+                                width={64}
+                                height={64}
+                                className="w-full h-full object-contain p-2"
+                              />
+                            ) : (
+                              <span className="text-3xl">{platformEmoji?.glyph}</span>
+                            )}
+                          </div>
+                          <span className="text-xs font-medium text-center line-clamp-1">
+                            {name}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Platform Info */}
               <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
@@ -453,7 +536,10 @@ export default function EmojiDetailPage() {
                   </Badge>
                   {availableStyles.length > 0 && (
                     <p className="text-xs md:text-sm text-muted-foreground mt-2">
-                      Available in {availableStyles.length} style{availableStyles.length > 1 ? 's' : ''}
+                      {t('common.availableInStyles', {
+                        count: availableStyles.length,
+                        plural: availableStyles.length > 1 ? t('common.availableInStylesPlural') : t('common.availableInStylesSingular')
+                      })}
                     </p>
                   )}
                 </div>
