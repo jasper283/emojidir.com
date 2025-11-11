@@ -144,6 +144,33 @@ export default async function LocaleLayout({
     <html lang={validLocale}>
       <head>
         <WebsiteStructuredData locale={validLocale} />
+
+        {/* 预加载关键资源 */}
+        <link
+          rel="preload"
+          href="/favicon.svg"
+          as="image"
+          type="image/svg+xml"
+        />
+        {/* 预连接到CDN域名 */}
+        <link
+          rel="dns-prefetch"
+          href="https://object.emojidir.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://object.emojidir.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="dns-prefetch"
+          href="https://public.emojidir.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://public.emojidir.com"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="antialiased bg-gray-50">
         <GoogleAnalytics />
