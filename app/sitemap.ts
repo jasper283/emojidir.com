@@ -15,13 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
-  // 1. 主页 - 重定向到语言首页（优先级较低）
+  // 1. 语言首页 - 主要着陆页（提高优先级）
   locales.forEach((locale) => {
     sitemapEntries.push({
       url: `${baseUrl}/${locale}`,
       lastModified: currentDate,
       changeFrequency: 'daily',
-      priority: 0.7,
+      priority: 0.9,
       alternates: {
         languages: Object.fromEntries(
           locales.map((loc) => [loc, `${baseUrl}/${loc}`])
