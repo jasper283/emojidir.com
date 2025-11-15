@@ -32,7 +32,7 @@ export async function generateMetadata({
         keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, copy paste emoji, download emoji'
       },
       'unicode': {
-        name: 'System Emoji Emojis — Copy, Paste & Download All Emojis',
+        name: 'System Emojis — Copy, Paste & Download All Emojis',
         description: 'Browse and download all System Emoji emojis. Easily copy & paste emojis for free. Perfect for messages, social media, and projects.',
         keywords: 'System Emoji, Unicode Emoji, Native Emoji, Default Emoji, copy paste emoji, download emoji'
       }
