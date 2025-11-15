@@ -394,18 +394,40 @@ export default function EmojiDetailClient({
               <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
                 <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.otherPlatforms')}</h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {otherPlatforms.map(({ platform, emoji: platformEmoji, name }) => {
+                  {otherPlatforms.map(({ platform, emoji: platformEmoji }) => {
                     const platformSlugName = `${platform}-emoji`;
-                    const styleKeys = Object.keys(platformEmoji?.styles || {});
-                    const firstStyle = styleKeys[0];
-                    const imageUrl = platformEmoji?.styles[firstStyle];
+                    const platformName = t(`platforms.${platform}`);
+
+                    // 优先选择平台合适的样式
+                    const getImageUrl = (): string => {
+                      if (!platformEmoji?.styles) return '';
+
+                      const styles = platformEmoji.styles;
+
+                      // 优先顺序：color -> 3d -> flat -> high-contrast -> 第一个可用样式
+                      if (styles['color']) return styles['color'];
+                      if (styles['3d']) return styles['3d'];
+                      if (styles['flat']) return styles['flat'];
+                      if (styles['high-contrast']) return styles['high-contrast'];
+
+                      // 如果都没有，尝试默认样式
+                      if (styles['color-default']) return styles['color-default'];
+                      if (styles['3d-default']) return styles['3d-default'];
+                      if (styles['flat-default']) return styles['flat-default'];
+
+                      // 最后使用第一个可用样式
+                      const firstStyle = Object.keys(styles)[0];
+                      return firstStyle ? styles[firstStyle] || '' : '';
+                    };
+
+                    const imageUrl = getImageUrl();
 
                     return (
                       <button
                         key={platform}
                         onClick={() => router.push(`/${localeParam}/${platformSlugName}/${emoji.id}`)}
                         className="flex flex-col items-center gap-2 p-3 rounded-lg border-2 border-border hover:border-primary hover:bg-accent transition-all duration-200 group"
-                        title={t('common.viewOnPlatform', { platform: name })}
+                        title={t('common.viewOnPlatform', { platform: platformName })}
                       >
                         <div className="w-16 h-16 flex items-center justify-center bg-muted/30 rounded-lg group-hover:scale-110 transition-transform">
                           {imageUrl ? (
@@ -421,7 +443,7 @@ export default function EmojiDetailClient({
                           )}
                         </div>
                         <span className="text-xs font-medium text-center line-clamp-1">
-                          {name}
+                          {platformName}
                         </span>
                       </button>
                     );

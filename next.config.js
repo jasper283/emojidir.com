@@ -6,10 +6,9 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   // 移除 output: 'export' 以支持完整的 Next.js 功能
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // 配置远程图片域名
+    // 关闭图片优化，避免使用付费服务
+    unoptimized: true,
+    // 配置远程图片域名（即使关闭优化，仍然需要配置域名以允许加载）
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,8 +19,6 @@ const nextConfig = {
         hostname: 'object.emojidir.com',
       },
     ],
-    // 启用图片优化缓存
-    minimumCacheTTL: 31536000,
   },
   reactStrictMode: true,
   experimental: {
