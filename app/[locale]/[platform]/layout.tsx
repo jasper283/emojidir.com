@@ -1,5 +1,6 @@
 import { locales } from '@/i18n/config';
 import { PLATFORM_CONFIGS } from '@/lib/platforms';
+import { createMetaDescription } from '@/lib/seo';
 import type { PlatformType } from '@/types/emoji';
 import type { Metadata } from 'next';
 
@@ -126,7 +127,7 @@ export async function generateMetadata({
 
   const localeMetadata = platformMetadata[locale]?.[platformId] || platformMetadata['en'][platformId];
   const title = localeMetadata.name;
-  const description = localeMetadata.description;
+  const description = createMetaDescription(localeMetadata.description, locale);
   const keywords = localeMetadata.keywords;
 
   return {
@@ -187,4 +188,3 @@ export default function PlatformLayout({
 }) {
   return <>{children}</>;
 }
-

@@ -1,5 +1,6 @@
 import { getAssetUrl } from '@/config/cdn';
 import { locales } from '@/i18n/config';
+import { createMetaDescription } from '@/lib/seo';
 import type { CompactEmojiIndex, Emoji, PlatformType } from '@/types/emoji';
 import { expandEmojiIndex } from '@/types/emoji';
 import type { Metadata } from 'next';
@@ -54,7 +55,10 @@ export async function generateMetadata({
     'pt-BR': `Copie, cole e baixe facilmente ${emoji.name} em ${platformName}. Gratuito, rápido e pronto para todas as plataformas.`,
   };
 
-  const description = descriptionTemplates[locale] || descriptionTemplates['en'];
+  const description = createMetaDescription(
+    descriptionTemplates[locale] || descriptionTemplates['en'],
+    locale
+  );
 
   // 获取表情图片 URL - 优先使用 color、3d 或 flat 样式
   const getEmojiImageUrl = (): string => {
@@ -200,4 +204,3 @@ export default async function EmojiDetailLayout({
     </>
   );
 }
-

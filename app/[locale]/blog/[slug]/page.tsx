@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import type { Locale } from '@/i18n/config'
 import { locales } from '@/i18n/config'
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/mdx'
+import { createMetaDescription } from '@/lib/seo'
 import { format } from 'date-fns'
 import { enUS, ja, ko, ptBR, zhCN } from 'date-fns/locale'
 import { ArrowLeft, Calendar, Clock, Tag, User } from 'lucide-react'
@@ -52,12 +53,14 @@ export async function generateMetadata({
     }
   }
 
+  const description = createMetaDescription(post.description || '', locale)
+
   return {
     title: post.title,
-    description: post.description,
+    description,
     openGraph: {
       title: post.title,
-      description: post.description,
+      description,
       type: 'article',
       publishedTime: post.date,
       authors: post.author ? [post.author] : [],

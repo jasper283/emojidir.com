@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import type { Locale } from '@/i18n/config'
 import { getAllPosts, getAllTags } from '@/lib/mdx'
+import { createMetaDescription } from '@/lib/seo'
 import { format } from 'date-fns'
 import { enUS, ja, ko, ptBR, zhCN } from 'date-fns/locale'
 import { getTranslations } from 'next-intl/server'
@@ -24,20 +25,21 @@ export async function generateMetadata({
 }) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'blog' })
+  const description = createMetaDescription(t('description'), locale)
 
   return {
     title: t('title'),
-    description: t('description'),
+    description,
     openGraph: {
       title: t('title'),
-      description: t('description'),
+      description,
       type: 'website',
       images: ['https://public.emojidir.com/og/welcome.png'],
     },
     twitter: {
       card: 'summary_large_image',
       title: t('title'),
-      description: t('description'),
+      description,
       images: ['https://public.emojidir.com/og/welcome.png'],
     },
   }

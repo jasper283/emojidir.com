@@ -1,4 +1,5 @@
 import { locales } from '@/i18n/config';
+import { createMetaDescription } from '@/lib/seo';
 import type { Metadata } from 'next';
 import LandingPageClient from './LandingPageClient';
 
@@ -53,7 +54,7 @@ export async function generateMetadata({
 
   return {
     title: metadata.title,
-    description: metadata.description,
+    description: createMetaDescription(metadata.description, locale),
     keywords: metadata.keywords.split(', '),
     alternates: {
       canonical: `${baseUrl}/${locale}`,
@@ -63,7 +64,7 @@ export async function generateMetadata({
     },
     openGraph: {
       title: metadata.title,
-      description: metadata.description,
+      description: createMetaDescription(metadata.description, locale),
       url: `${baseUrl}/${locale}`,
       type: 'website',
       locale,
@@ -78,7 +79,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title: metadata.title,
-      description: metadata.description,
+      description: createMetaDescription(metadata.description, locale),
       images: ['https://public.emojidir.com/og/welcome.png'],
     },
     robots: {
@@ -99,4 +100,3 @@ export async function generateMetadata({
 export default function LandingPage() {
   return <LandingPageClient />;
 }
-
