@@ -18,10 +18,11 @@ const dateLocales = {
 }
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: Locale }
+  params: Promise<{ locale: Locale }>
 }) {
+  const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'blog' })
 
   return {
@@ -43,15 +44,15 @@ export async function generateMetadata({
 }
 
 export default async function BlogPage({
-  params: { locale },
+  params,
   searchParams,
 }: {
-  params: { locale: Locale }
-  searchParams: { tag?: string }
+  params: Promise<{ locale: Locale }>
+  searchParams: Promise<{ tag?: string }>
 }) {
+  const [{ locale }, { tag: selectedTag }] = await Promise.all([params, searchParams])
   const posts = await getAllPosts(locale)
   const allTags = await getAllTags(locale)
-  const selectedTag = searchParams.tag
 
   // 如果选择了标签，过滤文章
   const filteredPosts = selectedTag
@@ -166,4 +167,3 @@ export default async function BlogPage({
     </>
   )
 }
-

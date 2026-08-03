@@ -13,7 +13,7 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'always'
 });
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // 所有路径由国际化中间件处理
   // next-intl 会自动检测语言并重定向 / 到 /{locale}
   return intlMiddleware(request);
@@ -25,4 +25,3 @@ export const config = {
     '/((?!api|_next/static|_next/image|favicon.ico|icon|.*\\..*).*)'
   ]
 };
-

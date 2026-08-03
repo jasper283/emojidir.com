@@ -39,10 +39,11 @@ export async function generateStaticParams() {
 
 // 生成元数据
 export async function generateMetadata({
-  params: { locale, slug },
+  params,
 }: {
-  params: { locale: Locale; slug: string }
+  params: Promise<{ locale: Locale; slug: string }>
 }) {
+  const { locale, slug } = await params
   const post = await getPostBySlug(locale, slug)
 
   if (!post) {
@@ -66,10 +67,11 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage({
-  params: { locale, slug },
+  params,
 }: {
-  params: { locale: Locale; slug: string }
+  params: Promise<{ locale: Locale; slug: string }>
 }) {
+  const { locale, slug } = await params
   const post = await getPostBySlug(locale, slug)
 
   if (!post) {
@@ -223,4 +225,3 @@ export default async function BlogPostPage({
     </>
   )
 }
-

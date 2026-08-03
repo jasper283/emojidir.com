@@ -55,7 +55,7 @@ export default function FilterSidebar({
     };
   }, [isOpen]);
 
-  const FilterContent = () => (
+  const renderFilterContent = () => (
     <>
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
@@ -184,12 +184,12 @@ export default function FilterSidebar({
         className={`md:hidden fixed left-0 top-0 bottom-0 w-80 bg-card border-r z-50 overflow-y-auto p-6 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
-        <FilterContent />
+        {renderFilterContent()}
       </div>
 
       {/* 桌面端：固定侧边栏 */}
       <div className="hidden md:block w-80 bg-card border-r min-h-screen p-6">
-        <FilterContent />
+        {renderFilterContent()}
       </div>
     </>
   );
