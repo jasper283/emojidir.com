@@ -8,6 +8,7 @@
     "build": "next build",
     "build:dev": "npm run generate-index && next build",
     "build:with-assets": "npm run generate-index && next build && npm run copy-assets",
+    "indexnow": "node scripts/submit-indexnow.js",
     "start": "next start",
     "lint": "next lint",
     "generate-index": "node scripts/generate-index.js",
