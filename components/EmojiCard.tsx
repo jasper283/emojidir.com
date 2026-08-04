@@ -6,7 +6,8 @@ import { getEmojiName } from '@/lib/emoji-i18n';
 import type { Emoji, StyleType } from '@/types/emoji';
 import { useLocale } from 'next-intl';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 interface EmojiCardProps {
@@ -18,7 +19,6 @@ interface EmojiCardProps {
 export default function EmojiCard({ emoji, style, priority = false }: EmojiCardProps) {
   const locale = useLocale();
   const params = useParams();
-  const router = useRouter();
 
   // 快速检查：如果 styles 为空对象或没有任何样式，直接使用原生 emoji 字符
   // 使用 useMemo 缓存，避免每次渲染都重新计算
@@ -83,10 +83,7 @@ export default function EmojiCard({ emoji, style, priority = false }: EmojiCardP
     }
   };
 
-  const handleClick = () => {
-    const platform = params.platform as string;
-    router.push(`/${locale}/${platform}/${emoji.id}`);
-  };
+  const platform = params.platform as string;
 
   // 获取当前语言下的 emoji 名称（使用 useMemo 缓存）
   const displayName = useMemo(() =>
@@ -101,36 +98,38 @@ export default function EmojiCard({ emoji, style, priority = false }: EmojiCardP
   );
 
   return (
-    <Card
-      className="hover:shadow-lg transition-all duration-200 cursor-pointer relative group hover:scale-105 border-2 hover:border-primary"
-      onClick={handleClick}
+    <Link
+      href={`/${locale}/${platform}/${emoji.id}`}
+      aria-label={displayName}
+      className="block"
     >
-      <div className="p-4">
-        <div className="aspect-square flex items-center justify-center mb-2 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-md">
-          {shouldUseNativeEmoji ? (
-            // 直接渲染原生 emoji 字符，性能最优
-            <div className="text-5xl">{emoji.glyph}</div>
-          ) : (
-            // 渲染图片
-            <Image
-              src={imageUrl}
-              alt={emoji.name}
-              width={128}
-              height={128}
-              className="w-full h-full object-contain"
-              onError={handleImageError}
-              loading={priority ? undefined : "lazy"}
-            />
-          )}
-        </div>
+      <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer relative group hover:scale-105 border-2 hover:border-primary">
+        <div className="p-4">
+          <div className="aspect-square flex items-center justify-center mb-2 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-md">
+            {shouldUseNativeEmoji ? (
+              // 直接渲染原生 emoji 字符，性能最优
+              <div className="text-5xl">{emoji.glyph}</div>
+            ) : (
+              // 渲染图片
+              <Image
+                src={imageUrl}
+                alt={emoji.name}
+                width={128}
+                height={128}
+                className="w-full h-full object-contain"
+                onError={handleImageError}
+                loading={priority ? undefined : "lazy"}
+              />
+            )}
+          </div>
 
-        <div className="text-center">
-          <p className="text-xs text-muted-foreground line-clamp-2" title={displayName}>
-            {displayName}
-          </p>
+          <div className="text-center">
+            <p className="text-xs text-muted-foreground line-clamp-2" title={displayName}>
+              {displayName}
+            </p>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </Link>
   );
 }
-

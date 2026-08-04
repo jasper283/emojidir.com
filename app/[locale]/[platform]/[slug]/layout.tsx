@@ -1,11 +1,13 @@
 import { getAssetUrl } from '@/config/cdn';
 import { locales } from '@/i18n/config';
+import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
+import { getEmojiSeoKeywords } from '@/lib/emoji-seo';
 import { createMetaDescription } from '@/lib/seo';
+import { loadEmojiIndexServer } from '@/lib/emoji-server';
 import type { CompactEmojiIndex, Emoji, PlatformType } from '@/types/emoji';
 import { expandEmojiIndex } from '@/types/emoji';
 import type { Metadata } from 'next';
 // 构建时导入数据
-import { EmojiDetailStructuredData } from '@/components/StructuredData';
 import compactEmojiIndexData from '@/data/emoji-index.json';
 
 const baseUrl = 'https://emojidir.com';
@@ -20,8 +22,9 @@ export async function generateMetadata({
   const { locale, platform: platformSlug, slug } = await params;
   const platformId = platformSlug?.replace('-emoji', '') as PlatformType;
 
-  // 查找emoji（通过slug/id）
-  const emoji = baseEmojiData.emojis.find((e: Emoji) => e.id === slug);
+  // Metadata 使用与页面正文相同的本地化服务端数据
+  const localizedEmojiData = await loadEmojiIndexServer(locale);
+  const emoji = localizedEmojiData.emojis.find((e: Emoji) => e.id === slug);
 
   if (!emoji) {
     return {
@@ -41,18 +44,22 @@ export async function generateMetadata({
   };
 
   const platformName = platformNames[locale]?.[platformId] || platformNames['en'][platformId];
+  const displayName = getEmojiName(emoji, locale);
+  const displayKeywords = getEmojiSeoKeywords(emoji.id, locale);
+  const fallbackKeywords = getEmojiKeywords(emoji, locale);
+  const seoKeywords = displayKeywords.length > 0 ? displayKeywords : fallbackKeywords;
 
   // SEO优化的标题格式
-  const title = `${emoji.glyph} ${emoji.name} — Copy, Paste & Download | ${platformName}`;
+  const title = `${emoji.glyph} ${displayName} — Copy, Paste & Download | ${platformName}`;
 
   // 多语言描述模板
   const descriptionTemplates: Record<string, string> = {
-    'en': `Easily copy, paste, and download ${emoji.name} in ${platformName}. Free, fast, and ready for all platforms.`,
-    'zh-CN': `轻松复制、粘贴和下载${emoji.name}表情符号，来自${platformName}。免费、快速，支持所有平台。`,
-    'zh-TW': `輕鬆複製、貼上和下載${emoji.name}表情符號，來自${platformName}。免費、快速，支援所有平台。`,
-    'ja': `${emoji.name}の絵文字を簡単にコピー、貼り付け、ダウンロード。${platformName}から。無料、高速、すべてのプラットフォームに対応。`,
-    'ko': `${emoji.name} 이모지를 쉽게 복사, 붙여넣기, 다운로드하세요. ${platformName}에서 제공. 무료, 빠르고, 모든 플랫폼 지원.`,
-    'pt-BR': `Copie, cole e baixe facilmente ${emoji.name} em ${platformName}. Gratuito, rápido e pronto para todas as plataformas.`,
+    'en': `Easily copy, paste, and download ${displayName} in ${platformName}. Free, fast, and ready for all platforms.`,
+    'zh-CN': `轻松复制、粘贴和下载${displayName}表情符号，来自${platformName}。免费、快速，支持所有平台。`,
+    'zh-TW': `輕鬆複製、貼上和下載${displayName}表情符號，來自${platformName}。免費、快速，支援所有平台。`,
+    'ja': `${displayName}の絵文字を簡単にコピー、貼り付け、ダウンロード。${platformName}から。無料、高速、すべてのプラットフォームに対応。`,
+    'ko': `${displayName} 이모지를 쉽게 복사, 붙여넣기, 다운로드하세요. ${platformName}에서 제공. 무료, 빠르고, 모든 플랫폼 지원.`,
+    'pt-BR': `Copie, cole e baixe facilmente ${displayName} em ${platformName}. Gratuito, rápido e pronto para todas as plataformas.`,
   };
 
   const description = createMetaDescription(
@@ -85,7 +92,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    keywords: [...emoji.keywords, emoji.name, 'emoji', platformId, emoji.group],
+    keywords: [...seoKeywords, displayName, 'emoji', platformId, emoji.group],
     alternates: {
       canonical: `${baseUrl}/${locale}/${platformSlug}/${slug}`,
       languages: Object.fromEntries(
@@ -104,7 +111,7 @@ export async function generateMetadata({
           url: imageUrl,
           width: 512,
           height: 512,
-          alt: `${emoji.name} emoji (${emoji.glyph})`,
+          alt: `${displayName} emoji (${emoji.glyph})`,
         },
       ],
     },
@@ -137,70 +144,8 @@ export async function generateStaticParams() {
 
 export default async function EmojiDetailLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string; platform: string; slug: string }>;
 }) {
-  const { locale, platform: platformSlug, slug } = await params;
-  const platformId = platformSlug?.replace('-emoji', '') as PlatformType;
-
-  // 查找emoji
-  const emoji = baseEmojiData.emojis.find((e: Emoji) => e.id === slug);
-
-  if (!emoji) {
-    return <>{children}</>;
-  }
-
-  // 平台名称多语言映射
-  const platformNames: Record<string, Record<string, string>> = {
-    'en': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'System Emoji' },
-    'zh-CN': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'Emoji大全' },
-    'zh-TW': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '系統表情符號' },
-    'ja': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'システム絵文字' },
-    'ko': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: '시스템 이모지' },
-    'pt-BR': { fluent: 'Fluent Emoji', nato: 'Noto Emoji', unicode: 'Emoji do Sistema' },
-  };
-
-  const platformName = platformNames[locale]?.[platformId] || platformNames['en'][platformId];
-
-  // 获取表情图片 URL
-  const getEmojiImageUrl = (): string => {
-    if (emoji.styles['color']) {
-      return getAssetUrl(emoji.styles['color']);
-    }
-    if (emoji.styles['3d']) {
-      return getAssetUrl(emoji.styles['3d']);
-    }
-    if (emoji.styles['flat']) {
-      return getAssetUrl(emoji.styles['flat']);
-    }
-    const firstStyle = Object.keys(emoji.styles)[0];
-    if (firstStyle && emoji.styles[firstStyle]) {
-      return getAssetUrl(emoji.styles[firstStyle]);
-    }
-    return `${baseUrl}/favicon.svg`;
-  };
-
-  const imageUrl = getEmojiImageUrl();
-
-  return (
-    <>
-      <EmojiDetailStructuredData
-        locale={locale}
-        platform={platformSlug}
-        platformName={platformName}
-        emoji={{
-          id: emoji.id,
-          name: emoji.name,
-          glyph: emoji.glyph,
-          unicode: emoji.unicode,
-          group: emoji.group,
-          keywords: emoji.keywords,
-        }}
-        imageUrl={imageUrl}
-      />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

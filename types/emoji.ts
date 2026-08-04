@@ -18,6 +18,23 @@ export interface EmojiI18n {
   tts: string;
 }
 
+export type EmojiCopyVariantKind = 'base' | 'skin-tone';
+
+export interface EmojiCopyVariant {
+  glyph: string;
+  unicode: string;
+  kind: EmojiCopyVariantKind;
+  status: string;
+}
+
+export interface EmojiSeoData {
+  emojiVersion: string | null;
+  releaseVersion: string | null;
+  unicodeVersion: string | null;
+  keywords: Record<string, string[]>;
+  copyVariants: EmojiCopyVariant[];
+}
+
 export interface Emoji {
   id: string;
   name: string;
@@ -176,4 +193,3 @@ export function expandEmojiIndex(compact: CompactEmojiIndex): EmojiIndex {
     generatedAt: compact.g,
   };
 }
-

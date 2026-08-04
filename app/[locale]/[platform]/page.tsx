@@ -1,9 +1,10 @@
 import PlatformPageClient from '@/components/PlatformPageClient';
 import { CollectionPageStructuredData } from '@/components/StructuredData';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
-import { getEmojiDataForPlatform } from '@/lib/platforms';
+import { getEmojiDataForPlatform, PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { PlatformType } from '@/types/emoji';
 import { useTranslations } from 'next-intl';
+import { notFound } from 'next/navigation';
 
 interface PlatformPageProps {
   params: Promise<{
@@ -19,6 +20,10 @@ interface PlatformPageProps {
 export default async function PlatformPage({ params }: PlatformPageProps) {
   const { locale, platform: platformSlug } = await params;
   const selectedPlatform = platformSlug?.replace('-emoji', '') as PlatformType || 'fluent';
+
+  if (!PLATFORM_CONFIGS[selectedPlatform] || platformSlug !== `${selectedPlatform}-emoji`) {
+    notFound();
+  }
 
   // 在服务端加载和合并语言数据
   const localizedEmojiData = await loadEmojiIndexServer(locale);

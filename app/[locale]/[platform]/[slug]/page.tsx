@@ -2,6 +2,7 @@ import EmojiDetailClient from '@/components/EmojiDetailClient';
 import { EmojiDetailStructuredData } from '@/components/StructuredData';
 import { getAssetUrl } from '@/config/cdn';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
+import { getEmojiSeoData, getEmojiSeoKeywords } from '@/lib/emoji-seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
 import { getEmojiDataForPlatform, PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { Emoji, PlatformType } from '@/types/emoji';
@@ -20,6 +21,10 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
   const { locale, platform: platformSlug, slug: slugParam } = await params;
   const selectedPlatform = platformSlug?.replace('-emoji', '') as PlatformType || 'fluent';
 
+  if (!PLATFORM_CONFIGS[selectedPlatform] || platformSlug !== `${selectedPlatform}-emoji`) {
+    notFound();
+  }
+
   // 在服务端加载和合并语言数据
   const localizedEmojiData = await loadEmojiIndexServer(locale);
 
@@ -35,7 +40,10 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
 
   // 获取多语言名称和关键词
   const displayName = getEmojiName(emoji, locale);
-  const displayKeywords = getEmojiKeywords(emoji, locale);
+  const seoData = getEmojiSeoData(emoji.id);
+  const seoKeywords = getEmojiSeoKeywords(emoji.id, locale);
+  const fallbackKeywords = getEmojiKeywords(emoji, locale);
+  const displayKeywords = seoKeywords.length > 0 ? seoKeywords : fallbackKeywords;
 
   // 获取其他平台的emoji数据
   const platforms = Object.keys(PLATFORM_CONFIGS) as PlatformType[];
@@ -102,6 +110,9 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
           unicode: emoji.unicode,
           group: emoji.group,
           keywords: displayKeywords,
+          emojiVersion: seoData?.emojiVersion ?? undefined,
+          unicodeVersion: seoData?.unicodeVersion ?? undefined,
+          releaseVersion: seoData?.releaseVersion ?? undefined,
         }}
         imageUrl={currentStyleUrl ? getAssetUrl(currentStyleUrl) : undefined}
       />
@@ -109,6 +120,7 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
       {/* 客户端交互组件 */}
       <EmojiDetailClient
         emoji={emoji}
+        seoData={seoData}
         selectedPlatform={selectedPlatform}
         otherPlatforms={otherPlatforms}
         locale={locale}
@@ -137,6 +149,9 @@ function EmojiDetailStructuredDataWrapper({
     unicode: string;
     group: string;
     keywords: string[];
+    emojiVersion?: string;
+    unicodeVersion?: string;
+    releaseVersion?: string;
   };
   imageUrl?: string;
 }) {

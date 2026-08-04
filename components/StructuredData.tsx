@@ -93,6 +93,9 @@ export interface EmojiDetailStructuredDataProps {
     unicode: string;
     group: string;
     keywords: string[];
+    emojiVersion?: string;
+    unicodeVersion?: string;
+    releaseVersion?: string;
   };
   imageUrl?: string;
 }
@@ -108,7 +111,7 @@ export function EmojiDetailStructuredData({
     '@context': 'https://schema.org',
     '@type': 'ImageObject',
     name: `${emoji.name} emoji`,
-    description: `${emoji.name} emoji (${emoji.glyph}) from ${platformName}. Unicode: U+${emoji.unicode.toUpperCase()}`,
+    description: `${emoji.name} emoji (${emoji.glyph}) from ${platformName}. Unicode: U+${emoji.unicode.toUpperCase()}${emoji.unicodeVersion ? `. ${emoji.unicodeVersion}.` : ''}${emoji.releaseVersion ? ` ${emoji.releaseVersion}.` : ''}`,
     contentUrl: imageUrl || `https://emojidir.com/favicon.svg`,
     url: `https://emojidir.com/${locale}/${platform}/${emoji.id}`,
     inLanguage: locale,
@@ -226,4 +229,3 @@ export function BlogListingStructuredData({
     />
   );
 }
-

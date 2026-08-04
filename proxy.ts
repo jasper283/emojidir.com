@@ -1,5 +1,5 @@
 import createMiddleware from 'next-intl/middleware';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { defaultLocale, locales } from './i18n/config';
 
 const intlMiddleware = createMiddleware({
@@ -14,6 +14,23 @@ const intlMiddleware = createMiddleware({
 });
 
 export default function proxy(request: NextRequest) {
+  const pathnameParts = request.nextUrl.pathname.split('/').filter(Boolean);
+  const localeIndex = locales.includes(pathnameParts[0] as (typeof locales)[number]) ? 1 : 0;
+  const platform = pathnameParts[localeIndex];
+  const canonicalPlatformSlugs: Record<string, string> = {
+    fluent: 'fluent-emoji',
+    nato: 'nato-emoji',
+    unicode: 'unicode-emoji',
+  };
+
+  if (platform && canonicalPlatformSlugs[platform]) {
+    const canonicalParts = [...pathnameParts];
+    canonicalParts[localeIndex] = canonicalPlatformSlugs[platform];
+    const canonicalUrl = request.nextUrl.clone();
+    canonicalUrl.pathname = `/${canonicalParts.join('/')}`;
+    return NextResponse.redirect(canonicalUrl, 308);
+  }
+
   // 所有路径由国际化中间件处理
   // next-intl 会自动检测语言并重定向 / 到 /{locale}
   return intlMiddleware(request);

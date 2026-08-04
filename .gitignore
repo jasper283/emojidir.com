@@ -29,6 +29,15 @@ pnpm-debug.log*
 .env*.local
 .env.local
 
+# local Search Console OAuth credentials and reports
+/.seo/
+
+# downloaded OAuth client credentials (keep outside the repository)
+/client_secret*.json
+/google-oauth*.json
+/search-console-token*.json
+/emojidir-*-app.json
+
 # vercel
 .vercel
 

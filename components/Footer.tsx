@@ -54,7 +54,7 @@ export default function Footer() {
               <ul role="list" className="mt-6 space-y-4">
                 <li>
                   <Link
-                    href="/en/fluent"
+                    href="/en/fluent-emoji"
                     className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
                   >
                     Fluent Emoji
@@ -62,7 +62,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/en/nato"
+                    href="/en/nato-emoji"
                     className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
                   >
                     Noto Emoji
@@ -155,4 +155,3 @@ export default function Footer() {
     </footer>
   );
 }
-

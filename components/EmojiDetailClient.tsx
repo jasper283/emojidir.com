@@ -5,15 +5,17 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAssetUrl } from '@/config/cdn';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
-import type { Emoji, PlatformType } from '@/types/emoji';
-import { ArrowLeft, Copy, Download } from 'lucide-react';
+import type { Emoji, EmojiSeoData, PlatformType } from '@/types/emoji';
+import { ArrowLeft, Copy, Download, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 
 interface EmojiDetailClientProps {
   emoji: Emoji;
+  seoData?: EmojiSeoData;
   selectedPlatform: PlatformType;
   otherPlatforms: Array<{
     platform: PlatformType;
@@ -27,6 +29,7 @@ interface EmojiDetailClientProps {
 
 export default function EmojiDetailClient({
   emoji,
+  seoData,
   selectedPlatform,
   otherPlatforms,
   locale,
@@ -117,7 +120,20 @@ export default function EmojiDetailClient({
 
   // 获取多语言名称和关键词
   const displayName = getEmojiName(emoji, locale);
-  const displayKeywords = getEmojiKeywords(emoji, locale);
+  const displayKeywords = seoData?.keywords[locale] ?? getEmojiKeywords(emoji, locale);
+
+  const getUnicodeVersionUrl = (version: string): string | null => {
+    const match = version.match(/^Unicode\s+(\d+)(?:\.(\d+))?$/);
+    if (!match) return null;
+
+    const [, major, minor = '0'] = match;
+    return `https://www.unicode.org/versions/Unicode${major}.${minor}.0/`;
+  };
+
+  const unicodeVersionUrl = seoData?.unicodeVersion
+    ? getUnicodeVersionUrl(seoData.unicodeVersion)
+    : null;
+  const emojiVersionUrl = 'https://unicode.org/emoji/charts/emoji-versions.html';
 
   const handleCategoryClick = useCallback(() => {
     router.push(`/${localeParam}/${platformSlug}?category=${encodeURIComponent(emoji.group)}`);
@@ -355,6 +371,44 @@ export default function EmojiDetailClient({
                   </div>
                 </div>
 
+                {seoData?.unicodeVersion && (
+                  <div>
+                    <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.unicodeVersion')}</label>
+                    <p className="text-base md:text-lg mt-1">
+                      {unicodeVersionUrl ? (
+                        <a
+                          href={unicodeVersionUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-primary underline underline-offset-4 hover:text-primary/80"
+                          aria-label={`${seoData.unicodeVersion} - ${t('common.openOfficialReference')}`}
+                        >
+                          {seoData.unicodeVersion}
+                          <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                        </a>
+                      ) : seoData.unicodeVersion}
+                    </p>
+                  </div>
+                )}
+
+                {seoData?.releaseVersion && (
+                  <div>
+                    <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.releaseVersion')}</label>
+                    <p className="text-base md:text-lg mt-1">
+                      <a
+                        href={emojiVersionUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-primary underline underline-offset-4 hover:text-primary/80"
+                        aria-label={`${seoData.releaseVersion} - ${t('common.openOfficialReference')}`}
+                      >
+                        {seoData.releaseVersion}
+                        <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                      </a>
+                    </p>
+                  </div>
+                )}
+
                 <div>
                   <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.category')}</label>
                   <div className="mt-2">
@@ -388,6 +442,27 @@ export default function EmojiDetailClient({
                 ))}
               </div>
             </div>
+
+            {seoData && seoData.copyVariants.length > 1 && (
+              <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
+                <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.copyVariants')}</h3>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {seoData.copyVariants.map((variant) => (
+                    <Button
+                      key={variant.unicode}
+                      type="button"
+                      variant="outline"
+                      className="h-auto min-h-16 flex-col gap-1 px-2"
+                      onClick={() => copyToClipboard(variant.glyph, 'glyph')}
+                      title={`${t('common.copyToClipboard')}: ${variant.glyph}`}
+                    >
+                      <span className="text-2xl leading-none">{variant.glyph}</span>
+                      <span className="text-[10px] text-muted-foreground">{variant.unicode}</span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Other Platforms */}
             {otherPlatforms.length > 0 && (
@@ -423,9 +498,9 @@ export default function EmojiDetailClient({
                     const imageUrl = getImageUrl();
 
                     return (
-                      <button
+                      <Link
                         key={platform}
-                        onClick={() => router.push(`/${localeParam}/${platformSlugName}/${emoji.id}`)}
+                        href={`/${localeParam}/${platformSlugName}/${emoji.id}`}
                         className="flex flex-col items-center gap-2 p-3 rounded-lg border-2 border-border hover:border-primary hover:bg-accent transition-all duration-200 group"
                         title={t('common.viewOnPlatform', { platform: platformName })}
                       >
@@ -445,7 +520,7 @@ export default function EmojiDetailClient({
                         <span className="text-xs font-medium text-center line-clamp-1">
                           {platformName}
                         </span>
-                      </button>
+                      </Link>
                     );
                   })}
                 </div>
@@ -475,4 +550,3 @@ export default function EmojiDetailClient({
     </div>
   );
 }
-
