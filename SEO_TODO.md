@@ -86,9 +86,11 @@ pnpm search-console:report \
 /en/blog?tag=emoji
 ```
 
-- [ ] `search`、`category`、`tag` 参数页面默认 `noindex,follow`。
-- [ ] 参数页面 canonical 指向无参数页面。
-- [ ] Sitemap 不加入参数 URL。
+- 状态：已在本地完成，待部署后复验线上响应。
+
+- [x] `search`、`category`、`tag` 参数页面默认 `noindex,follow`。
+- [x] 参数页面 canonical 指向无参数页面。
+- [x] Sitemap 不加入参数 URL。
 - [ ] 仅为有真实搜索需求的固定分类创建独立静态页面。
 - [ ] 检查 Search Console 中参数 URL 是否持续增长。
 
@@ -96,10 +98,12 @@ pnpm search-console:report \
 
 当前 Sitemap 包含 6 个语言 × 3 个平台 × 1,595 个 Emoji 详情页。
 
-- [ ] 对 Fluent、Noto、Unicode 详情页比较正文、标题、描述和图片差异。
-- [ ] 如果平台页内容近似：选择一个主平台详情页，其他平台使用 canonical 或 `noindex`。
+状态：已完成初步策略，待部署后观察索引覆盖和 canonical 选择。
+
+- [x] 对 Fluent、Noto、Unicode 详情页比较正文、标题、描述和图片差异。
+- [x] 选择 Fluent 作为主详情平台；Noto、Unicode 详情页 canonical 指向对应的 Fluent URL，Unicode 平台首页继续独立承接泛 Emoji/System Emoji 意图。
 - [ ] 如果三个平台都要索引：为每个平台增加独有的渲染、下载、格式和平台说明。
-- [ ] 只把真正有搜索价值的平台详情页放入 Sitemap。
+- [x] Sitemap 只收录 Fluent 详情页，平台首页仍保留三个平台入口。
 
 验收：每个被索引的平台详情页都有足够独特的正文价值，不只是替换一张图片。
 

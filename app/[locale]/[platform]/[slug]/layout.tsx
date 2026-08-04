@@ -11,6 +11,7 @@ import type { Metadata } from 'next';
 import compactEmojiIndexData from '@/data/emoji-index.json';
 
 const baseUrl = 'https://emojidir.com';
+const primaryPlatformSlug = 'fluent-emoji';
 // 将缩写格式转换为完整格式
 const baseEmojiData = expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex);
 
@@ -21,6 +22,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, platform: platformSlug, slug } = await params;
   const platformId = platformSlug?.replace('-emoji', '') as PlatformType;
+  const canonicalPlatformSlug = platformSlug === primaryPlatformSlug
+    ? platformSlug
+    : primaryPlatformSlug;
+  const canonicalUrl = `${baseUrl}/${locale}/${canonicalPlatformSlug}/${slug}`;
 
   // Metadata 使用与页面正文相同的本地化服务端数据
   const localizedEmojiData = await loadEmojiIndexServer(locale);
@@ -94,15 +99,16 @@ export async function generateMetadata({
     description,
     keywords: [...seoKeywords, displayName, 'emoji', platformId, emoji.group],
     alternates: {
-      canonical: `${baseUrl}/${locale}/${platformSlug}/${slug}`,
+      // Fluent is the primary detail index; other platform views are resource variants.
+      canonical: canonicalUrl,
       languages: Object.fromEntries(
-        locales.map(loc => [loc, `${baseUrl}/${loc}/${platformSlug}/${slug}`])
+        locales.map(loc => [loc, `${baseUrl}/${loc}/${canonicalPlatformSlug}/${slug}`])
       ),
     },
     openGraph: {
       title,
       description,
-      url: `${baseUrl}/${locale}/${platformSlug}/${slug}`,
+      url: canonicalUrl,
       type: 'website',
       locale,
       siteName: 'Emoji Directory',

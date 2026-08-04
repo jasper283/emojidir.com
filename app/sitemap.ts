@@ -11,6 +11,7 @@ import compactEmojiIndexData from '@/data/emoji-index.json';
 
 const baseUrl = 'https://emojidir.com';
 const platformSlugs = Object.keys(PLATFORM_CONFIGS).map((platform) => `${platform}-emoji`);
+const indexedDetailPlatformSlug = 'fluent-emoji';
 
 function localizedAlternates(pathForLocale: (locale: Locale) => string) {
   return {
@@ -77,20 +78,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // 详情页：收录三个规范平台的详情 URL，不收录旧的无后缀别名。
+  // 详情页：只收录内容最完整的 Fluent 主平台，其他平台详情页通过 canonical 合并到这里。
   for (const locale of locales) {
-    for (const platformSlug of platformSlugs) {
-      for (const emoji of baseEmojiData.emojis) {
-        sitemapEntries.push({
-          url: `${baseUrl}/${locale}/${platformSlug}/${emoji.id}`,
-          lastModified: emojiUpdatedAt,
-          changeFrequency: 'monthly',
-          priority: 0.6,
-          alternates: localizedAlternates(
-            (alternateLocale) => `${baseUrl}/${alternateLocale}/${platformSlug}/${emoji.id}`
-          ),
-        });
-      }
+    for (const emoji of baseEmojiData.emojis) {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}/${indexedDetailPlatformSlug}/${emoji.id}`,
+        lastModified: emojiUpdatedAt,
+        changeFrequency: 'monthly',
+        priority: 0.6,
+        alternates: localizedAlternates(
+          (alternateLocale) => `${baseUrl}/${alternateLocale}/${indexedDetailPlatformSlug}/${emoji.id}`
+        ),
+      });
     }
   }
 

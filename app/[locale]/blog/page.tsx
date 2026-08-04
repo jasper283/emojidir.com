@@ -9,6 +9,8 @@ import { enUS, ja, ko, ptBR, zhCN } from 'date-fns/locale'
 import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 
+const baseUrl = 'https://emojidir.com'
+
 const dateLocales = {
   'zh-CN': zhCN,
   'zh-TW': zhCN,
@@ -20,19 +22,36 @@ const dateLocales = {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: Locale }>
+  searchParams: Promise<{ tag?: string }>
 }) {
-  const { locale } = await params
+  const [{ locale }, { tag }] = await Promise.all([params, searchParams])
   const t = await getTranslations({ locale, namespace: 'blog' })
   const description = createMetaDescription(t('description'), locale)
+  const hasTagParam = tag !== undefined
 
   return {
     title: t('title'),
     description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/blog`,
+    },
+    ...(hasTagParam ? {
+      robots: {
+        index: false,
+        follow: true,
+        googleBot: {
+          index: false,
+          follow: true,
+        },
+      },
+    } : {}),
     openGraph: {
       title: t('title'),
       description,
+      url: `${baseUrl}/${locale}/blog`,
       type: 'website',
       images: ['https://public.emojidir.com/og/welcome.png'],
     },

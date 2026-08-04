@@ -1,5 +1,6 @@
 import PlatformPageClient from '@/components/PlatformPageClient';
 import { CollectionPageStructuredData } from '@/components/StructuredData';
+import { locales } from '@/i18n/config';
 import { searchEmojis } from '@/lib/emoji-i18n';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
 import { PLATFORM_PAGE_SIZE, parsePlatformPage } from '@/lib/platform-pagination';
@@ -30,16 +31,46 @@ export async function generateMetadata({
   const { locale, platform } = await params;
   const { page, search, category } = await searchParams;
   const currentPage = parsePlatformPage(page);
+  const hasFilterParams = search !== undefined || category !== undefined;
+  const basePath = `${baseUrl}/${locale}/${platform}`;
 
   // Filtered result URLs will receive their indexing policy separately. Only
   // give numbered, unfiltered pages a self-referencing canonical URL here.
-  if (currentPage <= 1 || search || category) {
+  if (hasFilterParams) {
+    return {
+      alternates: {
+        canonical: basePath,
+        languages: Object.fromEntries(
+          locales.map((alternateLocale) => [
+            alternateLocale,
+            `${baseUrl}/${alternateLocale}/${platform}`,
+          ])
+        ),
+      },
+      robots: {
+        index: false,
+        follow: true,
+        googleBot: {
+          index: false,
+          follow: true,
+        },
+      },
+    };
+  }
+
+  if (currentPage <= 1) {
     return {};
   }
 
   return {
     alternates: {
       canonical: `${baseUrl}/${locale}/${platform}?page=${currentPage}`,
+      languages: Object.fromEntries(
+        locales.map((alternateLocale) => [
+          alternateLocale,
+          `${baseUrl}/${alternateLocale}/${platform}?page=${currentPage}`,
+        ])
+      ),
     },
     openGraph: {
       url: `${baseUrl}/${locale}/${platform}?page=${currentPage}`,
