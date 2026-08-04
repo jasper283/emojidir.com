@@ -1,6 +1,10 @@
 import { locales, type Locale } from '@/i18n/config';
 import { getAllPosts } from '@/lib/mdx';
 import { PLATFORM_CONFIGS } from '@/lib/platforms';
+import {
+  BLOG_PAGE_TEMPLATE_UPDATED_AT,
+  EMOJI_PAGE_TEMPLATE_UPDATED_AT,
+} from '@/lib/sitemap-dates';
 import type { CompactEmojiIndex } from '@/types/emoji';
 import { expandEmojiIndex } from '@/types/emoji';
 import type { MetadataRoute } from 'next';
@@ -8,6 +12,7 @@ import fs from 'fs';
 import path from 'path';
 // 构建时导入数据（缩写格式）
 import compactEmojiIndexData from '@/data/emoji-index.json';
+import emojiSeoData from '@/data/emoji-seo.json';
 
 const baseUrl = 'https://emojidir.com';
 const platformSlugs = Object.keys(PLATFORM_CONFIGS).map((platform) => `${platform}-emoji`);
@@ -34,7 +39,14 @@ function latestDate(dates: string[], fallback: Date): Date {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseEmojiData = expandEmojiIndex(compactEmojiIndexData as CompactEmojiIndex);
-  const emojiUpdatedAt = new Date(baseEmojiData.generatedAt);
+  const emojiUpdatedAt = latestDate(
+    [
+      baseEmojiData.generatedAt,
+      emojiSeoData.source.generatedAt,
+      EMOJI_PAGE_TEMPLATE_UPDATED_AT,
+    ],
+    new Date(EMOJI_PAGE_TEMPLATE_UPDATED_AT)
+  );
   const blogLocales = locales.filter((locale) =>
     fs.existsSync(path.join(process.cwd(), 'content/blog', locale))
   );
@@ -49,7 +61,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allBlogDates = Array.from(postsByLocale.values())
     .flat()
     .map((post) => post.date);
-  const blogUpdatedAt = latestDate(allBlogDates, emojiUpdatedAt);
+  const blogUpdatedAt = latestDate(
+    [...allBlogDates, BLOG_PAGE_TEMPLATE_UPDATED_AT],
+    emojiUpdatedAt
+  );
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
   // 语言首页：使用当前 Emoji 数据生成时间，不伪造为每次请求的当前时间。

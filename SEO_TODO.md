@@ -171,9 +171,11 @@ pnpm search-console:report \
 
 当前 `app/sitemap.ts` 使用 `data/emoji-index.json` 的 `generatedAt`。如果 SEO 数据或页面代码更新，详情页的 `lastModified` 可能仍停留在旧时间。
 
-- [ ] 明确页面数据的真实更新时间来源。
-- [ ] 让 Emoji 数据、SEO 数据和博客 frontmatter 的更新时间保持一致。
-- [ ] 不要每次请求都使用当前时间伪造更新。
+状态：已在本地完成，待部署后复验线上 `<lastmod>`。
+
+- [x] 明确页面数据的真实更新时间来源。
+- [x] Emoji 数据、SEO 数据和博客模板版本会取最新时间，博客文章继续使用 frontmatter 日期。
+- [x] 不使用每次请求的当前时间伪造更新。
 
 ### P2-4 清理低质量或错误外链
 
