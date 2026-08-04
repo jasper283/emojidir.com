@@ -7,13 +7,21 @@ import { useTranslations } from 'next-intl';
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
+  onSubmit?: (value: string) => void;
 }
 
-export default function SearchBar({ value, onChange }: SearchBarProps) {
+export default function SearchBar({ value, onChange, onSubmit }: SearchBarProps) {
   const t = useTranslations('common');
+  const submit = () => onSubmit?.(value);
 
   return (
-    <div className="relative w-full">
+    <form
+      className="relative w-full"
+      onSubmit={(event) => {
+        event.preventDefault();
+        submit();
+      }}
+    >
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
       <Input
         type="text"
@@ -24,14 +32,17 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
       />
       {value && (
         <button
-          onClick={() => onChange('')}
+          type="button"
+          onClick={() => {
+            onChange('');
+            onSubmit?.('');
+          }}
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
           aria-label="清除搜索"
         >
           <X className="h-4 w-4" />
         </button>
       )}
-    </div>
+    </form>
   );
 }
-

@@ -5,79 +5,49 @@ import FilterSidebar from '@/components/FilterSidebar';
 import Pagination from '@/components/Pagination';
 import SearchBar from '@/components/SearchBar';
 import { Badge } from '@/components/ui/badge';
-import { searchEmojis } from '@/lib/emoji-i18n';
-import type { Emoji, EmojiIndex, PlatformType, StyleType } from '@/types/emoji';
+import { buildPlatformPageHref, PLATFORM_PAGE_SIZE } from '@/lib/platform-pagination';
+import type { Emoji, PlatformType, StyleType } from '@/types/emoji';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useMemo, useState } from 'react';
-
-// 每页显示的emoji数量（7行 × 8列 = 56，适合所有屏幕尺寸）
-const ITEMS_PER_PAGE = 56;
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface PlatformPageClientProps {
-  emojiData: EmojiIndex;
+  emojis: Emoji[];
+  categories: string[];
+  categoryCounts: Record<string, number>;
   selectedPlatform: PlatformType;
   locale: string;
+  searchQuery: string;
+  selectedCategory: string;
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
 }
 
-function PlatformPageClientContent({ emojiData, selectedPlatform, locale }: PlatformPageClientProps) {
+export default function PlatformPageClient({
+  emojis,
+  categories,
+  categoryCounts,
+  selectedPlatform,
+  locale,
+  searchQuery,
+  selectedCategory,
+  currentPage,
+  totalPages,
+  totalItems,
+}: PlatformPageClientProps) {
   const t = useTranslations();
-  const searchParams = useSearchParams();
-
-  // 从 URL 获取搜索参数
-  const initialSearchQuery = searchParams.get('search') || '';
-  const initialCategory = searchParams.get('category') || 'all';
-
-  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const router = useRouter();
+  const [searchInput, setSearchInput] = useState(searchQuery);
   const [selectedStyle, setSelectedStyle] = useState<StyleType>('3d');
-  const [currentPage, setCurrentPage] = useState(1);
+  const basePath = `/${locale}/${selectedPlatform}-emoji`;
 
-  // 当URL参数变化时更新状态
   useEffect(() => {
-    const urlSearchQuery = searchParams.get('search') || '';
-    const urlCategory = searchParams.get('category') || 'all';
-    setSearchQuery(urlSearchQuery);
-    setSelectedCategory(urlCategory);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+    setSearchInput(searchQuery);
+  }, [searchQuery]);
 
-  // 过滤和搜索 emoji（支持多语言）
-  const filteredEmojis = useMemo(() => {
-    let emojis = emojiData.emojis;
-
-    // 按分类过滤
-    if (selectedCategory !== 'all') {
-      emojis = emojis.filter((emoji: Emoji) => emoji.group === selectedCategory);
-    }
-
-    // 按搜索关键词过滤（使用多语言搜索）
-    if (searchQuery.trim()) {
-      emojis = searchEmojis(emojis, searchQuery, locale);
-    }
-
-    return emojis;
-  }, [emojiData, selectedCategory, searchQuery, locale]);
-
-  // 当过滤条件改变时，重置到第一页
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedCategory, selectedStyle]);
-
-  // 计算总页数
-  const totalPages = Math.ceil(filteredEmojis.length / ITEMS_PER_PAGE);
-
-  // 获取当前页的emoji
-  const paginatedEmojis = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    return filteredEmojis.slice(startIndex, endIndex);
-  }, [filteredEmojis, currentPage]);
-
-  // 滚动到顶部
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const navigateToFilters = (nextSearch: string, nextCategory: string) => {
+    router.push(buildPlatformPageHref(basePath, 1, nextSearch, nextCategory));
   };
 
   return (
@@ -98,8 +68,9 @@ function PlatformPageClientContent({ emojiData, selectedPlatform, locale }: Plat
           <div className="flex justify-center">
             <div className="w-full max-w-2xl">
               <SearchBar
-                value={searchQuery}
-                onChange={setSearchQuery}
+                value={searchInput}
+                onChange={setSearchInput}
+                onSubmit={(value) => navigateToFilters(value, selectedCategory)}
               />
             </div>
           </div>
@@ -113,9 +84,9 @@ function PlatformPageClientContent({ emojiData, selectedPlatform, locale }: Plat
           selectedStyle={selectedStyle}
           onStyleChange={setSelectedStyle}
           selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          categories={emojiData.categories}
-          emojisByCategory={emojiData.emojisByCategory}
+          onCategoryChange={(category) => navigateToFilters(searchInput, category)}
+          categories={categories}
+          categoryCounts={categoryCounts}
           currentPlatform={selectedPlatform}
         />
 
@@ -124,7 +95,7 @@ function PlatformPageClientContent({ emojiData, selectedPlatform, locale }: Plat
           {/* Results Info */}
           <div className="mb-4 md:mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="text-muted-foreground text-sm md:text-base">
-              {t('common.found')} <span className="font-semibold text-foreground text-base md:text-lg">{filteredEmojis.length}</span> {t('common.emojis')}
+              {t('common.found')} <span className="font-semibold text-foreground text-base md:text-lg">{totalItems}</span> {t('common.emojis')}
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               {searchQuery && (
@@ -139,19 +110,18 @@ function PlatformPageClientContent({ emojiData, selectedPlatform, locale }: Plat
           </div>
 
           {/* Emoji Grid */}
-          <EmojiGrid
-            emojis={paginatedEmojis}
-            style={selectedStyle}
-          />
+          <EmojiGrid emojis={emojis} style={selectedStyle} />
 
           {/* Pagination */}
-          {filteredEmojis.length > 0 && (
+          {totalItems > 0 && (
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={handlePageChange}
-              totalItems={filteredEmojis.length}
-              itemsPerPage={ITEMS_PER_PAGE}
+              totalItems={totalItems}
+              itemsPerPage={PLATFORM_PAGE_SIZE}
+              basePath={basePath}
+              searchQuery={searchQuery}
+              category={selectedCategory}
             />
           )}
         </main>
@@ -159,16 +129,3 @@ function PlatformPageClientContent({ emojiData, selectedPlatform, locale }: Plat
     </div>
   );
 }
-
-export default function PlatformPageClient(props: PlatformPageClientProps) {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
-      </div>
-    }>
-      <PlatformPageClientContent {...props} />
-    </Suspense>
-  );
-}
-

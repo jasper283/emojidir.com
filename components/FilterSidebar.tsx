@@ -16,7 +16,7 @@ interface FilterSidebarProps {
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
   categories: string[];
-  emojisByCategory: Record<string, any[]>;
+  categoryCounts: Record<string, number>;
 }
 
 const PLATFORMS = Object.values(PLATFORM_CONFIGS);
@@ -35,7 +35,7 @@ export default function FilterSidebar({
   selectedCategory,
   onCategoryChange,
   categories,
-  emojisByCategory
+  categoryCounts
 }: FilterSidebarProps) {
   const t = useTranslations();
   const platformConfig = PLATFORMS.find(p => p.id === currentPlatform);
@@ -134,7 +134,7 @@ export default function FilterSidebar({
             <div className="flex items-center justify-between">
               <span className="font-medium text-sm">{t('categories.all')}</span>
               <Badge variant="secondary" className="text-xs">
-                {Object.values(emojisByCategory).flat().length}
+                {Object.values(categoryCounts).reduce((total, count) => total + count, 0)}
               </Badge>
             </div>
           </button>
@@ -150,7 +150,7 @@ export default function FilterSidebar({
               <div className="flex items-center justify-between">
                 <span className="font-medium text-sm">{t(`categories.${category}`)}</span>
                 <Badge variant="secondary" className="text-xs">
-                  {emojisByCategory[category]?.length || 0}
+                  {categoryCounts[category] || 0}
                 </Badge>
               </div>
             </button>

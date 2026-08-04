@@ -34,6 +34,7 @@ export interface CollectionPageStructuredDataProps {
   platformName: string;
   platformDescription: string;
   totalEmojis: number;
+  page?: number;
 }
 
 export function CollectionPageStructuredData({
@@ -42,13 +43,17 @@ export function CollectionPageStructuredData({
   platformName,
   platformDescription,
   totalEmojis,
+  page = 1,
 }: CollectionPageStructuredDataProps) {
+  const pageUrl = page > 1
+    ? `https://emojidir.com/${locale}/${platform}?page=${page}`
+    : `https://emojidir.com/${locale}/${platform}`;
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: `${platformName} - Emoji Directory`,
     description: platformDescription,
-    url: `https://emojidir.com/${locale}/${platform}`,
+    url: pageUrl,
     inLanguage: locale,
     breadcrumb: {
       '@type': 'BreadcrumbList',

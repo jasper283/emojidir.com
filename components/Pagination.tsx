@@ -1,23 +1,29 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { buildPlatformPageHref } from '@/lib/platform-pagination';
+import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
   totalItems: number;
   itemsPerPage: number;
+  basePath: string;
+  searchQuery?: string;
+  category?: string;
 }
 
 export default function Pagination({
   currentPage,
   totalPages,
-  onPageChange,
   totalItems,
   itemsPerPage,
+  basePath,
+  searchQuery = '',
+  category = 'all',
 }: PaginationProps) {
   const t = useTranslations('pagination');
 
@@ -25,6 +31,9 @@ export default function Pagination({
 
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  const getPageHref = (page: number) =>
+    buildPlatformPageHref(basePath, page, searchQuery, category);
+  const iconLinkClass = buttonVariants({ variant: 'outline', size: 'icon' });
 
   // 生成页码数组（根据屏幕大小调整）
   const getPageNumbers = (isMobile: boolean = false) => {
@@ -86,26 +95,26 @@ export default function Pagination({
       {/* 分页按钮 */}
       <div className="flex items-center gap-1 sm:gap-2 order-1 sm:order-2">
         {/* 首页按钮 - 桌面端显示 */}
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onPageChange(1)}
-          disabled={currentPage === 1}
-          className="hidden sm:flex h-9 w-9"
-        >
-          <ChevronsLeft className="h-4 w-4" />
-        </Button>
+        {currentPage === 1 ? (
+          <span className={`${iconLinkClass} hidden sm:flex h-9 w-9 opacity-50`} aria-disabled="true">
+            <ChevronsLeft className="h-4 w-4" />
+          </span>
+        ) : (
+          <Link href={getPageHref(1)} className={`${iconLinkClass} hidden sm:flex h-9 w-9`} aria-label={t('first')}>
+            <ChevronsLeft className="h-4 w-4" />
+          </Link>
+        )}
 
         {/* 上一页按钮 */}
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="h-8 w-8 sm:h-9 sm:w-9"
-        >
-          <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
-        </Button>
+        {currentPage === 1 ? (
+          <span className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9 opacity-50`} aria-disabled="true">
+            <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+          </span>
+        ) : (
+          <Link href={getPageHref(currentPage - 1)} className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9`} aria-label={t('previous')}>
+            <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+          </Link>
+        )}
 
         {/* 页码按钮 - 桌面端 */}
         <div className="hidden sm:flex items-center gap-1">
@@ -119,14 +128,14 @@ export default function Pagination({
             }
 
             return (
-              <Button
+              <Link
                 key={page}
-                variant={currentPage === page ? 'default' : 'outline'}
-                onClick={() => onPageChange(page as number)}
-                className="h-9 w-9"
+                href={getPageHref(page as number)}
+                aria-current={currentPage === page ? 'page' : undefined}
+                className={`${buttonVariants({ variant: currentPage === page ? 'default' : 'outline' })} h-9 w-9`}
               >
                 {page}
-              </Button>
+              </Link>
             );
           })}
         </div>
@@ -143,41 +152,40 @@ export default function Pagination({
             }
 
             return (
-              <Button
+              <Link
                 key={page}
-                variant={currentPage === page ? 'default' : 'outline'}
-                onClick={() => onPageChange(page as number)}
-                className="h-8 w-8 text-xs"
+                href={getPageHref(page as number)}
+                aria-current={currentPage === page ? 'page' : undefined}
+                className={`${buttonVariants({ variant: currentPage === page ? 'default' : 'outline' })} h-8 w-8 text-xs`}
               >
                 {page}
-              </Button>
+              </Link>
             );
           })}
         </div>
 
         {/* 下一页按钮 */}
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="h-8 w-8 sm:h-9 sm:w-9"
-        >
-          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
-        </Button>
+        {currentPage === totalPages ? (
+          <span className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9 opacity-50`} aria-disabled="true">
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+          </span>
+        ) : (
+          <Link href={getPageHref(currentPage + 1)} className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9`} aria-label={t('next')}>
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+          </Link>
+        )}
 
         {/* 末页按钮 - 桌面端显示 */}
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onPageChange(totalPages)}
-          disabled={currentPage === totalPages}
-          className="hidden sm:flex h-9 w-9"
-        >
-          <ChevronsRight className="h-4 w-4" />
-        </Button>
+        {currentPage === totalPages ? (
+          <span className={`${iconLinkClass} hidden sm:flex h-9 w-9 opacity-50`} aria-disabled="true">
+            <ChevronsRight className="h-4 w-4" />
+          </span>
+        ) : (
+          <Link href={getPageHref(totalPages)} className={`${iconLinkClass} hidden sm:flex h-9 w-9`} aria-label={t('last')}>
+            <ChevronsRight className="h-4 w-4" />
+          </Link>
+        )}
       </div>
     </div>
   );
 }
-
