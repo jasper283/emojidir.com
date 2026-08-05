@@ -1,16 +1,12 @@
-import emojipediaData from '@/data/emojipedia-emoji.json';
+import emojipediaData from '@/data/emojipedia-content.json';
 import type { EmojipediaEmojiData, EmojipediaLocalizedContent } from '@/types/emoji';
 
 interface EmojipediaIndex {
-  emojis: EmojipediaEmojiData[];
+  emojis: Record<string, EmojipediaEmojiData>;
 }
 
 const data = emojipediaData as EmojipediaIndex;
-const emojisBySlug = new Map(
-  data.emojis
-    .filter((emoji) => emoji.slug)
-    .map((emoji) => [emoji.slug as string, emoji])
-);
+const emojisBySlug = new Map(Object.entries(data.emojis));
 
 function hasLocalizedText(content: EmojipediaLocalizedContent): boolean {
   return Boolean(content.meaning || content.commonUses.length > 0 || content.usageNotes.length > 0);
