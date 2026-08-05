@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAssetUrl } from '@/config/cdn';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
-import type { Emoji, EmojiSeoData, PlatformType } from '@/types/emoji';
+import type { Emoji, EmojiSeoData, EmojipediaEmojiData, PlatformType } from '@/types/emoji';
 import { ArrowLeft, Copy, Download, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -16,6 +16,7 @@ import { useCallback, useMemo, useState } from 'react';
 interface EmojiDetailClientProps {
   emoji: Emoji;
   seoData?: EmojiSeoData;
+  emojipediaData?: EmojipediaEmojiData;
   selectedPlatform: PlatformType;
   otherPlatforms: Array<{
     platform: PlatformType;
@@ -30,6 +31,7 @@ interface EmojiDetailClientProps {
 export default function EmojiDetailClient({
   emoji,
   seoData,
+  emojipediaData,
   selectedPlatform,
   otherPlatforms,
   locale,
@@ -121,6 +123,10 @@ export default function EmojiDetailClient({
   // 获取多语言名称和关键词
   const displayName = getEmojiName(emoji, locale);
   const displayKeywords = seoData?.keywords[locale] ?? getEmojiKeywords(emoji, locale);
+  const displayUnicodeVersion = seoData?.unicodeVersion
+    ?? (emojipediaData?.unicodeVersion ? `Unicode ${emojipediaData.unicodeVersion}` : null);
+  const displayReleaseVersion = seoData?.releaseVersion
+    ?? (emojipediaData?.emojiVersion ? `Emoji ${emojipediaData.emojiVersion}` : null);
 
   const getUnicodeVersionUrl = (version: string): string | null => {
     const match = version.match(/^Unicode\s+(\d+)(?:\.(\d+))?$/);
@@ -130,8 +136,8 @@ export default function EmojiDetailClient({
     return `https://www.unicode.org/versions/Unicode${major}.${minor}.0/`;
   };
 
-  const unicodeVersionUrl = seoData?.unicodeVersion
-    ? getUnicodeVersionUrl(seoData.unicodeVersion)
+  const unicodeVersionUrl = displayUnicodeVersion
+    ? getUnicodeVersionUrl(displayUnicodeVersion)
     : null;
   const emojiVersionUrl = 'https://unicode.org/emoji/charts/emoji-versions.html';
 
@@ -142,6 +148,11 @@ export default function EmojiDetailClient({
   const handleKeywordClick = useCallback((keyword: string) => {
     router.push(`/${localeParam}/${platformSlug}?search=${encodeURIComponent(keyword)}`);
   }, [router, localeParam, platformSlug]);
+
+  const formatRelatedEmojiName = (slug: string): string => slug
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 
   const downloadEmoji = async (url: string, filename: string) => {
     setDownloading(true);
@@ -170,25 +181,27 @@ export default function EmojiDetailClient({
   };
 
   const hasDownloadableAsset = currentStyleUrl && currentStyleUrl.length > 0;
+  const emojipediaMeaning = emojipediaData?.meaning?.trim() || null;
+  const hasEmojipediaContent = Boolean(emojipediaMeaning);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       {/* Header */}
-      <header className="bg-card/30 backdrop-blur-lg border-b sticky top-0 z-40 shadow-sm w-full">
-        <div className="container mx-auto px-4 py-3 md:py-6 max-w-7xl">
+      <header className="sticky top-[65px] z-30 w-full bg-background/80 backdrop-blur-xl md:top-[73px]">
+        <div className="container mx-auto max-w-7xl px-4 py-3 md:py-5">
           <div className="flex items-center justify-between gap-2 md:gap-4">
             <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => router.push(`/${localeParam}/${platformSlug}`)}
-                className="hover:bg-accent flex-shrink-0"
+                className="flex-shrink-0 rounded-full hover:bg-card/70"
               >
                 <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
               </Button>
               <div className="flex items-center gap-2 md:gap-3 min-w-0">
                 <Image src="/favicon.svg" alt={t('common.appName')} width={32} height={32} className="w-6 h-6 md:w-10 md:h-10 flex-shrink-0" priority />
-                <h1 className="text-lg md:text-3xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent truncate">
+                <h1 className="title-gradient font-display truncate text-lg font-bold md:text-3xl">
                   {displayName}
                 </h1>
               </div>
@@ -201,43 +214,43 @@ export default function EmojiDetailClient({
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-6 md:py-12 max-w-5xl">
-        <div className="grid lg:grid-cols-2 gap-6 md:gap-12">
+      <main className="container mx-auto max-w-6xl px-4 py-5 md:py-8 lg:py-10">
+        <div className="grid gap-5 md:gap-7 lg:grid-cols-[minmax(260px,340px)_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[minmax(280px,360px)_minmax(0,1fr)]">
           {/* Left Column - Emoji Display */}
-          <div className="space-y-4 md:space-y-6">
+          <div className="mx-auto w-full max-w-sm space-y-3 md:space-y-4 lg:sticky lg:top-36 lg:mx-0 lg:self-start">
             {/* Main Emoji Display */}
-            <div className="bg-card rounded-xl md:rounded-2xl p-6 md:p-12 border-2 shadow-lg">
-              <div className="aspect-square flex items-center justify-center bg-muted/30 rounded-lg md:rounded-xl">
+            <div className="clay-card mx-auto w-full max-w-[17.5rem] p-4 md:max-w-sm md:p-5 lg:max-w-none">
+              <div className="clay-inset relative flex aspect-square items-center justify-center overflow-hidden">
                 {currentStyleUrl ? (
                   <Image
                     src={getAssetUrl(currentStyleUrl)}
                     alt={emoji.name}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-contain p-4 md:p-8"
+                    fill
+                    sizes="(min-width: 1280px) 310px, (min-width: 1024px) 290px, (min-width: 768px) 304px, 260px"
+                    className="object-contain p-5 md:p-7"
                     priority
                   />
                 ) : (
-                  <div className="text-6xl md:text-9xl">{emoji.glyph}</div>
+                  <div className="text-5xl md:text-7xl lg:text-8xl">{emoji.glyph}</div>
                 )}
               </div>
             </div>
 
             {/* Style Selection */}
             {trulyAvailableStyles.length > 1 && (
-              <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
-                <h3 className="text-xs md:text-sm font-semibold mb-3 md:mb-4 text-foreground">{t('common.style')}</h3>
-                <div className="grid grid-cols-2 gap-2 md:gap-3">
+              <div className="clay-card-soft p-3 md:p-4">
+                <h3 className="font-display mb-2 text-xs font-semibold text-foreground md:text-sm">{t('common.style')}</h3>
+                <div className="grid grid-cols-2 gap-2">
                   {trulyAvailableStyles.map((style) => (
                     <button
                       key={style}
                       onClick={() => setCurrentSelectedStyle(style)}
-                      className={`p-3 md:p-4 rounded-md md:rounded-lg border-2 transition-all duration-200 text-center ${currentSelectedStyle === style
-                        ? 'bg-primary text-primary-foreground border-primary'
-                        : 'bg-card text-card-foreground border-border hover:border-primary'
+                      className={`min-h-10 cursor-pointer rounded-xl px-2.5 py-2 text-center transition-colors duration-200 ${currentSelectedStyle === style
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-card/80 text-card-foreground hover:bg-secondary/70'
                         }`}
                     >
-                      <span className="font-medium text-xs md:text-sm">
+                      <span className="text-xs font-bold md:text-sm">
                         {t(`styles.${style}`, { defaultValue: style })}
                       </span>
                     </button>
@@ -245,26 +258,6 @@ export default function EmojiDetailClient({
                 </div>
               </div>
             )}
-
-            {/* Copy Actions */}
-            <div className="grid grid-cols-2 gap-2 md:gap-4">
-              <Button
-                onClick={() => copyToClipboard(emoji.glyph, 'glyph')}
-                className="w-full"
-                variant={copiedType === 'glyph' ? 'default' : 'outline'}
-              >
-                <Copy className="w-4 h-4 mr-2" />
-                {copiedType === 'glyph' ? t('common.copied') : t('common.copyToClipboard')}
-              </Button>
-              <Button
-                onClick={() => copyToClipboard(emoji.unicode, 'unicode')}
-                className="w-full"
-                variant={copiedType === 'unicode' ? 'default' : 'outline'}
-              >
-                <Copy className="w-4 h-4 mr-2" />
-                {copiedType === 'unicode' ? t('common.copied') : t('common.copyUnicode')}
-              </Button>
-            </div>
 
             {/* Download Section - Fluent Emoji */}
             {hasDownloadableAsset && selectedPlatform === 'fluent' && (
@@ -292,7 +285,7 @@ export default function EmojiDetailClient({
             {/* Download Section - Noto Emoji */}
             {selectedPlatform === 'nato' && (
               <div className="w-full">
-                <h4 className="text-sm font-semibold mb-3 text-center">{t('common.downloadNotoEmoji')}</h4>
+                <h4 className="font-display mb-3 text-center text-sm font-semibold">{t('common.downloadNotoEmoji')}</h4>
                 <div className="grid grid-cols-2 gap-2">
                   {natoSizes.map((size) => (
                     <Button
@@ -318,7 +311,7 @@ export default function EmojiDetailClient({
             {/* Download Section - Unicode Platform */}
             {hasDownloadableAsset && selectedPlatform === 'unicode' && (
               <div className="w-full">
-                <h4 className="text-sm font-semibold mb-3 text-center">{t('common.downloadNotoEmoji')}</h4>
+                <h4 className="font-display mb-3 text-center text-sm font-semibold">{t('common.downloadNotoEmoji')}</h4>
                 <div className="grid grid-cols-2 gap-2">
                   {natoSizes.map((size) => (
                     <Button
@@ -343,97 +336,123 @@ export default function EmojiDetailClient({
           </div>
 
           {/* Right Column - Details */}
-          <div className="space-y-4 md:space-y-6">
+          <div className="space-y-3 md:space-y-4">
             {/* Basic Info */}
-            <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
-              <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">{t('common.details')}</h2>
+            <div className="clay-card-soft p-4 md:p-5">
+              <h2 className="font-display mb-4 text-lg font-bold md:text-xl">{t('common.details')}</h2>
 
-              <div className="space-y-3 md:space-y-4">
-                <div>
-                  <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.name')}</label>
-                  <p className="text-base md:text-lg font-semibold mt-1">{displayName}</p>
+              <dl className="grid gap-x-5 gap-y-4 sm:grid-cols-2">
+                <div className="sm:col-span-2">
+                  <dt className="text-xs font-bold text-muted-foreground md:text-sm">{t('common.name')}</dt>
+                  <dd className="font-display mt-1 text-base font-semibold md:text-lg">{displayName}</dd>
                   {displayName !== emoji.name && (
-                    <p className="text-sm text-muted-foreground mt-1">{emoji.name}</p>
+                    <dd className="mt-1 text-sm font-semibold text-muted-foreground">{emoji.name}</dd>
                   )}
                 </div>
 
                 <div>
-                  <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.glyph')}</label>
-                  <p className="text-3xl md:text-4xl mt-2">{emoji.glyph}</p>
+                  <dt className="text-xs font-bold text-muted-foreground md:text-sm">{t('common.glyph')}</dt>
+                  <dd className="mt-1 flex items-center gap-2">
+                    <span className="text-2xl leading-none md:text-3xl">{emoji.glyph}</span>
+                    <Button
+                      type="button"
+                      size="icon"
+                      variant={copiedType === 'glyph' ? 'default' : 'outline'}
+                      className="h-8 w-8 flex-shrink-0 rounded-lg"
+                      onClick={() => copyToClipboard(emoji.glyph, 'glyph')}
+                      aria-label={copiedType === 'glyph' ? t('common.copied') : t('common.copyToClipboard')}
+                      title={copiedType === 'glyph' ? t('common.copied') : t('common.copyToClipboard')}
+                    >
+                      <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                    </Button>
+                  </dd>
                 </div>
 
-                <div>
-                  <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.unicode')}</label>
-                  <div className="flex items-center gap-2 mt-1">
-                    <code className="text-sm md:text-lg font-mono bg-muted px-2 md:px-3 py-1 rounded">
+                <div className="min-w-0">
+                  <dt className="text-xs font-bold text-muted-foreground md:text-sm">{t('common.unicode')}</dt>
+                  <dd className="mt-1 flex min-w-0 items-center gap-2">
+                    <code className="clay-inset w-fit max-w-[calc(100%-2.5rem)] break-all px-2 py-1 font-mono text-xs md:px-3 md:text-sm">
                       U+{emoji.unicode.toUpperCase()}
                     </code>
-                  </div>
+                    <Button
+                      type="button"
+                      size="icon"
+                      variant={copiedType === 'unicode' ? 'default' : 'outline'}
+                      className="h-8 w-8 flex-shrink-0 rounded-lg"
+                      onClick={() => copyToClipboard(emoji.unicode, 'unicode')}
+                      aria-label={copiedType === 'unicode' ? t('common.copied') : t('common.copyUnicode')}
+                      title={copiedType === 'unicode' ? t('common.copied') : t('common.copyUnicode')}
+                    >
+                      <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                    </Button>
+                  </dd>
                 </div>
 
-                {seoData?.unicodeVersion && (
-                  <div>
-                    <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.unicodeVersion')}</label>
-                    <p className="text-base md:text-lg mt-1">
+                {displayUnicodeVersion && (
+                  <div className="min-w-0">
+                    <dt className="text-xs font-bold text-muted-foreground md:text-sm">{t('common.unicodeVersion')}</dt>
+                    <dd className="mt-1 text-sm font-semibold md:text-base">
                       {unicodeVersionUrl ? (
                         <a
                           href={unicodeVersionUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-primary underline underline-offset-4 hover:text-primary/80"
-                          aria-label={`${seoData.unicodeVersion} - ${t('common.openOfficialReference')}`}
+                          className="inline-flex max-w-full items-center gap-1 text-primary underline underline-offset-4 transition-colors hover:text-accent"
+                          aria-label={`${displayUnicodeVersion} - ${t('common.openOfficialReference')}`}
                         >
-                          {seoData.unicodeVersion}
+                          {displayUnicodeVersion}
+                          {emojipediaData?.unicodeReleaseYear ? ` (${emojipediaData.unicodeReleaseYear})` : ''}
                           <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                         </a>
-                      ) : seoData.unicodeVersion}
-                    </p>
+                      ) : `${displayUnicodeVersion}${emojipediaData?.unicodeReleaseYear ? ` (${emojipediaData.unicodeReleaseYear})` : ''}`}
+                    </dd>
                   </div>
                 )}
 
-                {seoData?.releaseVersion && (
-                  <div>
-                    <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.releaseVersion')}</label>
-                    <p className="text-base md:text-lg mt-1">
+                {displayReleaseVersion && (
+                  <div className="min-w-0">
+                    <dt className="text-xs font-bold text-muted-foreground md:text-sm">{t('common.releaseVersion')}</dt>
+                    <dd className="mt-1 text-sm font-semibold md:text-base">
                       <a
                         href={emojiVersionUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-primary underline underline-offset-4 hover:text-primary/80"
-                        aria-label={`${seoData.releaseVersion} - ${t('common.openOfficialReference')}`}
+                        className="inline-flex max-w-full items-center gap-1 text-primary underline underline-offset-4 transition-colors hover:text-accent"
+                        aria-label={`${displayReleaseVersion} - ${t('common.openOfficialReference')}`}
                       >
-                        {seoData.releaseVersion}
+                        {displayReleaseVersion}
+                        {emojipediaData?.emojiReleaseYear ? ` (${emojipediaData.emojiReleaseYear})` : ''}
                         <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                       </a>
-                    </p>
+                    </dd>
                   </div>
                 )}
 
                 <div>
-                  <label className="text-xs md:text-sm font-medium text-muted-foreground">{t('common.category')}</label>
-                  <div className="mt-2">
+                  <dt className="text-xs font-bold text-muted-foreground md:text-sm">{t('common.category')}</dt>
+                  <dd className="mt-2">
                     <Badge
                       variant="secondary"
-                      className="text-xs md:text-sm cursor-pointer hover:bg-secondary/80 transition-colors"
+                      className="cursor-pointer text-xs transition-colors hover:bg-secondary/80 md:text-sm"
                       onClick={handleCategoryClick}
                       title={t('common.clickToBrowseCategory')}
                     >
                       {t(`categories.${emoji.group}`)}
                     </Badge>
-                  </div>
+                  </dd>
                 </div>
-              </div>
+              </dl>
             </div>
 
             {/* Keywords */}
-            <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
-              <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.keywords')}</h3>
+            <div className="clay-card-soft p-4 md:p-5">
+              <h3 className="font-display mb-3 text-base font-semibold">{t('common.keywords')}</h3>
               <div className="flex flex-wrap gap-1.5 md:gap-2">
                 {displayKeywords.map((keyword: string, index: number) => (
                   <Badge
                     key={index}
                     variant="outline"
-                    className="text-xs md:text-sm cursor-pointer hover:bg-accent transition-colors"
+                    className="cursor-pointer text-xs transition-colors hover:bg-secondary/80 md:text-sm"
                     onClick={() => handleKeywordClick(keyword)}
                     title={t('common.clickToSearch')}
                   >
@@ -443,16 +462,48 @@ export default function EmojiDetailClient({
               </div>
             </div>
 
+            {/* Meaning - server-provided Emojipedia content */}
+            {emojipediaData && hasEmojipediaContent && (
+              <div className="clay-card-soft p-4 md:p-5">
+                <h3 className="font-display mb-2 text-base font-semibold">{t('common.meaning')}</h3>
+                <p className="text-sm font-semibold leading-6 text-muted-foreground md:text-base">
+                  {emojipediaMeaning}
+                </p>
+              </div>
+            )}
+
+            {emojipediaData && emojipediaData.relatedEmojis.length > 0 && (
+              <div className="clay-card-soft p-4 md:p-5">
+                <h3 className="font-display mb-3 text-base font-semibold">{t('common.relatedEmojis')}</h3>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-4">
+                  {emojipediaData.relatedEmojis.slice(0, 12).map((related) => {
+                    const relatedName = related.name || formatRelatedEmojiName(related.slug);
+                    return (
+                      <Link
+                        key={related.slug}
+                        href={`/${localeParam}/fluent-emoji/${related.slug}`}
+                        className="flex min-h-11 items-center gap-2 rounded-xl bg-card/80 px-2 py-1.5 transition-colors hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        title={relatedName}
+                      >
+                        <span className="text-xl leading-none" aria-hidden="true">{related.emoji}</span>
+                        <span className="line-clamp-1 min-w-0 text-xs font-bold">{relatedName}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {seoData && seoData.copyVariants.length > 1 && (
-              <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
-                <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.copyVariants')}</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              <div className="clay-card-soft p-4 md:p-5">
+                <h3 className="font-display mb-3 text-base font-semibold">{t('common.copyVariants')}</h3>
+                <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-8">
                   {seoData.copyVariants.map((variant) => (
                     <Button
                       key={variant.unicode}
                       type="button"
                       variant="outline"
-                      className="h-auto min-h-16 flex-col gap-1 px-2"
+                      className="h-auto min-h-14 flex-col gap-1 px-2"
                       onClick={() => copyToClipboard(variant.glyph, 'glyph')}
                       title={`${t('common.copyToClipboard')}: ${variant.glyph}`}
                     >
@@ -466,9 +517,9 @@ export default function EmojiDetailClient({
 
             {/* Other Platforms */}
             {otherPlatforms.length > 0 && (
-              <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
-                <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.otherPlatforms')}</h3>
-                <div className="grid grid-cols-2 gap-3">
+              <div className="clay-card-soft p-4 md:p-5">
+                <h3 className="font-display mb-3 text-base font-semibold">{t('common.otherPlatforms')}</h3>
+                <div className="grid gap-2 sm:grid-cols-2">
                   {otherPlatforms.map(({ platform, emoji: platformEmoji }) => {
                     const platformSlugName = `${platform}-emoji`;
                     const platformName = t(`platforms.${platform}`);
@@ -501,23 +552,23 @@ export default function EmojiDetailClient({
                       <Link
                         key={platform}
                         href={`/${localeParam}/${platformSlugName}/${emoji.id}`}
-                        className="flex flex-col items-center gap-2 p-3 rounded-lg border-2 border-border hover:border-primary hover:bg-accent transition-all duration-200 group"
+                        className="group flex items-center gap-3 rounded-xl bg-card/80 p-2.5 transition-colors duration-200 hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         title={t('common.viewOnPlatform', { platform: platformName })}
                       >
-                        <div className="w-16 h-16 flex items-center justify-center bg-muted/30 rounded-lg group-hover:scale-110 transition-transform">
+                        <div className="clay-inset flex h-12 w-12 flex-shrink-0 items-center justify-center">
                           {imageUrl ? (
                             <Image
                               src={getAssetUrl(imageUrl)}
                               alt={platformEmoji?.name || ''}
                               width={64}
                               height={64}
-                              className="w-full h-full object-contain p-2"
+                              className="h-full w-full object-contain p-1.5"
                             />
                           ) : (
-                            <span className="text-3xl">{platformEmoji?.glyph}</span>
+                            <span className="text-2xl">{platformEmoji?.glyph}</span>
                           )}
                         </div>
-                        <span className="text-xs font-medium text-center line-clamp-1">
+                        <span className="line-clamp-1 min-w-0 text-sm font-bold">
                           {platformName}
                         </span>
                       </Link>
@@ -528,14 +579,14 @@ export default function EmojiDetailClient({
             )}
 
             {/* Platform Info */}
-            <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 border shadow-sm">
-              <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4">{t('common.platform')}</h3>
-              <div className="space-y-2">
+            <div className="clay-card-soft p-4 md:p-5">
+              <h3 className="font-display mb-3 text-base font-semibold">{t('common.platform')}</h3>
+              <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="secondary" className="text-xs md:text-sm">
                   {t(`platforms.${selectedPlatform}`)}
                 </Badge>
                 {availableStyles.length > 0 && (
-                  <p className="text-xs md:text-sm text-muted-foreground mt-2">
+                  <p className="text-xs font-semibold text-muted-foreground md:text-sm">
                     {t('common.availableInStyles', {
                       count: availableStyles.length,
                       plural: availableStyles.length > 1 ? t('common.availableInStylesPlural') : t('common.availableInStylesSingular')

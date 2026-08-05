@@ -2,6 +2,7 @@ import { getAssetUrl } from '@/config/cdn';
 import { locales } from '@/i18n/config';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
 import { getEmojiSeoKeywords } from '@/lib/emoji-seo';
+import { getEmojipediaEmojiData } from '@/lib/emojipedia';
 import { createMetaDescription } from '@/lib/seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
 import type { CompactEmojiIndex, Emoji, PlatformType } from '@/types/emoji';
@@ -51,6 +52,7 @@ export async function generateMetadata({
   const platformName = platformNames[locale]?.[platformId] || platformNames['en'][platformId];
   const displayName = getEmojiName(emoji, locale);
   const displayKeywords = getEmojiSeoKeywords(emoji.id, locale);
+  const emojipediaData = getEmojipediaEmojiData(emoji.id, locale);
   const fallbackKeywords = getEmojiKeywords(emoji, locale);
   const seoKeywords = displayKeywords.length > 0 ? displayKeywords : fallbackKeywords;
 
@@ -66,9 +68,19 @@ export async function generateMetadata({
     'ko': `${displayName} 이모지를 쉽게 복사, 붙여넣기, 다운로드하세요. ${platformName}에서 제공. 무료, 빠르고, 모든 플랫폼 지원.`,
     'pt-BR': `Copie, cole e baixe facilmente ${displayName} em ${platformName}. Gratuito, rápido e pronto para todas as plataformas.`,
   };
+  const meaningDescriptionSuffixes: Record<string, string> = {
+    'en': `Copy, paste, and download ${displayName} in ${platformName}.`,
+    'zh-CN': `复制、粘贴并下载${platformName}中的${displayName}。`,
+    'zh-TW': `複製、貼上並下載${platformName}中的${displayName}。`,
+    'ja': `${platformName}の${displayName}をコピー、貼り付け、ダウンロードできます。`,
+    'ko': `${platformName}의 ${displayName} 이모지를 복사, 붙여넣기, 다운로드하세요.`,
+    'pt-BR': `Copie, cole e baixe ${displayName} em ${platformName}.`,
+  };
 
   const description = createMetaDescription(
-    descriptionTemplates[locale] || descriptionTemplates['en'],
+    emojipediaData?.meaning
+      ? `${emojipediaData.meaning} ${meaningDescriptionSuffixes[locale] || meaningDescriptionSuffixes['en']}`
+      : descriptionTemplates[locale] || descriptionTemplates['en'],
     locale
   );
 

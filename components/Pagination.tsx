@@ -86,9 +86,9 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-6">
+    <div className="clay-card-soft mt-8 flex flex-col items-center justify-between gap-4 p-4 sm:flex-row">
       {/* 显示当前范围 */}
-      <div className="text-xs sm:text-sm text-muted-foreground order-2 sm:order-1">
+      <div className="order-2 text-xs font-semibold text-muted-foreground sm:order-1 sm:text-sm">
         {t('showing', { start: startItem, end: endItem, total: totalItems })}
       </div>
 

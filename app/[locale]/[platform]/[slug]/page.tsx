@@ -5,6 +5,7 @@ import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
 import { getEmojiSeoData, getEmojiSeoKeywords } from '@/lib/emoji-seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
 import { getEmojiDataForPlatform, PLATFORM_CONFIGS } from '@/lib/platforms';
+import { getEmojipediaEmojiData } from '@/lib/emojipedia';
 import type { Emoji, PlatformType } from '@/types/emoji';
 import { useTranslations } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -41,6 +42,7 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
   // 获取多语言名称和关键词
   const displayName = getEmojiName(emoji, locale);
   const seoData = getEmojiSeoData(emoji.id);
+  const emojipediaData = getEmojipediaEmojiData(emoji.id, locale);
   const seoKeywords = getEmojiSeoKeywords(emoji.id, locale);
   const fallbackKeywords = getEmojiKeywords(emoji, locale);
   const displayKeywords = seoKeywords.length > 0 ? seoKeywords : fallbackKeywords;
@@ -110,9 +112,11 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
           unicode: emoji.unicode,
           group: emoji.group,
           keywords: displayKeywords,
-          emojiVersion: seoData?.emojiVersion ?? undefined,
-          unicodeVersion: seoData?.unicodeVersion ?? undefined,
-          releaseVersion: seoData?.releaseVersion ?? undefined,
+          emojiVersion: seoData?.emojiVersion ?? (emojipediaData?.emojiVersion ? `E${emojipediaData.emojiVersion}` : undefined),
+          unicodeVersion: seoData?.unicodeVersion ?? (emojipediaData?.unicodeVersion ? `Unicode ${emojipediaData.unicodeVersion}` : undefined),
+          releaseVersion: seoData?.releaseVersion ?? (emojipediaData?.emojiVersion ? `Emoji ${emojipediaData.emojiVersion}` : undefined),
+          meaning: emojipediaData?.meaning ?? undefined,
+          sourceUrl: emojipediaData?.sourceUrl ?? undefined,
         }}
         imageUrl={currentStyleUrl ? getAssetUrl(currentStyleUrl) : undefined}
       />
@@ -121,6 +125,7 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
       <EmojiDetailClient
         emoji={emoji}
         seoData={seoData}
+        emojipediaData={emojipediaData}
         selectedPlatform={selectedPlatform}
         otherPlatforms={otherPlatforms}
         locale={locale}
@@ -152,6 +157,8 @@ function EmojiDetailStructuredDataWrapper({
     emojiVersion?: string;
     unicodeVersion?: string;
     releaseVersion?: string;
+    meaning?: string;
+    sourceUrl?: string;
   };
   imageUrl?: string;
 }) {

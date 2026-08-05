@@ -57,7 +57,7 @@ export default function PlatformSwitcher({ currentPlatform }: PlatformSwitcherPr
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center w-10 h-10 rounded-lg border bg-card hover:bg-accent transition-colors"
+        className="clay-pill flex h-10 w-10 cursor-pointer items-center justify-center transition-colors hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         aria-label="Change platform"
         title={t(`platforms.${currentPlatformConfig.id}`)}
       >
@@ -65,13 +65,13 @@ export default function PlatformSwitcher({ currentPlatform }: PlatformSwitcherPr
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 rounded-lg border bg-card shadow-lg z-50">
-          <div className="py-1">
+        <div className="clay-card absolute right-0 z-50 mt-3 w-64 overflow-hidden p-2">
+          <div className="space-y-1">
             {PLATFORMS.map((platform) => (
               <button
                 key={platform.id}
                 onClick={() => handlePlatformChange(platform.id)}
-                className={`w-full text-left px-4 py-3 hover:bg-accent transition-colors ${currentPlatform === platform.id ? 'bg-accent' : ''
+                className={`w-full cursor-pointer rounded-2xl px-4 py-3 text-left transition-colors hover:bg-secondary/70 ${currentPlatform === platform.id ? 'bg-secondary/80' : ''
                   }`}
               >
                 <div className="flex items-center gap-3">
@@ -92,4 +92,3 @@ export default function PlatformSwitcher({ currentPlatform }: PlatformSwitcherPr
     </div>
   );
 }
-

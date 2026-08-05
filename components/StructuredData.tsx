@@ -101,6 +101,8 @@ export interface EmojiDetailStructuredDataProps {
     emojiVersion?: string;
     unicodeVersion?: string;
     releaseVersion?: string;
+    meaning?: string;
+    sourceUrl?: string;
   };
   imageUrl?: string;
 }
@@ -116,11 +118,12 @@ export function EmojiDetailStructuredData({
     '@context': 'https://schema.org',
     '@type': 'ImageObject',
     name: `${emoji.name} emoji`,
-    description: `${emoji.name} emoji (${emoji.glyph}) from ${platformName}. Unicode: U+${emoji.unicode.toUpperCase()}${emoji.unicodeVersion ? `. ${emoji.unicodeVersion}.` : ''}${emoji.releaseVersion ? ` ${emoji.releaseVersion}.` : ''}`,
+    description: emoji.meaning || `${emoji.name} emoji (${emoji.glyph}) from ${platformName}. Unicode: U+${emoji.unicode.toUpperCase()}${emoji.unicodeVersion ? `. ${emoji.unicodeVersion}.` : ''}${emoji.releaseVersion ? ` ${emoji.releaseVersion}.` : ''}`,
     contentUrl: imageUrl || `https://emojidir.com/favicon.svg`,
     url: `https://emojidir.com/${locale}/${platform}/${emoji.id}`,
     inLanguage: locale,
     keywords: emoji.keywords.join(', '),
+    sameAs: emoji.sourceUrl ? [emoji.sourceUrl] : undefined,
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [

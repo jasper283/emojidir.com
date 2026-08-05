@@ -1,23 +1,23 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       {/* Header Skeleton */}
-      <div className="bg-gradient-to-r from-purple-600/10 via-pink-600/10 to-blue-600/10 border-b w-full">
+      <div className="w-full bg-background/60 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-6 md:py-8 max-w-7xl">
           <div className="text-center mb-6">
-            <div className="h-10 w-64 mx-auto bg-muted animate-pulse rounded-lg mb-2" />
-            <div className="h-4 w-96 mx-auto bg-muted animate-pulse rounded" />
+            <div className="mx-auto mb-2 h-10 w-64 animate-pulse rounded-2xl bg-muted" />
+            <div className="mx-auto h-4 w-96 max-w-full animate-pulse rounded-full bg-muted" />
           </div>
           <div className="flex justify-center">
-            <div className="w-full max-w-2xl h-12 bg-muted animate-pulse rounded-lg" />
+            <div className="clay-card-soft h-16 w-full max-w-2xl animate-pulse" />
           </div>
         </div>
       </div>
 
       {/* Main Content Skeleton */}
-      <div className="flex max-w-7xl mx-auto">
+      <div className="mx-auto flex max-w-7xl gap-6 px-4 py-6 md:px-6">
         {/* Sidebar Skeleton */}
-        <aside className="hidden lg:block w-64 p-6 border-r">
+        <aside className="clay-card-soft hidden w-80 p-6 md:block">
           <div className="space-y-6">
             <div className="h-6 w-32 bg-muted animate-pulse rounded" />
             <div className="space-y-2">
@@ -39,7 +39,7 @@ export default function Loading() {
             {[...Array(56)].map((_, i) => (
               <div
                 key={i}
-                className="aspect-square bg-muted animate-pulse rounded-lg"
+                className="clay-card-soft aspect-square animate-pulse"
                 style={{ animationDelay: `${i * 20}ms` }}
               />
             ))}
@@ -49,4 +49,3 @@ export default function Loading() {
     </div>
   );
 }
-

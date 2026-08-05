@@ -48,7 +48,7 @@ export default function LanguageSwitcher() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center w-10 h-10 rounded-lg border bg-card hover:bg-accent transition-colors"
+        className="clay-pill flex h-10 w-10 cursor-pointer items-center justify-center transition-colors hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         aria-label="Change language"
         title={localeNames[locale]}
       >
@@ -56,13 +56,13 @@ export default function LanguageSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-lg border bg-card shadow-lg z-50">
-          <div className="py-1">
+        <div className="clay-card absolute right-0 z-50 mt-3 w-48 overflow-hidden p-2">
+          <div className="space-y-1">
             {locales.map((loc) => (
               <button
                 key={loc}
                 onClick={() => handleLocaleChange(loc)}
-                className={`w-full text-left px-4 py-2 text-sm hover:bg-accent transition-colors flex items-center gap-2 ${locale === loc ? 'bg-accent font-semibold' : ''
+                className={`flex w-full cursor-pointer items-center gap-2 rounded-2xl px-4 py-2 text-left text-sm transition-colors hover:bg-secondary/70 ${locale === loc ? 'bg-secondary/80 font-semibold' : ''
                   }`}
               >
                 <span className="text-lg">{localeFlags[loc]}</span>
@@ -78,4 +78,3 @@ export default function LanguageSwitcher() {
     </div>
   );
 }
-

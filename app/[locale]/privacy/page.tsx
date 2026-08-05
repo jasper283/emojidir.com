@@ -53,8 +53,8 @@ export default async function PrivacyPage({
   })
 
   return (
-    <main className="container mx-auto px-4 py-12 md:py-20 max-w-4xl">
-      <article className="prose prose-lg dark:prose-invert max-w-none">
+    <main className="container mx-auto max-w-5xl px-4 py-12 md:py-20">
+      <article className="clay-card-soft prose prose-lg max-w-none p-5 dark:prose-invert md:p-10">
         {compiledContent}
       </article>
     </main>

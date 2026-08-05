@@ -51,22 +51,22 @@ export default function PlatformPageClient({
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       {/* Platform Title */}
-      <div className="bg-gradient-to-r from-purple-600/10 via-pink-600/10 to-blue-600/10 border-b w-full">
-        <div className="container mx-auto px-4 py-6 md:py-8 max-w-7xl">
+      <div className="w-full bg-background/60 backdrop-blur-sm">
+        <div className="container mx-auto max-w-7xl px-4 py-8 md:py-10">
           <div className="text-center mb-6">
-            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="title-gradient font-display text-3xl font-bold md:text-5xl">
               {t(`platforms.${selectedPlatform}`)}
             </h1>
-            <p className="text-sm md:text-base text-muted-foreground mt-2">
+            <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold text-muted-foreground md:text-base">
               {t(`platformDescriptions.${selectedPlatform}`)}
             </p>
           </div>
 
           {/* Search Bar */}
           <div className="flex justify-center">
-            <div className="w-full max-w-2xl">
+            <div className="clay-card-soft w-full max-w-2xl p-2">
               <SearchBar
                 value={searchInput}
                 onChange={setSearchInput}
@@ -78,7 +78,7 @@ export default function PlatformPageClient({
       </div>
 
       {/* Main Layout */}
-      <div className="flex max-w-7xl mx-auto">
+      <div className="mx-auto flex max-w-7xl gap-6 px-4 py-6 md:px-6">
         {/* Filter Sidebar */}
         <FilterSidebar
           selectedStyle={selectedStyle}
@@ -91,11 +91,11 @@ export default function PlatformPageClient({
         />
 
         {/* Main Content */}
-        <main className="flex-1 p-4 md:p-6">
+        <main className="min-w-0 flex-1">
           {/* Results Info */}
-          <div className="mb-4 md:mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div className="text-muted-foreground text-sm md:text-base">
-              {t('common.found')} <span className="font-semibold text-foreground text-base md:text-lg">{totalItems}</span> {t('common.emojis')}
+          <div className="clay-card-soft mb-4 flex flex-col items-start justify-between gap-3 p-4 sm:flex-row sm:items-center md:mb-6">
+            <div className="text-sm font-semibold text-muted-foreground md:text-base">
+              {t('common.found')} <span className="font-display text-base font-bold text-foreground md:text-lg">{totalItems}</span> {t('common.emojis')}
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               {searchQuery && (

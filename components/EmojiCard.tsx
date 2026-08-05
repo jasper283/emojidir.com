@@ -101,11 +101,11 @@ export default function EmojiCard({ emoji, style, priority = false }: EmojiCardP
     <Link
       href={`/${locale}/${platform}/${emoji.id}`}
       aria-label={displayName}
-      className="block"
+      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-[1.25rem]"
     >
-      <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer relative group hover:scale-105 border-2 hover:border-primary">
+      <Card className="clay-interactive relative overflow-hidden">
         <div className="p-4">
-          <div className="aspect-square flex items-center justify-center mb-2 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-md">
+          <div className="clay-inset mb-3 flex aspect-square items-center justify-center">
             {shouldUseNativeEmoji ? (
               // 直接渲染原生 emoji 字符，性能最优
               <div className="text-5xl">{emoji.glyph}</div>
@@ -116,7 +116,7 @@ export default function EmojiCard({ emoji, style, priority = false }: EmojiCardP
                 alt={emoji.name}
                 width={128}
                 height={128}
-                className="w-full h-full object-contain"
+                className="h-full w-full object-contain p-2"
                 onError={handleImageError}
                 loading={priority ? undefined : "lazy"}
               />
@@ -124,7 +124,7 @@ export default function EmojiCard({ emoji, style, priority = false }: EmojiCardP
           </div>
 
           <div className="text-center">
-            <p className="text-xs text-muted-foreground line-clamp-2" title={displayName}>
+            <p className="line-clamp-2 text-xs font-bold text-muted-foreground transition-colors group-hover:text-foreground" title={displayName}>
               {displayName}
             </p>
           </div>

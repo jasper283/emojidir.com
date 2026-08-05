@@ -24,21 +24,21 @@ export function BlogCard({ post, locale }: BlogCardProps) {
   return (
     <Link
       href={`/${locale}/blog/${post.slug}`}
-      className="group block h-full"
+      className="group block h-full rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
-      <Card className="h-full transition-all hover:shadow-lg">
+      <Card className="clay-interactive h-full overflow-hidden">
         {post.image && (
-          <div className="aspect-video overflow-hidden rounded-t-lg">
+          <div className="aspect-video overflow-hidden">
             <img
               src={post.image}
               alt={post.title}
-              className="w-full h-full object-cover transition-transform group-hover:scale-105"
+              className="h-full w-full object-cover"
               loading="lazy"
             />
           </div>
         )}
         <CardHeader>
-          <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
+          <CardTitle className="line-clamp-2 transition-colors group-hover:text-primary">
             {post.title}
           </CardTitle>
           <CardDescription className="line-clamp-2">
@@ -73,4 +73,3 @@ export function BlogCard({ post, locale }: BlogCardProps) {
     </Link>
   )
 }
-

@@ -8,17 +8,17 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-      <div className="mx-auto max-w-7xl px-6 pt-16 pb-8 sm:pt-24 lg:px-8 lg:pt-32">
+    <footer className="mt-12 bg-background/75 backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-6 pt-14 pb-8 sm:pt-20 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
-            <div className="flex items-center gap-2">
-              <span className="text-3xl">😊</span>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">
+            <div className="clay-pill inline-flex items-center gap-2 px-4 py-3">
+              <span className="text-3xl" aria-hidden="true">😊</span>
+              <span className="font-display text-xl font-bold text-foreground">
                 Emoji Directory
               </span>
             </div>
-            <p className="text-sm/6 text-balance text-gray-600 dark:text-gray-400">
+            <p className="max-w-sm text-sm/6 text-balance text-muted-foreground">
               {t('description')}
             </p>
             <div className="flex gap-x-6 hidden">
@@ -26,7 +26,7 @@ export default function Footer() {
                 href="https://github.com/yourusername/find-emoji"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+                className="text-muted-foreground hover:text-primary"
               >
                 <span className="sr-only">GitHub</span>
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-6">
@@ -37,7 +37,7 @@ export default function Footer() {
                 href="https://twitter.com/emojidir"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+                className="text-muted-foreground hover:text-primary"
               >
                 <span className="sr-only">X (Twitter)</span>
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-6">
@@ -48,14 +48,14 @@ export default function Footer() {
           </div>
           <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3 xl:col-span-2 xl:mt-0">
             <div>
-              <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">
+              <h3 className="font-display text-sm/6 font-semibold text-foreground">
                 {t('sections.resources')}
               </h3>
               <ul role="list" className="mt-6 space-y-4">
                 <li>
                   <Link
                     href="/en/fluent-emoji"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     Fluent Emoji
                   </Link>
@@ -63,7 +63,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/en/nato-emoji"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     Noto Emoji
                   </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/en/unicode-emoji"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.unicodePlatform')}
                   </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/en"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.allEmojis')}
                   </Link>
@@ -87,14 +87,14 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">
+              <h3 className="font-display text-sm/6 font-semibold text-foreground">
                 {t('sections.legal')}
               </h3>
               <ul role="list" className="mt-6 space-y-4">
                 <li>
                   <Link
                     href="/privacy"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.privacy')}
                   </Link>
@@ -102,7 +102,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/terms"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.terms')}
                   </Link>
@@ -110,7 +110,7 @@ export default function Footer() {
                 <li className="hidden">
                   <Link
                     href="/en/blog"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.license')}
                   </Link>
@@ -118,7 +118,7 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">
+              <h3 className="font-display text-sm/6 font-semibold text-foreground">
                 {t('sections.credits')}
               </h3>
               <ul role="list" className="mt-6 space-y-4">
@@ -127,7 +127,7 @@ export default function Footer() {
                     href="https://github.com/microsoft/fluentui-emoji"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.fluentEmoji')}
                   </a>
@@ -137,7 +137,7 @@ export default function Footer() {
                     href="https://github.com/googlefonts/noto-emoji"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.notoEmoji')}
                   </a>
@@ -146,8 +146,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24 dark:border-white/10">
-          <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+        <div className="mt-16 pt-8 sm:mt-20 lg:mt-24">
+          <p className="text-sm/6 font-semibold text-muted-foreground">
             &copy; {currentYear} Emoji Directory. {t('copyright')}
           </p>
         </div>

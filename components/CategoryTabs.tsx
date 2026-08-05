@@ -34,16 +34,15 @@ export default function CategoryTabs({
   };
 
   return (
-    <Card className="p-4 shadow-md">
+    <Card className="p-4">
       <div className="mb-3">
-        <h3 className="text-sm font-medium text-muted-foreground">{t('allCategories')}</h3>
+        <h3 className="font-display text-sm font-semibold text-muted-foreground">{t('allCategories')}</h3>
       </div>
       <Tabs value={selected} onValueChange={onChange} className="w-full">
         <div className="w-full overflow-x-auto scrollbar-thin">
-          <TabsList className="inline-flex w-auto h-auto flex-wrap gap-2 bg-muted/50 p-2 rounded-lg">
+          <TabsList className="inline-flex h-auto w-auto flex-wrap gap-2 p-2">
             <TabsTrigger
               value="all"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-200 hover:scale-105"
             >
               <span className="mr-2 text-lg">🎨</span>
               <span className="hidden sm:inline">{t('all')}</span>
@@ -61,7 +60,6 @@ export default function CategoryTabs({
                 <TabsTrigger
                   key={category}
                   value={category}
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-200 hover:scale-105"
                   title={category}
                 >
                   {emoji && <span className="mr-2 text-lg">{emoji}</span>}
@@ -97,4 +95,3 @@ function getCategoryEmoji(category: string): string {
 
   return emojiMap[category] || '📦';
 }
-

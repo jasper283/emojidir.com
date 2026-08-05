@@ -19,12 +19,14 @@ export default function EmojiGrid({ emojis, style }: EmojiGridProps) {
 
   if (emojis.length === 0) {
     return (
-      <Card className="p-20">
+      <Card className="p-10 sm:p-16 md:p-20">
         <div className="text-center flex flex-col items-center gap-4">
-          <SearchX className="w-16 h-16 text-muted-foreground" />
+          <div className="clay-inset flex h-20 w-20 items-center justify-center rounded-full">
+            <SearchX className="h-10 w-10 text-primary" />
+          </div>
           <div>
-            <h3 className="text-xl font-semibold mb-2">{t('noResults')}</h3>
-            <p className="text-muted-foreground">{t('tryDifferentKeywords')}</p>
+            <h3 className="font-display mb-2 text-xl font-semibold">{t('noResults')}</h3>
+            <p className="font-semibold text-muted-foreground">{t('tryDifferentKeywords')}</p>
           </div>
         </div>
       </Card>
@@ -44,4 +46,3 @@ export default function EmojiGrid({ emojis, style }: EmojiGridProps) {
     </div>
   );
 }
-

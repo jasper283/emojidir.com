@@ -29,8 +29,13 @@ pnpm-debug.log*
 .env*.local
 .env.local
 
-# local Search Console OAuth credentials and reports
+# local Search Console OAuth credentials, reports, and crawl artifacts
 /.seo/
+
+# local Emojipedia crawling utilities and generated crawl data
+/scripts/crawl-emojipedia*.mjs
+/scripts/clean-emojipedia-emoji.mjs
+/data/emojipedia-emoji.json
 
 # downloaded OAuth client credentials (keep outside the repository)
 /client_secret*.json
@@ -68,6 +73,8 @@ next-env.d.ts
 *.temp
 *.cache
 .cache/
+__pycache__/
+*.py[cod]
 
 # OS generated files
 Thumbs.db

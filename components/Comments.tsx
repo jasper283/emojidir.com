@@ -17,13 +17,13 @@ export default function Comments({ slug }: { slug: string }) {
       {!loadComments ? (
         <button
           onClick={() => setLoadComments(true)}
-          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="clay-button-press cursor-pointer rounded-xl bg-primary px-4 py-2 text-sm font-bold text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
           Load Comments
         </button>
       ) : (
-        <div className="rounded-lg border border-gray-200 p-4">
-          <p className="text-sm text-gray-600">评论功能暂未启用</p>
+        <div className="clay-card-soft p-4">
+          <p className="text-sm font-semibold text-muted-foreground">评论功能暂未启用</p>
         </div>
       )}
     </div>

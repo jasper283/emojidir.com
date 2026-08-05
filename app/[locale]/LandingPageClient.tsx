@@ -36,18 +36,16 @@ export default function LandingPageClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-transparent">
       {/* Floating Emoji Background */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-20">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-10">
         {floatingEmojis.map((emoji, index) => (
           <div
             key={index}
-            className="absolute text-4xl md:text-6xl animate-float"
+            className="absolute text-4xl md:text-6xl"
             style={{
               left: `${(index * 10) % 100}%`,
               top: `${(index * 15) % 100}%`,
-              animationDelay: `${index * 0.5}s`,
-              animationDuration: `${8 + (index % 4) * 2}s`,
             }}
           >
             {emoji}
@@ -56,31 +54,31 @@ export default function LandingPageClient() {
       </div>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 md:py-20 max-w-7xl relative z-10">
+      <main className="container relative z-10 mx-auto max-w-7xl px-4 py-12 md:py-20">
         {/* Hero Section */}
         <section className="text-center mb-20 md:mb-32">
           {/* Main Title */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="font-display mb-6 text-4xl font-bold leading-tight md:mb-8 md:text-6xl lg:text-7xl">
+            <span className="title-gradient">
               {t('landing.hero.title')}
             </span>
-            <span className="ml-2 inline-block animate-bounce">💡</span>
+            <span className="ml-2 inline-block">💡</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-2xl text-muted-foreground mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="mx-auto mb-10 max-w-3xl text-lg font-semibold leading-relaxed text-muted-foreground md:mb-12 md:text-2xl">
             {t('landing.hero.subtitle')}
           </p>
 
           {/* Search Box */}
-          <div className="max-w-2xl mx-auto mb-8">
+          <div className="mx-auto mb-8 max-w-2xl">
             <form onSubmit={handleSearch} className="relative">
               <Input
                 type="text"
                 placeholder={t('landing.hero.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-14 md:h-16 text-base md:text-lg px-6 pr-32 rounded-full border-2 border-primary/20 focus:border-primary shadow-lg"
+                className="h-14 w-full rounded-full bg-card/90 px-6 pr-32 text-base md:h-16 md:text-lg"
               />
               <Button
                 type="submit"
@@ -96,7 +94,7 @@ export default function LandingPageClient() {
           <Link href={`/${locale}/fluent-emoji`}>
             <Button
               size="lg"
-              className="text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="rounded-full px-8 py-6 text-lg"
             >
               {t('landing.hero.ctaButton')} →
             </Button>
@@ -104,7 +102,7 @@ export default function LandingPageClient() {
 
           {/* Wave Animation */}
           <div className="mt-16 md:mt-24">
-            <div className="inline-flex gap-2 text-4xl md:text-5xl animate-wave">
+            <div className="inline-flex gap-2 text-4xl md:text-5xl">
               <span className="inline-block" style={{ animationDelay: '0s' }}>👋</span>
               <span className="inline-block" style={{ animationDelay: '0.1s' }}>🎨</span>
               <span className="inline-block" style={{ animationDelay: '0.2s' }}>✨</span>
@@ -117,10 +115,10 @@ export default function LandingPageClient() {
         <section className="py-16 md:py-24">
           {/* Section Title */}
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="font-display mb-4 text-3xl font-bold md:text-5xl">
               {t('landing.features.title')}
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-lg font-semibold text-muted-foreground md:text-xl">
               {t('landing.features.subtitle')}
             </p>
           </div>
@@ -128,53 +126,53 @@ export default function LandingPageClient() {
           {/* Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {/* Smart Search */}
-            <div className="group bg-card rounded-2xl p-6 md:p-8 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-              <div className="text-5xl md:text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            <div className="clay-card clay-interactive group p-6 md:p-8">
+              <div className="mb-4 text-5xl md:text-6xl">
                 {t('landing.features.smartSearch.icon')}
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3">
+              <h3 className="font-display mb-3 text-xl font-bold md:text-2xl">
                 {t('landing.features.smartSearch.title')}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="font-semibold leading-relaxed text-muted-foreground">
                 {t('landing.features.smartSearch.description')}
               </p>
             </div>
 
             {/* Multi-Platform Support */}
-            <div className="group bg-card rounded-2xl p-6 md:p-8 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-              <div className="text-5xl md:text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            <div className="clay-card clay-interactive group p-6 md:p-8">
+              <div className="mb-4 text-5xl md:text-6xl">
                 {t('landing.features.multiPlatform.icon')}
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3">
+              <h3 className="font-display mb-3 text-xl font-bold md:text-2xl">
                 {t('landing.features.multiPlatform.title')}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="font-semibold leading-relaxed text-muted-foreground">
                 {t('landing.features.multiPlatform.description')}
               </p>
             </div>
 
             {/* Free Downloads */}
-            <div className="group bg-card rounded-2xl p-6 md:p-8 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-              <div className="text-5xl md:text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            <div className="clay-card clay-interactive group p-6 md:p-8">
+              <div className="mb-4 text-5xl md:text-6xl">
                 {t('landing.features.freeDownload.icon')}
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3">
+              <h3 className="font-display mb-3 text-xl font-bold md:text-2xl">
                 {t('landing.features.freeDownload.title')}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="font-semibold leading-relaxed text-muted-foreground">
                 {t('landing.features.freeDownload.description')}
               </p>
             </div>
 
             {/* No Login Required */}
-            <div className="group bg-card rounded-2xl p-6 md:p-8 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-              <div className="text-5xl md:text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            <div className="clay-card clay-interactive group p-6 md:p-8">
+              <div className="mb-4 text-5xl md:text-6xl">
                 {t('landing.features.noLogin.icon')}
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3">
+              <h3 className="font-display mb-3 text-xl font-bold md:text-2xl">
                 {t('landing.features.noLogin.title')}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="font-semibold leading-relaxed text-muted-foreground">
                 {t('landing.features.noLogin.description')}
               </p>
             </div>
@@ -182,13 +180,13 @@ export default function LandingPageClient() {
         </section>
 
         {/* Categories Section */}
-        <section className="py-16 md:py-24 bg-muted/30 rounded-3xl">
+        <section className="py-16 md:py-24">
           {/* Section Title */}
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="font-display mb-4 text-3xl font-bold md:text-5xl">
               {t('landing.categories.title')}
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-lg font-semibold text-muted-foreground md:text-xl">
               {t('landing.categories.subtitle')}
             </p>
           </div>
@@ -203,13 +201,13 @@ export default function LandingPageClient() {
                 <Link
                   key={category}
                   href={`/${locale}/fluent-emoji?category=${encodeURIComponent(category)}`}
-                  className="group"
+                  className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-[1.25rem]"
                 >
-                  <div className="bg-card rounded-2xl p-6 md:p-8 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer text-center">
-                    <div className="text-5xl md:text-6xl mb-4 group-hover:scale-125 transition-transform duration-300">
+                  <div className="clay-card clay-interactive p-6 text-center md:p-8">
+                    <div className="mb-4 text-5xl md:text-6xl">
                       {representativeEmoji}
                     </div>
-                    <h3 className="text-sm md:text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <h3 className="text-sm font-bold text-foreground transition-colors group-hover:text-primary md:text-base">
                       {categoryName}
                     </h3>
                   </div>
@@ -224,7 +222,7 @@ export default function LandingPageClient() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base md:text-lg px-8 py-6 rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                className="rounded-full px-8 py-6 text-base hover:bg-primary hover:text-primary-foreground md:text-lg"
               >
                 {t('landing.cta.viewAll')} →
               </Button>
@@ -232,45 +230,6 @@ export default function LandingPageClient() {
           </div>
         </section>
       </main>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          25% {
-            transform: translateY(-20px) rotate(5deg);
-          }
-          50% {
-            transform: translateY(-40px) rotate(-5deg);
-          }
-          75% {
-            transform: translateY(-20px) rotate(3deg);
-          }
-        }
-
-        @keyframes wave {
-          0%, 100% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(20deg);
-          }
-          75% {
-            transform: rotate(-20deg);
-          }
-        }
-
-        .animate-float {
-          animation: float 10s ease-in-out infinite;
-        }
-
-        .animate-wave span {
-          animation: wave 2s ease-in-out infinite;
-          display: inline-block;
-        }
-      `}</style>
     </div>
   );
 }
-

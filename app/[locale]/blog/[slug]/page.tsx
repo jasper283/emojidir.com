@@ -100,38 +100,38 @@ export default async function BlogPostPage({
         }}
       />
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto max-w-5xl px-4 py-10 md:py-14">
         {/* 返回按钮 */}
         <Link
           href={`/${locale}/blog`}
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-8 transition-colors"
+          className="clay-pill mb-8 inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-primary"
         >
           <ArrowLeft className="w-4 h-4" />
           {t('backToBlog')}
         </Link>
 
         {/* 文章头部 */}
-        <article className="prose prose-slate dark:prose-invert max-w-none">
-          <header className="not-prose mb-8 pb-8 border-b">
-            <h1 className="text-4xl font-bold mb-4 leading-tight">
+        <article className="clay-card-soft prose prose-slate max-w-none p-5 dark:prose-invert md:p-8">
+          <header className="not-prose mb-8 pb-8">
+            <h1 className="title-gradient font-display mb-4 text-4xl font-bold leading-tight md:text-5xl">
               {post.title}
             </h1>
 
             {post.description && (
-              <p className="text-xl text-muted-foreground mb-6">
+              <p className="mb-6 text-xl font-semibold text-muted-foreground">
                 {post.description}
               </p>
             )}
 
             {/* 元数据 */}
-            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+            <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
               {post.author && (
-                <div className="flex items-center gap-2">
+                <div className="clay-pill flex items-center gap-2 px-3 py-1.5">
                   <User className="w-4 h-4" />
                   <span>{post.author}</span>
                 </div>
               )}
-              <div className="flex items-center gap-2">
+              <div className="clay-pill flex items-center gap-2 px-3 py-1.5">
                 <Calendar className="w-4 h-4" />
                 <time dateTime={post.date}>
                   {format(
@@ -141,7 +141,7 @@ export default async function BlogPostPage({
                   )}
                 </time>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="clay-pill flex items-center gap-2 px-3 py-1.5">
                 <Clock className="w-4 h-4" />
                 <span>{post.readingTime}</span>
               </div>
@@ -154,9 +154,9 @@ export default async function BlogPostPage({
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <Link key={tag} href={`/${locale}/blog?tag=${tag}`}>
-                      <Badge variant="secondary" className="hover:bg-primary hover:text-primary-foreground transition-colors">
-                        {tag}
-                      </Badge>
+                  <Badge variant="secondary" className="transition-colors hover:bg-primary hover:text-primary-foreground">
+                    {tag}
+                  </Badge>
                     </Link>
                   ))}
                 </div>
@@ -166,11 +166,11 @@ export default async function BlogPostPage({
 
           {/* 文章封面图 */}
           {post.image && (
-            <div className="not-prose mb-8 rounded-lg overflow-hidden">
+            <div className="not-prose mb-8 overflow-hidden rounded-2xl">
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full h-auto"
+                className="h-auto w-full"
               />
             </div>
           )}
@@ -191,16 +191,16 @@ export default async function BlogPostPage({
 
         {/* 相关文章 */}
         {relatedPosts.length > 0 && (
-          <div className="mt-16 pt-8 border-t">
-            <h2 className="text-2xl font-bold mb-6">{t('relatedPosts')}</h2>
+          <div className="mt-16 pt-8">
+            <h2 className="font-display mb-6 text-2xl font-bold">{t('relatedPosts')}</h2>
             <div className="grid gap-4 md:grid-cols-3">
               {relatedPosts.map((relatedPost) => (
                 <Link
                   key={relatedPost.slug}
                   href={`/${locale}/blog/${relatedPost.slug}`}
-                  className="group"
+                  className="group rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
-                  <Card className="h-full transition-all hover:shadow-md">
+                  <Card className="clay-interactive h-full">
                     <CardHeader>
                       <CardTitle className="line-clamp-2 text-base group-hover:text-primary transition-colors">
                         {relatedPost.title}

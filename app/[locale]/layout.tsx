@@ -4,11 +4,26 @@ import Header from '@/components/Header';
 import { WebsiteStructuredData } from '@/components/StructuredData';
 import { defaultLocale, locales } from '@/i18n/config';
 import type { Metadata } from "next";
+import { Fredoka, Nunito } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import "../globals.css";
 
 const baseUrl = 'https://emojidir.com';
+
+const fredoka = Fredoka({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-fredoka',
+  display: 'swap',
+});
+
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-nunito',
+  display: 'swap',
+});
 
 export async function generateMetadata({
   params,
@@ -172,7 +187,7 @@ export default async function LocaleLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="antialiased bg-gray-50">
+      <body className={`${fredoka.variable} ${nunito.variable} antialiased bg-background text-foreground`}>
         <GoogleAnalytics />
         <div className="w-full min-h-screen flex flex-col">
           <NextIntlClientProvider locale={validLocale} messages={messages}>
@@ -187,4 +202,3 @@ export default async function LocaleLayout({
     </html>
   );
 }
-

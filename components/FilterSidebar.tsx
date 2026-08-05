@@ -65,7 +65,7 @@ export default function FilterSidebar({
         {/* 移动端关闭按钮 */}
         <button
           onClick={() => setIsOpen(false)}
-          className="md:hidden p-2 hover:bg-accent rounded-lg transition-colors"
+          className="clay-pill cursor-pointer p-2 transition-colors hover:bg-secondary/70 md:hidden"
           aria-label="关闭过滤器"
         >
           <X className="h-5 w-5" />
@@ -79,7 +79,7 @@ export default function FilterSidebar({
 
       {/* Current Platform Display - Only show for unicode platform */}
       {currentPlatform === 'unicode' && (
-        <div className="mb-6 p-3 rounded-lg bg-muted/50 border border-border">
+        <div className="clay-inset mb-6 p-3">
           <div className="flex items-start gap-2">
             <span className="text-base mt-0.5 flex-shrink-0">{osInfo.icon}</span>
             <div className="text-xs text-muted-foreground">
@@ -106,9 +106,9 @@ export default function FilterSidebar({
             <button
               key={style.value}
               onClick={() => onStyleChange(style.value)}
-              className={`w-full text-left p-3 rounded-lg border-2 transition-all duration-200 ${selectedStyle === style.value
-                ? 'bg-primary text-primary-foreground border-primary'
-                : 'bg-card text-card-foreground border-border hover:border-primary'
+              className={`w-full cursor-pointer rounded-2xl p-3 text-left transition-all duration-200 ${selectedStyle === style.value
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-card/70 text-card-foreground hover:bg-secondary/70'
                 }`}
             >
               <div className="flex items-center gap-3">
@@ -126,9 +126,9 @@ export default function FilterSidebar({
         <div className="space-y-2">
           <button
             onClick={() => onCategoryChange('all')}
-            className={`w-full text-left p-3 rounded-lg border-2 transition-all duration-200 ${selectedCategory === 'all'
-              ? 'bg-primary text-primary-foreground border-primary'
-              : 'bg-card text-card-foreground border-border hover:border-primary'
+            className={`w-full cursor-pointer rounded-2xl p-3 text-left transition-all duration-200 ${selectedCategory === 'all'
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-card/70 text-card-foreground hover:bg-secondary/70'
               }`}
           >
             <div className="flex items-center justify-between">
@@ -142,9 +142,9 @@ export default function FilterSidebar({
             <button
               key={category}
               onClick={() => onCategoryChange(category)}
-              className={`w-full text-left p-3 rounded-lg border-2 transition-all duration-200 ${selectedCategory === category
-                ? 'bg-primary text-primary-foreground border-primary'
-                : 'bg-card text-card-foreground border-border hover:border-primary'
+              className={`w-full cursor-pointer rounded-2xl p-3 text-left transition-all duration-200 ${selectedCategory === category
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-card/70 text-card-foreground hover:bg-secondary/70'
                 }`}
             >
               <div className="flex items-center justify-between">
@@ -165,7 +165,7 @@ export default function FilterSidebar({
       {/* 移动端：浮动按钮 */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden fixed bottom-6 right-6 z-50 bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
+        className="fixed bottom-6 right-6 z-50 rounded-full bg-primary p-4 text-primary-foreground transition-all duration-200 active:translate-y-1 md:hidden"
         aria-label="打开过滤器"
       >
         <Filter className="h-6 w-6" />
@@ -174,21 +174,21 @@ export default function FilterSidebar({
       {/* 移动端：遮罩层 */}
       {isOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black/50 z-40 transition-opacity"
+          className="fixed inset-0 z-40 bg-foreground/35 backdrop-blur-sm transition-opacity md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* 移动端：抽屉式侧边栏 */}
       <div
-        className={`md:hidden fixed left-0 top-0 bottom-0 w-80 bg-card border-r z-50 overflow-y-auto p-6 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed bottom-0 left-0 top-0 z-50 w-80 overflow-y-auto bg-card p-6 transition-transform duration-300 md:hidden ${isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
         {renderFilterContent()}
       </div>
 
       {/* 桌面端：固定侧边栏 */}
-      <div className="hidden md:block w-80 bg-card border-r min-h-screen p-6">
+      <div className="clay-card-soft sticky top-24 hidden max-h-[calc(100vh-7rem)] w-80 shrink-0 overflow-y-auto p-5 md:block">
         {renderFilterContent()}
       </div>
     </>

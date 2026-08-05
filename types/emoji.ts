@@ -35,6 +35,37 @@ export interface EmojiSeoData {
   copyVariants: EmojiCopyVariant[];
 }
 
+export interface EmojipediaRelatedEmoji {
+  slug: string;
+  emoji: string | null;
+  name?: string | null;
+}
+
+export interface EmojipediaLocalizedContent {
+  name: string | null;
+  meaning: string | null;
+  commonUses: string[];
+  usageNotes: string[];
+  sourceUrl: string | null;
+}
+
+export interface EmojipediaEmojiData {
+  slug: string | null;
+  name: string | null;
+  emoji: string | null;
+  codepointsHex: string[];
+  meaning: string | null;
+  commonUses: string[];
+  usageNotes: string[];
+  unicodeVersion: string | null;
+  unicodeReleaseYear: number | null;
+  emojiVersion: string | null;
+  emojiReleaseYear: number | null;
+  relatedEmojis: EmojipediaRelatedEmoji[];
+  sourceUrl: string | null;
+  localizedContent?: Record<string, EmojipediaLocalizedContent>;
+}
+
 export interface Emoji {
   id: string;
   name: string;
