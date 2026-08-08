@@ -65,15 +65,7 @@ export default function Footer() {
                     href="/en/nato-emoji"
                     className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
-                    Noto Emoji
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/en/unicode-emoji"
-                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    {t('links.unicodePlatform')}
+                    Google Noto Emoji
                   </Link>
                 </li>
                 <li>

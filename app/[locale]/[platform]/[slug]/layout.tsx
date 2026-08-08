@@ -5,6 +5,7 @@ import { getEmojiSeoKeywords } from '@/lib/emoji-seo';
 import { getEmojipediaEmojiData } from '@/lib/emojipedia';
 import { createMetaDescription } from '@/lib/seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
+import { PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { CompactEmojiIndex, Emoji, PlatformType } from '@/types/emoji';
 import { expandEmojiIndex } from '@/types/emoji';
 import type { Metadata } from 'next';
@@ -49,7 +50,10 @@ export async function generateMetadata({
     'pt-BR': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'Emoji Nativo' },
   };
 
-  const platformName = platformNames[locale]?.[platformId] || platformNames['en'][platformId];
+  const platformName = platformNames[locale]?.[platformId]
+    || platformNames['en']?.[platformId]
+    || PLATFORM_CONFIGS[platformId]?.name
+    || 'Emoji Directory';
   const displayName = getEmojiName(emoji, locale);
   const displayKeywords = getEmojiSeoKeywords(emoji.id, locale);
   const emojipediaData = getEmojipediaEmojiData(emoji.id, locale);

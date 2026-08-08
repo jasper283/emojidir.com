@@ -21,8 +21,8 @@
     "detected": "감지됨",
     "usingAppleNative": "Apple 네이티브 이모지 사용",
     "usingWindowsNative": "Windows 네이티브 이모지 (Segoe UI) 사용",
-    "usingAndroidNative": "Noto Emoji (Android 네이티브) 사용",
-    "usingNotoFallback": "Noto Emoji를 폴백으로 사용",
+    "usingAndroidNative": "Google Noto Emoji (Android 네이티브) 사용",
+    "usingNotoFallback": "Google Noto Emoji를 폴백으로 사용",
     "unknownSystem": "알 수 없는 시스템",
     "all": "전체",
     "openMainMenu": "메인 메뉴 열기",
@@ -43,7 +43,7 @@
     "copyUnicode": "Unicode 복사",
     "downloadStyle": "{style} 다운로드",
     "downloadFormat": "{format} 다운로드",
-    "downloadNotoEmoji": "Noto Emoji 다운로드",
+    "downloadNotoEmoji": "Google Noto Emoji 다운로드",
     "availableInStyles": "{count}개 스타일로 제공",
     "availableInStylesSingular": "",
     "availableInStylesPlural": "",
@@ -67,7 +67,9 @@
       "Symbols": "기호",
       "Flags": "깃발",
       "Component": "구성요소"
-    }
+    },
+    "compareWithOtherPlatforms": "다른 플랫폼과 비교",
+    "emojiVariants": "이모지 변형"
   },
   "header": {
     "title": "Emoji Directory",
@@ -81,7 +83,7 @@
   },
   "footer": {
     "appName": "Emoji Directory",
-    "supportedPlatforms": "Fluent Emoji, Noto Emoji 및 시스템 이모지(기기에서 네이티브 Unicode 이모지로 표시) 지원",
+    "supportedPlatforms": "Fluent Emoji, Google Noto Emoji, Apple Emoji, Microsoft Emoji 및 Twitter Emoji를 지원합니다.",
     "statsText": "{count}개 이모지 | {categories}개 카테고리",
     "description": "Apple, Google, Microsoft 등 여러 디자인 시스템의 이모지를 한 곳에서 탐색하고 다운로드하세요.",
     "copyright": "저작권 소유.",
@@ -104,18 +106,24 @@
       "terms": "서비스 약관",
       "license": "라이선스",
       "fluentEmoji": "Fluent Emoji (Microsoft)",
-      "notoEmoji": "Noto Emoji (Google)"
+      "notoEmoji": "Google Noto Emoji"
     }
   },
   "platforms": {
     "fluent": "Microsoft 3D Fluent Emoji",
-    "nato": "Noto Emoji",
-    "unicode": "시스템 이모지"
+    "nato": "Google Noto Emoji",
+    "unicode": "시스템 이모지",
+    "apple": "Apple Emoji",
+    "microsoft": "Microsoft Emoji",
+    "twitter": "Twitter Emoji"
   },
   "platformDescriptions": {
     "fluent": "Microsoft의 Fluent Emoji를 탐색하세요 — Windows와 Microsoft 제품을 위해 설계된 현대적인 3D 이모지 세트.",
-    "nato": "Google의 Noto Emoji를 발견하세요 — Android와 Google 플랫폼에서 사용되는 평면적이고 미니멀한 이모지 세트.",
-    "unicode": "기기에서 이모지가 어떻게 보이는지 확인하세요. 시스템 이모지는 플랫폼의 네이티브 Unicode 렌더링을 사용하여 표시됩니다."
+    "nato": "Google Noto Emoji를 발견하세요 — Android와 Google 플랫폼에서 사용되는 평면적이고 미니멀한 이모지 세트.",
+    "unicode": "기기에서 이모지가 어떻게 보이는지 확인하세요. 시스템 이모지는 플랫폼의 네이티브 Unicode 렌더링을 사용하여 표시됩니다.",
+    "apple": "iOS, iPadOS, macOS에서 사용되는 Apple Emoji 이미지를 둘러보세요.",
+    "microsoft": "Microsoft Emoji의 클래식한 플랫 컬러 스타일 이미지를 둘러보세요.",
+    "twitter": "Twitter Emoji의 깔끔한 소셜 플랫폼 이모지 스타일을 둘러보세요."
   },
   "styles": {
     "3d": "3D",
@@ -171,8 +179,8 @@
       }
     },
     "platforms": {
-      "title": "플랫폼 선택",
-      "subtitle": "다양한 이모지 디자인 시스템에서 선택"
+      "title": "플랫폼별 이모지 보기",
+      "subtitle": "Apple, Google, Microsoft, Twitter, Fluent 스타일의 이모지 디자인을 비교하세요."
     },
     "features": {
       "title": "기능",

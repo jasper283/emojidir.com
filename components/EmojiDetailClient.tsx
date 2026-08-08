@@ -11,7 +11,13 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
+function getAssetExtension(url: string): 'svg' | 'webp' | 'png' {
+  const extension = url.match(/\.(svg|webp|png)(?:[?#]|$)/i)?.[1].toLowerCase();
+  if (extension === 'svg' || extension === 'webp') return extension;
+  return 'png';
+}
 
 interface EmojiDetailClientProps {
   emoji: Emoji;
@@ -23,6 +29,8 @@ interface EmojiDetailClientProps {
     emoji: Emoji | undefined;
     name: string;
   }>;
+  variantEmojis: Emoji[];
+  pngAssetPath?: string;
   locale: string;
   localeParam: string;
   platformSlug: string;
@@ -34,6 +42,8 @@ export default function EmojiDetailClient({
   emojipediaData,
   selectedPlatform,
   otherPlatforms,
+  variantEmojis,
+  pngAssetPath,
   locale,
   localeParam,
   platformSlug,
@@ -42,6 +52,7 @@ export default function EmojiDetailClient({
   const router = useRouter();
 
   const [copiedType, setCopiedType] = useState<'glyph' | 'unicode' | null>(null);
+  const [copiedVariantUnicode, setCopiedVariantUnicode] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
 
   // 获取所有可用的样式
@@ -95,16 +106,45 @@ export default function EmojiDetailClient({
 
   const [currentSelectedStyle, setCurrentSelectedStyle] = useState<string>(selectedStyle);
 
+  useEffect(() => {
+    setCurrentSelectedStyle(selectedStyle);
+  }, [selectedStyle]);
+
   const currentStyleUrl = useMemo(() =>
     getCurrentStyleUrl(currentSelectedStyle),
     [getCurrentStyleUrl, currentSelectedStyle]
   );
 
   // 复制到剪贴板
-  const copyToClipboard = (text: string, type: 'glyph' | 'unicode') => {
-    navigator.clipboard.writeText(text);
+  const copyTextToClipboard = async (text: string) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  };
+
+  const copyToClipboard = async (text: string, type: 'glyph' | 'unicode') => {
+    await copyTextToClipboard(text);
     setCopiedType(type);
+    setCopiedVariantUnicode(null);
     setTimeout(() => setCopiedType(null), 2000);
+  };
+
+  const copyVariantToClipboard = async (text: string, unicode: string) => {
+    await copyTextToClipboard(text);
+    setCopiedType(null);
+    setCopiedVariantUnicode(unicode);
+    setTimeout(() => setCopiedVariantUnicode(null), 2000);
   };
 
   // Noto Emoji尺寸
@@ -181,8 +221,24 @@ export default function EmojiDetailClient({
   };
 
   const hasDownloadableAsset = currentStyleUrl && currentStyleUrl.length > 0;
+  const hasPlatformPngAsset = Boolean(pngAssetPath);
   const emojipediaMeaning = emojipediaData?.meaning?.trim() || null;
   const hasEmojipediaContent = Boolean(emojipediaMeaning);
+  const getPreviewImageUrl = (item: Emoji | undefined): string => {
+    if (!item?.styles) return '';
+
+    const styles = item.styles;
+    if (styles['color']) return styles['color'];
+    if (styles['3d']) return styles['3d'];
+    if (styles['flat']) return styles['flat'];
+    if (styles['high-contrast']) return styles['high-contrast'];
+    if (styles['color-default']) return styles['color-default'];
+    if (styles['3d-default']) return styles['3d-default'];
+    if (styles['flat-default']) return styles['flat-default'];
+
+    const firstStyle = Object.keys(styles)[0];
+    return firstStyle ? styles[firstStyle] || '' : '';
+  };
 
   return (
     <div className="min-h-screen bg-transparent">
@@ -259,15 +315,14 @@ export default function EmojiDetailClient({
               </div>
             )}
 
-            {/* Download Section - Fluent Emoji */}
-            {hasDownloadableAsset && selectedPlatform === 'fluent' && (
+            {/* Download Section - imported platform PNG */}
+            {hasPlatformPngAsset && ['fluent', 'apple', 'microsoft', 'twitter'].includes(selectedPlatform) && (
               <div className="w-full">
                 <Button
                   onClick={() => {
-                    const ext = currentStyleUrl.endsWith('.svg') ? 'svg' : 'png';
                     downloadEmoji(
-                      getAssetUrl(currentStyleUrl),
-                      `${emoji.id}_${currentSelectedStyle}.${ext}`
+                      getAssetUrl(pngAssetPath as string),
+                      `${emoji.id}_${selectedPlatform}.png`
                     );
                   }}
                   className="w-full"
@@ -276,7 +331,7 @@ export default function EmojiDetailClient({
                 >
                   <Download className="w-4 h-4 mr-2" />
                   {downloading ? t('common.downloading') : t('common.downloadFormat', {
-                    format: currentStyleUrl.endsWith('.svg') ? 'SVG' : 'PNG'
+                    format: 'PNG'
                   })}
                 </Button>
               </div>
@@ -337,6 +392,84 @@ export default function EmojiDetailClient({
 
           {/* Right Column - Details */}
           <div className="space-y-3 md:space-y-4">
+            {/* Other Platforms */}
+            {otherPlatforms.length > 0 && (
+              <div className="clay-card-soft p-4 md:p-5">
+                <h2 className="font-display mb-3 text-lg font-bold md:text-xl">{t('common.compareWithOtherPlatforms')}</h2>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {otherPlatforms.map(({ platform, emoji: platformEmoji }) => {
+                    const platformSlugName = `${platform}-emoji`;
+                    const platformName = t(`platforms.${platform}`);
+                    const imageUrl = getPreviewImageUrl(platformEmoji);
+
+                    return (
+                      <Link
+                        key={platform}
+                        href={`/${localeParam}/${platformSlugName}/${emoji.id}`}
+                        className="group flex items-center gap-3 rounded-xl bg-card/80 p-2.5 transition-colors duration-200 hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        title={t('common.viewOnPlatform', { platform: platformName })}
+                      >
+                        <div className="clay-inset flex h-12 w-12 flex-shrink-0 items-center justify-center">
+                          {imageUrl ? (
+                            <Image
+                              src={getAssetUrl(imageUrl)}
+                              alt={platformEmoji?.name || ''}
+                              width={64}
+                              height={64}
+                              className="h-full w-full object-contain p-1.5"
+                            />
+                          ) : (
+                            <span className="text-2xl">{platformEmoji?.glyph}</span>
+                          )}
+                        </div>
+                        <span className="line-clamp-1 min-w-0 text-sm font-bold">
+                          {platformName}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {variantEmojis.length > 0 && (
+              <div className="clay-card-soft p-4 md:p-5">
+                <h2 className="font-display mb-3 text-lg font-bold md:text-xl">{t('common.emojiVariants')}</h2>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {variantEmojis.map((variantEmoji) => {
+                    const imageUrl = getPreviewImageUrl(variantEmoji);
+                    const variantName = getEmojiName(variantEmoji, locale);
+
+                    return (
+                      <Link
+                        key={variantEmoji.id}
+                        href={`/${localeParam}/${platformSlug}/${variantEmoji.id}`}
+                        className="group flex items-center gap-3 rounded-xl bg-card/80 p-2.5 transition-colors duration-200 hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        title={variantName}
+                      >
+                        <div className="clay-inset flex h-12 w-12 flex-shrink-0 items-center justify-center">
+                          {imageUrl ? (
+                            <Image
+                              src={getAssetUrl(imageUrl)}
+                              alt={variantEmoji.name}
+                              width={64}
+                              height={64}
+                              className="h-full w-full object-contain p-1.5"
+                            />
+                          ) : (
+                            <span className="text-2xl">{variantEmoji.glyph}</span>
+                          )}
+                        </div>
+                        <span className="line-clamp-1 min-w-0 text-sm font-bold">
+                          {variantName}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {/* Basic Info */}
             <div className="clay-card-soft p-4 md:p-5">
               <h2 className="font-display mb-4 text-lg font-bold md:text-xl">{t('common.details')}</h2>
@@ -441,6 +574,24 @@ export default function EmojiDetailClient({
                     </Badge>
                   </dd>
                 </div>
+
+                <div>
+                  <dt className="text-xs font-bold text-muted-foreground md:text-sm">{t('common.platform')}</dt>
+                  <dd className="mt-2">
+                    <Link
+                      href={`/${localeParam}/${platformSlug}`}
+                      title={t('common.viewOnPlatform', { platform: t(`platforms.${selectedPlatform}`) })}
+                      className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      <Badge
+                        variant="secondary"
+                        className="cursor-pointer text-xs transition-colors hover:bg-secondary/80 md:text-sm"
+                      >
+                        {t(`platforms.${selectedPlatform}`)}
+                      </Badge>
+                    </Link>
+                  </dd>
+                </div>
               </dl>
             </div>
 
@@ -498,103 +649,30 @@ export default function EmojiDetailClient({
               <div className="clay-card-soft p-4 md:p-5">
                 <h3 className="font-display mb-3 text-base font-semibold">{t('common.copyVariants')}</h3>
                 <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-8">
-                  {seoData.copyVariants.map((variant) => (
-                    <Button
-                      key={variant.unicode}
-                      type="button"
-                      variant="outline"
-                      className="h-auto min-h-14 flex-col gap-1 px-2"
-                      onClick={() => copyToClipboard(variant.glyph, 'glyph')}
-                      title={`${t('common.copyToClipboard')}: ${variant.glyph}`}
-                    >
-                      <span className="text-2xl leading-none">{variant.glyph}</span>
-                      <span className="text-[10px] text-muted-foreground">{variant.unicode}</span>
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Other Platforms */}
-            {otherPlatforms.length > 0 && (
-              <div className="clay-card-soft p-4 md:p-5">
-                <h3 className="font-display mb-3 text-base font-semibold">{t('common.otherPlatforms')}</h3>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {otherPlatforms.map(({ platform, emoji: platformEmoji }) => {
-                    const platformSlugName = `${platform}-emoji`;
-                    const platformName = t(`platforms.${platform}`);
-
-                    // 优先选择平台合适的样式
-                    const getImageUrl = (): string => {
-                      if (!platformEmoji?.styles) return '';
-
-                      const styles = platformEmoji.styles;
-
-                      // 优先顺序：color -> 3d -> flat -> high-contrast -> 第一个可用样式
-                      if (styles['color']) return styles['color'];
-                      if (styles['3d']) return styles['3d'];
-                      if (styles['flat']) return styles['flat'];
-                      if (styles['high-contrast']) return styles['high-contrast'];
-
-                      // 如果都没有，尝试默认样式
-                      if (styles['color-default']) return styles['color-default'];
-                      if (styles['3d-default']) return styles['3d-default'];
-                      if (styles['flat-default']) return styles['flat-default'];
-
-                      // 最后使用第一个可用样式
-                      const firstStyle = Object.keys(styles)[0];
-                      return firstStyle ? styles[firstStyle] || '' : '';
-                    };
-
-                    const imageUrl = getImageUrl();
+                  {seoData.copyVariants.map((variant) => {
+                    const isCopied = copiedVariantUnicode === variant.unicode;
 
                     return (
-                      <Link
-                        key={platform}
-                        href={`/${localeParam}/${platformSlugName}/${emoji.id}`}
-                        className="group flex items-center gap-3 rounded-xl bg-card/80 p-2.5 transition-colors duration-200 hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        title={t('common.viewOnPlatform', { platform: platformName })}
+                      <Button
+                        key={variant.unicode}
+                        type="button"
+                        variant={isCopied ? 'default' : 'outline'}
+                        className="h-auto min-h-14 flex-col gap-1 px-2"
+                        onClick={() => copyVariantToClipboard(variant.glyph, variant.unicode)}
+                        aria-label={isCopied ? t('common.copied') : `${t('common.copyToClipboard')}: ${variant.glyph}`}
+                        title={isCopied ? t('common.copied') : `${t('common.copyToClipboard')}: ${variant.glyph}`}
                       >
-                        <div className="clay-inset flex h-12 w-12 flex-shrink-0 items-center justify-center">
-                          {imageUrl ? (
-                            <Image
-                              src={getAssetUrl(imageUrl)}
-                              alt={platformEmoji?.name || ''}
-                              width={64}
-                              height={64}
-                              className="h-full w-full object-contain p-1.5"
-                            />
-                          ) : (
-                            <span className="text-2xl">{platformEmoji?.glyph}</span>
-                          )}
-                        </div>
-                        <span className="line-clamp-1 min-w-0 text-sm font-bold">
-                          {platformName}
+                        <span className="text-2xl leading-none">{variant.glyph}</span>
+                        <span className={isCopied ? 'text-[10px] text-primary-foreground' : 'text-[10px] text-muted-foreground'}>
+                          {isCopied ? t('common.copied') : variant.unicode}
                         </span>
-                      </Link>
+                      </Button>
                     );
                   })}
                 </div>
               </div>
             )}
 
-            {/* Platform Info */}
-            <div className="clay-card-soft p-4 md:p-5">
-              <h3 className="font-display mb-3 text-base font-semibold">{t('common.platform')}</h3>
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="secondary" className="text-xs md:text-sm">
-                  {t(`platforms.${selectedPlatform}`)}
-                </Badge>
-                {availableStyles.length > 0 && (
-                  <p className="text-xs font-semibold text-muted-foreground md:text-sm">
-                    {t('common.availableInStyles', {
-                      count: availableStyles.length,
-                      plural: availableStyles.length > 1 ? t('common.availableInStylesPlural') : t('common.availableInStylesSingular')
-                    })}
-                  </p>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       </main>

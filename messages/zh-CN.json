@@ -21,8 +21,8 @@
     "detected": "检测到",
     "usingAppleNative": "使用 Apple 原生 emoji",
     "usingWindowsNative": "使用 Windows 原生 emoji (Segoe UI)",
-    "usingAndroidNative": "使用 Noto Emoji (Android 原生)",
-    "usingNotoFallback": "使用 Noto Emoji 作为降级",
+    "usingAndroidNative": "使用 Google Noto Emoji (Android 原生)",
+    "usingNotoFallback": "使用 Google Noto Emoji 作为降级",
     "unknownSystem": "未知系统",
     "all": "全部",
     "openMainMenu": "打开主菜单",
@@ -43,7 +43,7 @@
     "copyUnicode": "复制 Unicode",
     "downloadStyle": "下载 {style}",
     "downloadFormat": "下载 {format}",
-    "downloadNotoEmoji": "下载 Noto Emoji",
+    "downloadNotoEmoji": "下载 Google Noto Emoji",
     "availableInStyles": "支持 {count} 种风格",
     "availableInStylesSingular": "",
     "availableInStylesPlural": "",
@@ -67,7 +67,9 @@
       "Symbols": "符号",
       "Flags": "旗帜",
       "Component": "组件"
-    }
+    },
+    "compareWithOtherPlatforms": "与其他平台对比",
+    "emojiVariants": "Emoji 变体"
   },
   "header": {
     "title": "Emoji Directory",
@@ -81,7 +83,7 @@
   },
   "footer": {
     "appName": "Emoji Directory",
-    "supportedPlatforms": "支持 Fluent Emoji、Noto Emoji 和系统表情符号（在您的设备上显示为原生 Unicode 表情符号）",
+    "supportedPlatforms": "支持 Fluent Emoji、Google Noto Emoji、Apple Emoji、Microsoft Emoji 和 Twitter Emoji。",
     "statsText": "共 {count} 个表情 | {categories} 个分类",
     "description": "探索和下载来自多个设计系统的表情符号 — Apple、Google、Microsoft 等，全部集中在一个地方。",
     "copyright": "版权所有。",
@@ -104,18 +106,24 @@
       "terms": "服务条款",
       "license": "许可证",
       "fluentEmoji": "Fluent Emoji (Microsoft)",
-      "notoEmoji": "Noto Emoji (Google)"
+      "notoEmoji": "Google Noto Emoji"
     }
   },
   "platforms": {
     "fluent": "Microsoft 3D Fluent Emoji",
-    "nato": "Noto Emoji",
-    "unicode": "系统表情符号"
+    "nato": "Google Noto Emoji",
+    "unicode": "系统表情符号",
+    "apple": "Apple Emoji",
+    "microsoft": "Microsoft Emoji",
+    "twitter": "Twitter Emoji"
   },
   "platformDescriptions": {
     "fluent": "探索微软的 Fluent Emoji — 专为 Windows 和微软产品设计的现代 3D 表情符号集。",
-    "nato": "发现谷歌的 Noto Emoji — 在 Android 和谷歌平台上使用的扁平、极简表情符号集。",
-    "unicode": "查看表情符号在您设备上的显示效果。系统表情符号使用您平台的原生 Unicode 渲染显示。"
+    "nato": "发现 Google Noto Emoji — 在 Android 和 Google 平台上使用的扁平、极简表情符号集。",
+    "unicode": "查看表情符号在您设备上的显示效果。系统表情符号使用您平台的原生 Unicode 渲染显示。",
+    "apple": "浏览 iOS、iPadOS 和 macOS 使用的 Apple Emoji 图片。",
+    "microsoft": "浏览 Microsoft Emoji 的经典扁平彩色风格图片。",
+    "twitter": "浏览 Twitter Emoji 的清爽社交平台表情风格。"
   },
   "styles": {
     "3d": "3D",
@@ -171,8 +179,8 @@
       }
     },
     "platforms": {
-      "title": "选择您的平台",
-      "subtitle": "从不同的表情符号设计系统中选择"
+      "title": "按平台查看 Emoji",
+      "subtitle": "对比 Apple、Google、Microsoft、Twitter 和 Fluent 等平台的 Emoji 设计。"
     },
     "features": {
       "title": "功能特性",

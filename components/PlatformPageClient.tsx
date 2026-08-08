@@ -6,6 +6,7 @@ import Pagination from '@/components/Pagination';
 import SearchBar from '@/components/SearchBar';
 import { Badge } from '@/components/ui/badge';
 import { buildPlatformPageHref, PLATFORM_PAGE_SIZE } from '@/lib/platform-pagination';
+import { PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { Emoji, PlatformType, StyleType } from '@/types/emoji';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -39,12 +40,17 @@ export default function PlatformPageClient({
   const t = useTranslations();
   const router = useRouter();
   const [searchInput, setSearchInput] = useState(searchQuery);
-  const [selectedStyle, setSelectedStyle] = useState<StyleType>('3d');
+  const defaultStyle = PLATFORM_CONFIGS[selectedPlatform]?.styles[0] || '3d';
+  const [selectedStyle, setSelectedStyle] = useState<StyleType>(defaultStyle);
   const basePath = `/${locale}/${selectedPlatform}-emoji`;
 
   useEffect(() => {
     setSearchInput(searchQuery);
   }, [searchQuery]);
+
+  useEffect(() => {
+    setSelectedStyle(defaultStyle);
+  }, [defaultStyle]);
 
   const navigateToFilters = (nextSearch: string, nextCategory: string) => {
     router.push(buildPlatformPageHref(basePath, 1, nextSearch, nextCategory));

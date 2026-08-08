@@ -2,7 +2,7 @@
 
 import PlatformSwitcher from '@/components/PlatformSwitcher';
 import { Badge } from '@/components/ui/badge';
-import { PLATFORM_CONFIGS } from '@/lib/platforms';
+import { VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
 import { detectOS } from '@/lib/utils';
 import type { PlatformType, StyleType } from '@/types/emoji';
 import { Filter, X } from 'lucide-react';
@@ -19,7 +19,7 @@ interface FilterSidebarProps {
   categoryCounts: Record<string, number>;
 }
 
-const PLATFORMS = Object.values(PLATFORM_CONFIGS);
+const PLATFORMS = Object.values(VISIBLE_PLATFORM_CONFIGS);
 
 const STYLES = [
   { value: '3d' as StyleType, icon: '🎨' },

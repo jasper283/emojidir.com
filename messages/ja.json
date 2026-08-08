@@ -21,8 +21,8 @@
     "detected": "検出",
     "usingAppleNative": "Apple ネイティブ絵文字を使用",
     "usingWindowsNative": "Windows ネイティブ絵文字 (Segoe UI) を使用",
-    "usingAndroidNative": "Noto Emoji (Android ネイティブ) を使用",
-    "usingNotoFallback": "Noto Emoji をフォールバックとして使用",
+    "usingAndroidNative": "Google Noto Emoji (Android ネイティブ) を使用",
+    "usingNotoFallback": "Google Noto Emoji をフォールバックとして使用",
     "unknownSystem": "不明なシステム",
     "all": "すべて",
     "openMainMenu": "メインメニューを開く",
@@ -43,7 +43,7 @@
     "copyUnicode": "Unicodeをコピー",
     "downloadStyle": "{style}をダウンロード",
     "downloadFormat": "{format}をダウンロード",
-    "downloadNotoEmoji": "Noto Emojiをダウンロード",
+    "downloadNotoEmoji": "Google Noto Emojiをダウンロード",
     "availableInStyles": "{count}つのスタイルで利用可能",
     "availableInStylesSingular": "",
     "availableInStylesPlural": "",
@@ -67,7 +67,9 @@
       "Symbols": "シンボル",
       "Flags": "旗",
       "Component": "コンポーネント"
-    }
+    },
+    "compareWithOtherPlatforms": "他のプラットフォームと比較",
+    "emojiVariants": "絵文字のバリエーション"
   },
   "header": {
     "title": "Emoji Directory",
@@ -81,7 +83,7 @@
   },
   "footer": {
     "appName": "Emoji Directory",
-    "supportedPlatforms": "Fluent Emoji、Noto Emoji、システム絵文字（デバイス上でネイティブUnicode絵文字として表示）をサポート",
+    "supportedPlatforms": "Fluent Emoji、Google Noto Emoji、Apple Emoji、Microsoft Emoji、Twitter Emojiに対応。",
     "statsText": "{count}個の絵文字 | {categories}カテゴリ",
     "description": "Apple、Google、Microsoftなどの複数のデザインシステムから絵文字を探索してダウンロード — すべてここに。",
     "copyright": "全著作権所有。",
@@ -104,18 +106,24 @@
       "terms": "利用規約",
       "license": "ライセンス",
       "fluentEmoji": "Fluent Emoji (Microsoft)",
-      "notoEmoji": "Noto Emoji (Google)"
+      "notoEmoji": "Google Noto Emoji"
     }
   },
   "platforms": {
     "fluent": "Microsoft 3D Fluent Emoji",
-    "nato": "Noto Emoji",
-    "unicode": "システム絵文字"
+    "nato": "Google Noto Emoji",
+    "unicode": "システム絵文字",
+    "apple": "Apple Emoji",
+    "microsoft": "Microsoft Emoji",
+    "twitter": "Twitter Emoji"
   },
   "platformDescriptions": {
     "fluent": "MicrosoftのFluent Emojiを探索 — WindowsとMicrosoft製品向けに設計されたモダンな3D絵文字セット。",
-    "nato": "GoogleのNoto Emojiを発見 — AndroidとGoogleプラットフォームで使用されるフラットでミニマルな絵文字セット。",
-    "unicode": "デバイスでの絵文字の表示を確認。システム絵文字は、プラットフォームのネイティブUnicodeレンダリングを使用して表示されます。"
+    "nato": "Google Noto Emojiを発見 — AndroidとGoogleプラットフォームで使用されるフラットでミニマルな絵文字セット。",
+    "unicode": "デバイスでの絵文字の表示を確認。システム絵文字は、プラットフォームのネイティブUnicodeレンダリングを使用して表示されます。",
+    "apple": "iOS、iPadOS、macOSで使われるApple Emoji画像を閲覧できます。",
+    "microsoft": "Microsoft Emojiのクラシックなフラットカラー画像を閲覧できます。",
+    "twitter": "Twitter Emojiのクリーンなソーシャルプラットフォーム向け絵文字スタイルを閲覧できます。"
   },
   "styles": {
     "3d": "3D",
@@ -171,8 +179,8 @@
       }
     },
     "platforms": {
-      "title": "プラットフォームを選択",
-      "subtitle": "さまざまな絵文字デザインシステムから選択"
+      "title": "プラットフォーム別に絵文字を見る",
+      "subtitle": "Apple、Google、Microsoft、Twitter、Fluentなどの絵文字デザインを比較できます。"
     },
     "features": {
       "title": "機能",

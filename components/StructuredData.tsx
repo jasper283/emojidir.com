@@ -7,7 +7,7 @@ export function WebsiteStructuredData({ locale }: WebsiteStructuredDataProps) {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Emoji Directory',
-    description: 'Browse and search emoji collections from Fluent Emoji, Noto Emoji, and system platforms',
+    description: 'Browse and search emoji collections from Fluent Emoji, Google Noto Emoji, and system platforms',
     url: `https://emojidir.com/${locale}`,
     inLanguage: locale,
     potentialAction: {

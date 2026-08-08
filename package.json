@@ -15,6 +15,7 @@
     "emojipedia:crawl": "node scripts/crawl-emojipedia.mjs",
     "emojipedia:localize": "node scripts/crawl-emojipedia-locales.mjs",
     "emojipedia:clean": "node scripts/clean-emojipedia-emoji.mjs",
+    "emojisave:import": "node scripts/import-emojisave-assets.mjs",
     "search-console:report": "node scripts/search-console-report.mjs",
     "emoji-seo:sync": "node scripts/generate-emoji-seo.mjs",
     "start": "next start",

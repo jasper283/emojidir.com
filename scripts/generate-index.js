@@ -22,6 +22,85 @@ function getCompactStyleKey(styleKey) {
   return styleMap[styleKey] || styleKey;
 }
 
+const SKIN_TONE_SUFFIXES = [
+  'medium-light-skin-tone',
+  'medium-dark-skin-tone',
+  'light-skin-tone',
+  'medium-skin-tone',
+  'dark-skin-tone',
+];
+
+const HAIR_SUFFIXES = [
+  'red-hair',
+  'curly-hair',
+  'white-hair',
+  'bald',
+  'blonde-hair',
+];
+
+function firstExisting(ids, candidates) {
+  return candidates.find(candidate => candidate && ids.has(candidate)) || null;
+}
+
+function determineEmojiVariantFields(id, ids) {
+  for (const suffix of SKIN_TONE_SUFFIXES) {
+    if (id.endsWith(`-${suffix}`)) {
+      const base = id.slice(0, -(suffix.length + 1));
+      const variantOf = firstExisting(ids, [base]);
+      if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'skin-tone' };
+    }
+  }
+
+  if (id.endsWith('-facing-right')) {
+    const base = id.slice(0, -'-facing-right'.length);
+    const variantOf = firstExisting(ids, [base]);
+    if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'direction' };
+  }
+
+  for (const suffix of HAIR_SUFFIXES) {
+    if (id.endsWith(`-${suffix}`)) {
+      const base = id.slice(0, -(suffix.length + 1));
+      const variantOf = firstExisting(ids, [base]);
+      if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'hair' };
+    }
+  }
+
+  if (id.startsWith('woman-') || id.startsWith('man-')) {
+    const withoutGender = id.replace(/^(woman|man)-/, '');
+    const variantOf = firstExisting(ids, [
+      `person-${withoutGender}`,
+      withoutGender,
+    ]);
+    if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'gender' };
+  }
+
+  if (id.startsWith('women-') || id.startsWith('men-')) {
+    const withoutGender = id.replace(/^(women|men)-/, '');
+    const variantOf = firstExisting(ids, [
+      `people-${withoutGender}`,
+      withoutGender,
+    ]);
+    if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'gender' };
+  }
+
+  if (id.startsWith('couple-with-heart-')) {
+    const variantOf = firstExisting(ids, ['couple-with-heart']);
+    if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'couple' };
+  }
+
+  if (id.startsWith('kiss-')) {
+    const variantOf = firstExisting(ids, ['kiss']);
+    if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'couple' };
+  }
+
+  if (id.startsWith('family-')) {
+    const variantOf = firstExisting(ids, ['family']);
+    if (variantOf) return { lv: 'variant', vo: variantOf, vk: 'family' };
+  }
+
+  return { lv: 'primary' };
+}
+
 function generateIndex() {
   console.log('🔍 扫描 emoji 资源...');
 
@@ -32,6 +111,7 @@ function generateIndex() {
   const folders = fs.readdirSync(ASSETS_DIR, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name);
+  const folderIds = new Set(folders);
 
   console.log(`📁 找到 ${folders.length} 个 emoji 文件夹`);
 
@@ -96,6 +176,7 @@ function generateIndex() {
           u: metadata.unicode || '',           // unicode
           t: metadata.tts || '',               // tts
           s: styles,                           // styles
+          ...determineEmojiVariantFields(folder, folderIds),
         };
 
         emojis.push(emoji);
@@ -198,4 +279,3 @@ if (fs.existsSync(cldrDir)) {
 } else {
   console.log('未找到 CLDR 目录，跳过翻译处理');
 }
-

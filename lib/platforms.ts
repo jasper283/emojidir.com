@@ -1,4 +1,9 @@
 import type { PlatformConfig, PlatformType } from '@/types/emoji';
+import {
+  getEmojiSaveAssetPath,
+  hasEmojiSaveWebpAsset,
+  type EmojiSavePlatform,
+} from '@/lib/emojisave-assets';
 
 // Note: name and description fields are no longer used directly in UI.
 // Instead, we use i18n translations from messages/*.json (platforms.* and platformDescriptions.*)
@@ -19,54 +24,81 @@ export const PLATFORM_CONFIGS: Record<PlatformType, PlatformConfig> = {
   },
   nato: {
     id: 'nato',
-    name: 'Noto Emoji',
+    name: 'Google Noto Emoji',
     description: 'Google Open Source Design',
     icon: '🌐',
+    styles: ['color']
+  },
+  apple: {
+    id: 'apple',
+    name: 'Apple Emoji',
+    description: 'Apple emoji style used across iOS, iPadOS, and macOS',
+    icon: '🍎',
+    styles: ['color']
+  },
+  microsoft: {
+    id: 'microsoft',
+    name: 'Microsoft Emoji',
+    description: 'Microsoft flat color emoji style',
+    icon: '🪟',
+    styles: ['color']
+  },
+  twitter: {
+    id: 'twitter',
+    name: 'Twitter Emoji',
+    description: 'Twitter emoji style',
+    icon: '🐦',
     styles: ['color']
   }
 };
 
-// 将 unicode 转换为 nato-emoji 文件名格式
-function unicodeToNatoFilename(unicode: string): string {
-  // unicode 格式如: "U+1F600" 或 "1F600" 或 "1f9d1 200d 1f3a8"（包含空格的复合emoji）
-  // nato 文件名格式: "emoji_u1f600.svg" 或 "emoji_u1f9d1_200d_1f3a8.svg"
-  // 注意：需要移除变体选择器（fe0e, fe0f）
-  const cleaned = unicode
-    .replace(/U\+/gi, '')
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(code => code !== 'fe0e' && code !== 'fe0f') // 过滤掉变体选择器
-    .join('_');
-  return `emoji_u${cleaned}`;
+export const VISIBLE_PLATFORM_CONFIGS = Object.fromEntries(
+  Object.entries(PLATFORM_CONFIGS).filter(([platform]) => platform !== 'unicode')
+) as Omit<Record<PlatformType, PlatformConfig>, 'unicode'>;
+
+function buildEmojiSavePlatformData(platform: EmojiSavePlatform, baseEmojiData: any) {
+  const styleKey = platform === 'fluent' ? '3d' : 'color';
+  const platformEmojis = baseEmojiData.emojis.map((emoji: any) => {
+    const assetPath = hasEmojiSaveWebpAsset(platform, emoji.id)
+      ? getEmojiSaveAssetPath(platform, emoji.id)
+      : undefined;
+
+    return {
+      ...emoji,
+      styles: {
+        ...(platform === 'fluent' ? emoji.styles : {}),
+        ...(assetPath ? { [styleKey]: assetPath } : {}),
+      },
+    };
+  });
+
+  return {
+    ...baseEmojiData,
+    emojis: platformEmojis,
+    totalCount: platformEmojis.length,
+    emojisByCategory: platformEmojis.reduce((acc: Record<string, any[]>, emoji: any) => {
+      if (!acc[emoji.group]) acc[emoji.group] = [];
+      acc[emoji.group].push(emoji);
+      return acc;
+    }, {}),
+  };
 }
 
 // 模拟不同平台的emoji数据
 export function getEmojiDataForPlatform(platform: PlatformType, baseEmojiData: any) {
-  // 目前只有Fluent Emoji有真实数据，其他平台使用模拟数据
+  // Use the imported platform images for the two visual platforms. Existing
+  // style keys remain available for the alternate Fluent styles and downloads.
   if (platform === 'fluent') {
-    return baseEmojiData;
+    return buildEmojiSavePlatformData('fluent', baseEmojiData);
   }
 
-  // 为 nato 平台生成数据（使用 R2 CDN 上的 nato-emoji PNG 资源）
+  // Google images are imported from Emoji Save at a stable 256px WebP path.
   if (platform === 'nato') {
-    const natoEmojis = baseEmojiData.emojis.map((emoji: any) => ({
-      ...emoji,
-      // 保持原始 id 不变，以便在不同平台间切换
-      styles: {
-        color: `nato-emoji/png/128/${unicodeToNatoFilename(emoji.unicode)}.png`
-      }
-    }));
+    return buildEmojiSavePlatformData('nato', baseEmojiData);
+  }
 
-    return {
-      ...baseEmojiData,
-      emojis: natoEmojis,
-      totalCount: natoEmojis.length,
-      emojisByCategory: natoEmojis.reduce((acc: any, emoji: any) => {
-        if (!acc[emoji.group]) acc[emoji.group] = [];
-        acc[emoji.group].push(emoji);
-        return acc;
-      }, {})
-    };
+  if (platform === 'apple' || platform === 'microsoft' || platform === 'twitter') {
+    return buildEmojiSavePlatformData(platform, baseEmojiData);
   }
 
   // Unicode 平台：始终使用系统原生 emoji 字符

@@ -2,6 +2,7 @@ import PlatformPageClient from '@/components/PlatformPageClient';
 import { CollectionPageStructuredData } from '@/components/StructuredData';
 import { locales } from '@/i18n/config';
 import { searchEmojis } from '@/lib/emoji-i18n';
+import { hasEmojiSaveWebpAsset, type EmojiSavePlatform } from '@/lib/emojisave-assets';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
 import { PLATFORM_PAGE_SIZE, parsePlatformPage } from '@/lib/platform-pagination';
 import { getEmojiDataForPlatform, PLATFORM_CONFIGS } from '@/lib/platforms';
@@ -11,6 +12,13 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 const baseUrl = 'https://emojidir.com';
+const emojiSavePlatforms = new Set<PlatformType>(['fluent', 'nato', 'apple', 'microsoft', 'twitter']);
+
+function shouldShowOnPlatformList(emoji: Emoji, platform: PlatformType): boolean {
+  if (emoji.listVisibility === 'variant') return false;
+  if (!emojiSavePlatforms.has(platform)) return true;
+  return hasEmojiSaveWebpAsset(platform as EmojiSavePlatform, emoji.id);
+}
 
 interface PlatformPageProps {
   params: Promise<{
@@ -92,11 +100,14 @@ export default async function PlatformPage({ params, searchParams }: PlatformPag
 
   // 根据选择的平台获取对应的emoji数据
   const emojiData = getEmojiDataForPlatform(selectedPlatform, localizedEmojiData);
+  const listEmojis = emojiData.emojis.filter((emoji: Emoji) =>
+    shouldShowOnPlatformList(emoji, selectedPlatform)
+  );
   const searchQuery = search?.trim() || '';
   const selectedCategory = category || 'all';
   const currentPage = parsePlatformPage(pageParam);
 
-  let filteredEmojis = emojiData.emojis;
+  let filteredEmojis = listEmojis;
   if (selectedCategory !== 'all') {
     filteredEmojis = filteredEmojis.filter((emoji: Emoji) => emoji.group === selectedCategory);
   }
@@ -115,7 +126,7 @@ export default async function PlatformPage({ params, searchParams }: PlatformPag
   const categoryCounts = Object.fromEntries(
     emojiData.categories.map((categoryName: string) => [
       categoryName,
-      emojiData.emojisByCategory[categoryName]?.length || 0,
+      listEmojis.filter((emoji: Emoji) => emoji.group === categoryName).length,
     ])
   );
 
@@ -126,7 +137,7 @@ export default async function PlatformPage({ params, searchParams }: PlatformPag
         locale={locale}
         platform={platformSlug}
         selectedPlatform={selectedPlatform}
-        totalEmojis={emojiData.emojis.length}
+        totalEmojis={listEmojis.length}
         page={!searchQuery && selectedCategory === 'all' ? currentPage : 1}
       />
 

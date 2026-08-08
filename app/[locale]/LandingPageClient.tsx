@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -21,6 +22,7 @@ export default function LandingPageClient() {
   };
 
   const floatingEmojis = ['😊', '🎉', '❤️', '🌟', '🚀', '💡', '🎨', '🌈', '⭐', '🔥'];
+  const platforms = Object.values(VISIBLE_PLATFORM_CONFIGS);
 
   // 分类列表
   const categories = [
@@ -176,6 +178,40 @@ export default function LandingPageClient() {
                 {t('landing.features.noLogin.description')}
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Platforms Section */}
+        <section className="py-16 md:py-24">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="font-display mb-4 text-3xl font-bold md:text-5xl">
+              {t('landing.platforms.title')}
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg font-semibold text-muted-foreground md:text-xl">
+              {t('landing.platforms.subtitle')}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 md:gap-6">
+            {platforms.map((platform) => (
+              <Link
+                key={platform.id}
+                href={`/${locale}/${platform.id}-emoji`}
+                className="group rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <div className="clay-card clay-interactive h-full p-6 text-center">
+                  <div className="mb-4 text-5xl md:text-6xl">
+                    {platform.icon}
+                  </div>
+                  <h3 className="font-display mb-2 text-lg font-bold text-foreground transition-colors group-hover:text-primary">
+                    {t(`platforms.${platform.id}`)}
+                  </h3>
+                  <p className="line-clamp-3 text-sm font-semibold leading-6 text-muted-foreground">
+                    {t(`platformDescriptions.${platform.id}`)}
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 

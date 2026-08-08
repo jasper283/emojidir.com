@@ -37,27 +37,27 @@ export async function generateMetadata({
   const metadataByLocale: Record<string, { title: string; description: string; keywords: string }> = {
     'en': {
       title: 'Emoji Directory - Browse & Search Emoji Collections',
-      description: 'Explore thousands of emojis from Fluent Emoji, Noto Emoji, and system platforms. Search, download, and copy emojis in multiple styles including 3D, Color, Flat, and High Contrast.',
+      description: 'Explore thousands of emojis from Fluent Emoji, Google Noto Emoji, and system platforms. Search, download, and copy emojis in multiple styles including 3D, Color, Flat, and High Contrast.',
       keywords: 'emoji, emoji search, emoji directory, fluent emoji, noto emoji, emoji download, emoji copy, 3d emoji, flat emoji, microsoft emoji, google emoji'
     },
     'zh-CN': {
       title: 'Emoji Directory - 浏览和搜索表情符号集合',
-      description: '浏览数千个来自 Fluent Emoji、Noto Emoji 和系统平台的表情符号。搜索、下载和复制多种风格的表情符号，包括 3D、彩色、扁平和高对比度。',
+      description: '浏览数千个来自 Fluent Emoji、Google Noto Emoji 和系统平台的表情符号。搜索、下载和复制多种风格的表情符号，包括 3D、彩色、扁平和高对比度。',
       keywords: '表情符号, emoji搜索, emoji目录, fluent emoji, noto emoji, 表情下载, 表情复制, 3d表情, 扁平表情, 微软表情, 谷歌表情'
     },
     'zh-TW': {
       title: 'Emoji Directory - 瀏覽和搜尋表情符號集合',
-      description: '瀏覽數千個來自 Fluent Emoji、Noto Emoji 和系統平台的表情符號。搜尋、下載和複製多種風格的表情符號，包括 3D、彩色、扁平和高對比度。',
+      description: '瀏覽數千個來自 Fluent Emoji、Google Noto Emoji 和系統平台的表情符號。搜尋、下載和複製多種風格的表情符號，包括 3D、彩色、扁平和高對比度。',
       keywords: '表情符號, emoji搜尋, emoji目錄, fluent emoji, noto emoji, 表情下載, 表情複製, 3d表情, 扁平表情, 微軟表情, 谷歌表情'
     },
     'ja': {
       title: 'Emoji Directory - 絵文字コレクションを閲覧・検索',
-      description: 'Fluent Emoji、Noto Emoji、システムプラットフォームから数千の絵文字を探索。3D、カラー、フラット、ハイコントラストなど、複数のスタイルで絵文字を検索、ダウンロード、コピー。',
+      description: 'Fluent Emoji、Google Noto Emoji、システムプラットフォームから数千の絵文字を探索。3D、カラー、フラット、ハイコントラストなど、複数のスタイルで絵文字を検索、ダウンロード、コピー。',
       keywords: '絵文字, emoji検索, emojiディレクトリ, fluent emoji, noto emoji, 絵文字ダウンロード, 絵文字コピー, 3d絵文字, フラット絵文字, マイクロソフト絵文字, グーグル絵文字'
     },
     'ko': {
       title: 'Emoji Directory - 이모지 컬렉션 찾아보기 및 검색',
-      description: 'Fluent Emoji, Noto Emoji 및 시스템 플랫폼에서 수천 개의 이모지를 탐색하세요. 3D, 컬러, 플랫, 고대비 등 여러 스타일의 이모지를 검색, 다운로드 및 복사하세요.',
+      description: 'Fluent Emoji, Google Noto Emoji 및 시스템 플랫폼에서 수천 개의 이모지를 탐색하세요. 3D, 컬러, 플랫, 고대비 등 여러 스타일의 이모지를 검색, 다운로드 및 복사하세요.',
       keywords: '이모지, emoji 검색, emoji 디렉토리, fluent emoji, noto emoji, 이모지 다운로드, 이모지 복사, 3d 이모지, 플랫 이모지, 마이크로소프트 이모지, 구글 이모지'
     },
   };

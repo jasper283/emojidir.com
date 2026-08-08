@@ -1,12 +1,12 @@
 'use client';
 
-import { PLATFORM_CONFIGS } from '@/lib/platforms';
+import { VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { PlatformType } from '@/types/emoji';
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-const PLATFORMS = Object.values(PLATFORM_CONFIGS);
+const PLATFORMS = Object.values(VISIBLE_PLATFORM_CONFIGS);
 
 interface PlatformSwitcherProps {
   currentPlatform: PlatformType;

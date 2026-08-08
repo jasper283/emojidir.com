@@ -21,8 +21,8 @@
     "detected": "Detected",
     "usingAppleNative": "Using Apple native emoji",
     "usingWindowsNative": "Using Windows native emoji (Segoe UI)",
-    "usingAndroidNative": "Using Noto Emoji (Android native)",
-    "usingNotoFallback": "Using Noto Emoji as fallback",
+    "usingAndroidNative": "Using Google Noto Emoji (Android native)",
+    "usingNotoFallback": "Using Google Noto Emoji as fallback",
     "unknownSystem": "Unknown system",
     "all": "All",
     "openMainMenu": "Open main menu",
@@ -43,7 +43,7 @@
     "copyUnicode": "Copy Unicode",
     "downloadStyle": "Download {style}",
     "downloadFormat": "Download {format}",
-    "downloadNotoEmoji": "Download Noto Emoji",
+    "downloadNotoEmoji": "Download Google Noto Emoji",
     "availableInStyles": "Available in {count} style{plural}",
     "availableInStylesSingular": "",
     "availableInStylesPlural": "s",
@@ -67,7 +67,9 @@
       "Symbols": "Symbols",
       "Flags": "Flags",
       "Component": "Component"
-    }
+    },
+    "compareWithOtherPlatforms": "Compare with other platforms",
+    "emojiVariants": "Emoji variants"
   },
   "header": {
     "title": "Emoji Directory",
@@ -81,7 +83,7 @@
   },
   "footer": {
     "appName": "Emoji Directory",
-    "supportedPlatforms": "Supports Fluent Emoji, Noto Emoji and System Emoji (displayed as system Unicode emoji on your device)",
+    "supportedPlatforms": "Supports Fluent Emoji, Google Noto Emoji, Apple Emoji, Microsoft Emoji, and Twitter Emoji.",
     "statsText": "{count} emojis | {categories} categories",
     "description": "Explore and download emojis from multiple design systems — Apple, Google, Microsoft, and more, all in one place.",
     "copyright": "All rights reserved.",
@@ -104,18 +106,24 @@
       "terms": "Terms of Service",
       "license": "License",
       "fluentEmoji": "Fluent Emoji (Microsoft)",
-      "notoEmoji": "Noto Emoji (Google)"
+      "notoEmoji": "Google Noto Emoji"
     }
   },
   "platforms": {
     "fluent": "Microsoft 3D Fluent Emoji",
-    "nato": "Noto Emoji",
-    "unicode": "System Emoji"
+    "nato": "Google Noto Emoji",
+    "unicode": "System Emoji",
+    "apple": "Apple Emoji",
+    "microsoft": "Microsoft Emoji",
+    "twitter": "Twitter Emoji"
   },
   "platformDescriptions": {
     "fluent": "Explore Microsoft's Fluent Emoji — a modern 3D emoji set designed for Windows and Microsoft products.",
-    "nato": "Discover Google's Noto Emoji — a flat, minimalist emoji set used across Android and Google platforms.",
-    "unicode": "View emojis as they appear on your device. System Emoji are displayed using your platform's native Unicode rendering."
+    "nato": "Discover Google Noto Emoji — a flat, minimalist emoji set used across Android and Google platforms.",
+    "unicode": "View emojis as they appear on your device. System Emoji are displayed using your platform's native Unicode rendering.",
+    "apple": "Browse Apple Emoji images used across iOS, iPadOS, and macOS.",
+    "microsoft": "Browse Microsoft Emoji images in the classic flat color style.",
+    "twitter": "Browse Twitter Emoji images for a clean social platform emoji style."
   },
   "styles": {
     "3d": "3D",
@@ -171,8 +179,8 @@
       }
     },
     "platforms": {
-      "title": "Choose Your Platform",
-      "subtitle": "Select from different emoji design systems"
+      "title": "Browse Emoji by platform",
+      "subtitle": "Compare emoji designs across Apple, Google, Microsoft, Twitter, and Fluent styles."
     },
     "features": {
       "title": "Features",

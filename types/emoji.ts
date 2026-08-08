@@ -75,6 +75,9 @@ export interface Emoji {
   unicode: string;
   tts: string;
   styles: EmojiStyles;
+  listVisibility: EmojiListVisibility;
+  variantOf?: string;
+  variantKind?: EmojiVariantKind;
   // 多语言支持：语言代码 -> 名称和关键词
   i18n?: Record<string, EmojiI18n>;
 }
@@ -118,6 +121,9 @@ export interface CompactEmoji {
   u: string;                                    // unicode
   t: string;                                    // tts
   s: CompactEmojiStyles;                        // styles
+  lv?: EmojiListVisibility;                     // listVisibility
+  vo?: string;                                  // variantOf
+  vk?: EmojiVariantKind;                        // variantKind
   i18n?: Record<string, CompactEmojiI18n>;      // i18n (保持原名)
 }
 
@@ -130,7 +136,17 @@ export interface CompactEmojiIndex {
 }
 
 export type StyleType = '3d' | 'color' | 'flat' | 'high-contrast';
-export type PlatformType = 'fluent' | 'unicode' | 'nato';
+export type PlatformType = 'fluent' | 'unicode' | 'nato' | 'apple' | 'microsoft' | 'twitter';
+export type EmojiListVisibility = 'primary' | 'variant';
+export type EmojiVariantKind =
+  | 'skin-tone'
+  | 'gender'
+  | 'hair'
+  | 'direction'
+  | 'family'
+  | 'couple'
+  | 'role'
+  | 'other';
 
 export interface PlatformConfig {
   id: PlatformType;
@@ -193,7 +209,11 @@ export function expandEmoji(compact: CompactEmoji): Emoji {
     unicode: compact.u,
     tts: compact.t,
     styles: expandStyles(compact.s),
+    listVisibility: compact.lv || 'primary',
   };
+
+  if (compact.vo) expanded.variantOf = compact.vo;
+  if (compact.vk) expanded.variantKind = compact.vk;
 
   if (compact.i18n) {
     expanded.i18n = {};

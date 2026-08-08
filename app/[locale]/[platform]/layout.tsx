@@ -1,5 +1,5 @@
 import { locales } from '@/i18n/config';
-import { PLATFORM_CONFIGS } from '@/lib/platforms';
+import { PLATFORM_CONFIGS, VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
 import { createMetaDescription } from '@/lib/seo';
 import type { PlatformType } from '@/types/emoji';
 import type { Metadata } from 'next';
@@ -28,9 +28,9 @@ export async function generateMetadata({
         keywords: 'Microsoft 3D Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, copy paste emoji, download emoji'
       },
       'nato': {
-        name: 'Noto Emoji Emojis — Copy, Paste & Download All Emojis',
-        description: 'Browse and download all Noto Emoji emojis. Easily copy & paste emojis for free. Perfect for messages, social media, and projects.',
-        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, copy paste emoji, download emoji'
+        name: 'Google Noto Emoji — Copy, Paste & Download All Emojis',
+        description: 'Browse and download all Google Noto Emoji. Easily copy & paste emojis for free. Perfect for messages, social media, and projects.',
+        keywords: 'Google Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, copy paste emoji, download emoji'
       },
       'unicode': {
         name: 'System Emojis — Copy, Paste & Download All Emojis',
@@ -45,9 +45,9 @@ export async function generateMetadata({
         keywords: 'Microsoft 3D Fluent Emoji, 微软表情, 3D表情, Windows表情, 复制粘贴表情, 下载表情'
       },
       'nato': {
-        name: 'Noto Emoji 表情符号 — 复制、粘贴和下载所有表情',
-        description: '浏览和下载所有 Noto Emoji 表情符号。轻松免费复制粘贴表情。非常适合消息、社交媒体和项目。',
-        keywords: 'Noto Emoji, 谷歌表情, 安卓表情, 扁平表情, 复制粘贴表情, 下载表情'
+        name: 'Google Noto Emoji 表情符号 — 复制、粘贴和下载所有表情',
+        description: '浏览和下载所有 Google Noto Emoji 表情符号。轻松免费复制粘贴表情。非常适合消息、社交媒体和项目。',
+        keywords: 'Google Noto Emoji, 谷歌表情, 安卓表情, 扁平表情, 复制粘贴表情, 下载表情'
       },
       'unicode': {
         name: '系统 Emoji 表情符号 — 复制、粘贴和下载所有表情',
@@ -62,9 +62,9 @@ export async function generateMetadata({
         keywords: 'Microsoft 3D Fluent Emoji, 微軟表情, 3D表情, Windows表情, 複製貼上表情, 下載表情'
       },
       'nato': {
-        name: 'Noto Emoji 表情符號 — 複製、貼上和下載所有表情',
-        description: '瀏覽和下載所有 Noto Emoji 表情符號。輕鬆免費複製貼上表情。非常適合訊息、社交媒體和專案。',
-        keywords: 'Noto Emoji, 谷歌表情, 安卓表情, 扁平表情, 複製貼上表情, 下載表情'
+        name: 'Google Noto Emoji 表情符號 — 複製、貼上和下載所有表情',
+        description: '瀏覽和下載所有 Google Noto Emoji 表情符號。輕鬆免費複製貼上表情。非常適合訊息、社交媒體和專案。',
+        keywords: 'Google Noto Emoji, 谷歌表情, 安卓表情, 扁平表情, 複製貼上表情, 下載表情'
       },
       'unicode': {
         name: '系統 Emoji 表情符號 — 複製、貼上和下載所有表情',
@@ -79,9 +79,9 @@ export async function generateMetadata({
         keywords: 'Microsoft 3D Fluent Emoji, Microsoft絵文字, 3D絵文字, Windows絵文字, コピペ絵文字, ダウンロード絵文字'
       },
       'nato': {
-        name: 'Noto Emoji 絵文字 — すべての絵文字をコピー、ペースト、ダウンロード',
-        description: 'すべてのNoto Emoji絵文字を閲覧してダウンロード。無料で簡単にコピー＆ペースト。メッセージ、ソーシャルメディア、プロジェクトに最適。',
-        keywords: 'Noto Emoji, Google絵文字, Android絵文字, フラット絵文字, コピペ絵文字, ダウンロード絵文字'
+        name: 'Google Noto Emoji 絵文字 — すべての絵文字をコピー、ペースト、ダウンロード',
+        description: 'すべてのGoogle Noto Emoji絵文字を閲覧してダウンロード。無料で簡単にコピー＆ペースト。メッセージ、ソーシャルメディア、プロジェクトに最適。',
+        keywords: 'Google Noto Emoji, Google絵文字, Android絵文字, フラット絵文字, コピペ絵文字, ダウンロード絵文字'
       },
       'unicode': {
         name: 'システム Emoji 絵文字 — すべての絵文字をコピー、ペースト、ダウンロード',
@@ -96,9 +96,9 @@ export async function generateMetadata({
         keywords: 'Microsoft 3D Fluent Emoji, Microsoft 이모지, 3D 이모지, Windows 이모지, 복사 붙여넣기 이모지, 다운로드 이모지'
       },
       'nato': {
-        name: 'Noto Emoji 이모지 — 모든 이모지 복사, 붙여넣기 및 다운로드',
-        description: '모든 Noto Emoji 이모지를 탐색하고 다운로드하세요. 무료로 쉽게 복사 및 붙여넣기. 메시지, 소셜 미디어 및 프로젝트에 완벽합니다.',
-        keywords: 'Noto Emoji, Google 이모지, Android 이모지, 플랫 이모지, 복사 붙여넣기 이모지, 다운로드 이모지'
+        name: 'Google Noto Emoji 이모지 — 모든 이모지 복사, 붙여넣기 및 다운로드',
+        description: '모든 Google Noto Emoji 이모지를 탐색하고 다운로드하세요. 무료로 쉽게 복사 및 붙여넣기. 메시지, 소셜 미디어 및 프로젝트에 완벽합니다.',
+        keywords: 'Google Noto Emoji, Google 이모지, Android 이모지, 플랫 이모지, 복사 붙여넣기 이모지, 다운로드 이모지'
       },
       'unicode': {
         name: '시스템 Emoji 이모지 — 모든 이모지 복사, 붙여넣기 및 다운로드',
@@ -113,9 +113,9 @@ export async function generateMetadata({
         keywords: 'Microsoft 3D Fluent Emoji, Microsoft Emoji, 3D Emoji, Windows Emoji, copiar colar emoji, baixar emoji'
       },
       'nato': {
-        name: 'Noto Emoji Emojis — Copiar, Colar e Baixar Todos os Emojis',
-        description: 'Navegue e baixe todos os emojis Noto Emoji. Copie e cole emojis gratuitamente com facilidade. Perfeito para mensagens, redes sociais e projetos.',
-        keywords: 'Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, copiar colar emoji, baixar emoji'
+        name: 'Google Noto Emoji — Copiar, Colar e Baixar Todos os Emojis',
+        description: 'Navegue e baixe todos os Google Noto Emoji. Copie e cole emojis gratuitamente com facilidade. Perfeito para mensagens, redes sociais e projetos.',
+        keywords: 'Google Noto Emoji, Google Emoji, Android Emoji, Flat Emoji, copiar colar emoji, baixar emoji'
       },
       'unicode': {
         name: 'Sistema Emoji Emojis — Copiar, Colar e Baixar Todos os Emojis',
@@ -125,10 +125,22 @@ export async function generateMetadata({
     }
   };
 
-  const localeMetadata = platformMetadata[locale]?.[platformId] || platformMetadata['en'][platformId];
-  const title = localeMetadata.name;
-  const description = createMetaDescription(localeMetadata.description, locale);
-  const keywords = localeMetadata.keywords;
+  const fallbackPlatformName = platformConfig.name;
+  const fallbackDescription = platformConfig.description;
+  const fallbackMetadata = {
+    name: `${fallbackPlatformName} Emojis — Copy, Paste & Download All Emojis`,
+    description: `Browse and download all ${fallbackPlatformName} emojis. Easily copy and paste emojis for free.`,
+    keywords: `${fallbackPlatformName}, emoji, copy paste emoji, download emoji`,
+  };
+  const localeMetadata = platformMetadata[locale]?.[platformId]
+    || platformMetadata['en']?.[platformId]
+    || fallbackMetadata;
+  const title = localeMetadata.name || fallbackMetadata.name;
+  const description = createMetaDescription(
+    localeMetadata.description || fallbackDescription,
+    locale
+  );
+  const keywords = localeMetadata.keywords || fallbackMetadata.keywords;
 
   return {
     title,
@@ -166,7 +178,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const platforms = Object.keys(PLATFORM_CONFIGS);
+  const platforms = Object.keys(VISIBLE_PLATFORM_CONFIGS);
   const params = [];
 
   for (const locale of locales) {

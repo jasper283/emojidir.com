@@ -32,7 +32,9 @@ export default function Header() {
   const platforms = [
     { name: 'fluent', icon: '🎨', key: 'fluent', description: 'Microsoft Design System' },
     { name: 'nato', icon: '🎯', key: 'nato', description: 'Google Open Source Design' },
-    { name: 'unicode', icon: '💻', key: 'unicode', description: 'Auto-detect System' },
+    { name: 'apple', icon: '🍎', key: 'apple', description: 'Apple Emoji' },
+    { name: 'microsoft', icon: '🪟', key: 'microsoft', description: 'Microsoft Emoji' },
+    { name: 'twitter', icon: '🐦', key: 'twitter', description: 'Twitter Emoji' },
   ];
 
   return (

@@ -1,6 +1,6 @@
 import { locales, type Locale } from '@/i18n/config';
 import { getAllPosts } from '@/lib/mdx';
-import { PLATFORM_CONFIGS } from '@/lib/platforms';
+import { VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
 import {
   BLOG_PAGE_TEMPLATE_UPDATED_AT,
   EMOJI_PAGE_TEMPLATE_UPDATED_AT,
@@ -15,7 +15,7 @@ import compactEmojiIndexData from '@/data/emoji-index.json';
 import emojiSeoData from '@/data/emoji-seo.json';
 
 const baseUrl = 'https://emojidir.com';
-const platformSlugs = Object.keys(PLATFORM_CONFIGS).map((platform) => `${platform}-emoji`);
+const platformSlugs = Object.keys(VISIBLE_PLATFORM_CONFIGS).map((platform) => `${platform}-emoji`);
 const indexedDetailPlatformSlug = 'fluent-emoji';
 
 function localizedAlternates(pathForLocale: (locale: Locale) => string) {
