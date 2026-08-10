@@ -99,14 +99,6 @@ export default function Footer() {
                     {t('links.terms')}
                   </Link>
                 </li>
-                <li className="hidden">
-                  <Link
-                    href="/en/blog"
-                    className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    {t('links.license')}
-                  </Link>
-                </li>
               </ul>
             </div>
             <div>

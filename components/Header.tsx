@@ -176,10 +176,6 @@ export default function Header() {
             )}
           </div>
 
-          {/* Blog link */}
-          <Link href={`/${locale}/blog`} className="rounded-full px-3 py-2 text-sm font-bold leading-6 text-foreground transition-colors hover:bg-card/70 hover:text-primary">
-            {t('nav.blog')}
-          </Link>
         </div>
 
         {/* Language switcher */}
@@ -292,14 +288,6 @@ export default function Header() {
                       </div>
                     )}
                   </div>
-                  {/* Blog link */}
-                  <Link
-                    href={`/${locale}/blog`}
-                    className="-mx-3 block rounded-2xl px-3 py-2 text-base font-bold leading-7 text-foreground transition-colors hover:bg-secondary/70"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {t('nav.blog')}
-                  </Link>
                 </div>
                 <div className="py-6">
                   <div className="-mx-3 px-3">

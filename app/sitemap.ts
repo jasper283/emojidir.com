@@ -1,15 +1,9 @@
 import { locales, type Locale } from '@/i18n/config';
-import { getAllPosts } from '@/lib/mdx';
 import { VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
-import {
-  BLOG_PAGE_TEMPLATE_UPDATED_AT,
-  EMOJI_PAGE_TEMPLATE_UPDATED_AT,
-} from '@/lib/sitemap-dates';
+import { EMOJI_PAGE_TEMPLATE_UPDATED_AT } from '@/lib/sitemap-dates';
 import type { CompactEmojiIndex } from '@/types/emoji';
 import { expandEmojiIndex } from '@/types/emoji';
 import type { MetadataRoute } from 'next';
-import fs from 'fs';
-import path from 'path';
 // 构建时导入数据（缩写格式）
 import compactEmojiIndexData from '@/data/emoji-index.json';
 import emojiSeoData from '@/data/emoji-seo.json';
@@ -46,24 +40,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       EMOJI_PAGE_TEMPLATE_UPDATED_AT,
     ],
     new Date(EMOJI_PAGE_TEMPLATE_UPDATED_AT)
-  );
-  const blogLocales = locales.filter((locale) =>
-    fs.existsSync(path.join(process.cwd(), 'content/blog', locale))
-  );
-  const postsByLocale = new Map<Locale, Awaited<ReturnType<typeof getAllPosts>>>();
-
-  await Promise.all(
-    blogLocales.map(async (locale) => {
-      postsByLocale.set(locale, await getAllPosts(locale));
-    })
-  );
-
-  const allBlogDates = Array.from(postsByLocale.values())
-    .flat()
-    .map((post) => post.date);
-  const blogUpdatedAt = latestDate(
-    [...allBlogDates, BLOG_PAGE_TEMPLATE_UPDATED_AT],
-    emojiUpdatedAt
   );
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
@@ -104,66 +80,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         alternates: localizedAlternates(
           (alternateLocale) => `${baseUrl}/${alternateLocale}/${indexedDetailPlatformSlug}/${emoji.id}`
         ),
-      });
-    }
-  }
-
-  // 博客列表页：只收录真正存在本地化内容的语言目录。
-  for (const locale of blogLocales) {
-    sitemapEntries.push({
-      url: `${baseUrl}/${locale}/blog`,
-      lastModified: blogUpdatedAt,
-      changeFrequency: 'monthly',
-      priority: 0.5,
-      alternates: {
-        languages: {
-          ...Object.fromEntries(
-            blogLocales.map((alternateLocale) => [
-              alternateLocale,
-              `${baseUrl}/${alternateLocale}/blog`,
-            ])
-          ),
-          'x-default': `${baseUrl}/en/blog`,
-        },
-      },
-    });
-  }
-
-  // 博客文章页：按文章 frontmatter 的 date 设置 lastModified。
-  const blogSlugs = new Set(
-    Array.from(postsByLocale.values())
-      .flat()
-      .map((post) => post.slug)
-  );
-
-  for (const slug of blogSlugs) {
-    const translatedLocales = blogLocales.filter((locale) =>
-      postsByLocale.get(locale)?.some((post) => post.slug === slug)
-    );
-    const postDates = translatedLocales.flatMap((locale) =>
-      (postsByLocale.get(locale) ?? [])
-        .filter((post) => post.slug === slug)
-        .map((post) => post.date)
-    );
-
-    for (const locale of translatedLocales) {
-      const localizedPost = postsByLocale.get(locale)?.find((post) => post.slug === slug);
-      sitemapEntries.push({
-        url: `${baseUrl}/${locale}/blog/${slug}`,
-        lastModified: latestDate(localizedPost ? [localizedPost.date] : postDates, blogUpdatedAt),
-        changeFrequency: 'yearly',
-        priority: 0.5,
-        alternates: {
-          languages: {
-            ...Object.fromEntries(
-              translatedLocales.map((alternateLocale) => [
-                alternateLocale,
-                `${baseUrl}/${alternateLocale}/blog/${slug}`,
-              ])
-            ),
-            'x-default': `${baseUrl}/en/blog/${slug}`,
-          },
-        },
       });
     }
   }
