@@ -6,7 +6,7 @@ import { getEmojiName } from '@/lib/emoji-i18n';
 import type { Emoji, StyleType } from '@/types/emoji';
 import { useLocale } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/StaticLink';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 

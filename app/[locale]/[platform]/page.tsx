@@ -1,10 +1,9 @@
 import PlatformPageClient from '@/components/PlatformPageClient';
 import { CollectionPageStructuredData } from '@/components/StructuredData';
 import { locales } from '@/i18n/config';
-import { searchEmojis } from '@/lib/emoji-i18n';
 import { hasEmojiSaveWebpAsset, type EmojiSavePlatform } from '@/lib/emojisave-assets';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
-import { PLATFORM_PAGE_SIZE, parsePlatformPage } from '@/lib/platform-pagination';
+import { PLATFORM_PAGE_SIZE } from '@/lib/platform-pagination';
 import { getEmojiDataForPlatform, PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { Emoji, PlatformType } from '@/types/emoji';
 import { useTranslations } from 'next-intl';
@@ -25,70 +24,30 @@ interface PlatformPageProps {
     locale: string;
     platform: string;
   }>;
-  searchParams: Promise<{
-    search?: string;
-    category?: string;
-    page?: string;
-  }>;
 }
 
-export async function generateMetadata({
-  params,
-  searchParams,
-}: PlatformPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PlatformPageProps): Promise<Metadata> {
   const { locale, platform } = await params;
-  const { page, search, category } = await searchParams;
-  const currentPage = parsePlatformPage(page);
-  const hasFilterParams = search !== undefined || category !== undefined;
   const basePath = `${baseUrl}/${locale}/${platform}`;
-
-  // Filtered result URLs will receive their indexing policy separately. Only
-  // give numbered, unfiltered pages a self-referencing canonical URL here.
-  if (hasFilterParams) {
-    return {
-      alternates: {
-        canonical: basePath,
-        languages: Object.fromEntries(
-          locales.map((alternateLocale) => [
-            alternateLocale,
-            `${baseUrl}/${alternateLocale}/${platform}`,
-          ])
-        ),
-      },
-      robots: {
-        index: false,
-        follow: true,
-        googleBot: {
-          index: false,
-          follow: true,
-        },
-      },
-    };
-  }
-
-  if (currentPage <= 1) {
-    return {};
-  }
 
   return {
     alternates: {
-      canonical: `${baseUrl}/${locale}/${platform}?page=${currentPage}`,
+      canonical: basePath,
       languages: Object.fromEntries(
         locales.map((alternateLocale) => [
           alternateLocale,
-          `${baseUrl}/${alternateLocale}/${platform}?page=${currentPage}`,
+          `${baseUrl}/${alternateLocale}/${platform}`,
         ])
       ),
     },
     openGraph: {
-      url: `${baseUrl}/${locale}/${platform}?page=${currentPage}`,
+      url: basePath,
     },
   };
 }
 
-export default async function PlatformPage({ params, searchParams }: PlatformPageProps) {
+export default async function PlatformPage({ params }: PlatformPageProps) {
   const { locale, platform: platformSlug } = await params;
-  const { search, category, page: pageParam } = await searchParams;
   const selectedPlatform = platformSlug?.replace('-emoji', '') as PlatformType || 'fluent';
 
   if (!PLATFORM_CONFIGS[selectedPlatform] || platformSlug !== `${selectedPlatform}-emoji`) {
@@ -103,26 +62,7 @@ export default async function PlatformPage({ params, searchParams }: PlatformPag
   const listEmojis = emojiData.emojis.filter((emoji: Emoji) =>
     shouldShowOnPlatformList(emoji, selectedPlatform)
   );
-  const searchQuery = search?.trim() || '';
-  const selectedCategory = category || 'all';
-  const currentPage = parsePlatformPage(pageParam);
-
-  let filteredEmojis = listEmojis;
-  if (selectedCategory !== 'all') {
-    filteredEmojis = filteredEmojis.filter((emoji: Emoji) => emoji.group === selectedCategory);
-  }
-  if (searchQuery) {
-    filteredEmojis = searchEmojis(filteredEmojis, searchQuery, locale);
-  }
-
-  const totalItems = filteredEmojis.length;
-  const totalPages = Math.max(1, Math.ceil(totalItems / PLATFORM_PAGE_SIZE));
-  if (currentPage > totalPages) {
-    notFound();
-  }
-
-  const pageStart = (currentPage - 1) * PLATFORM_PAGE_SIZE;
-  const pageEmojis = filteredEmojis.slice(pageStart, pageStart + PLATFORM_PAGE_SIZE);
+  const pageEmojis = listEmojis.slice(0, PLATFORM_PAGE_SIZE);
   const categoryCounts = Object.fromEntries(
     emojiData.categories.map((categoryName: string) => [
       categoryName,
@@ -138,7 +78,7 @@ export default async function PlatformPage({ params, searchParams }: PlatformPag
         platform={platformSlug}
         selectedPlatform={selectedPlatform}
         totalEmojis={listEmojis.length}
-        page={!searchQuery && selectedCategory === 'all' ? currentPage : 1}
+        page={1}
       />
 
       {/* 客户端交互组件 */}
@@ -148,11 +88,11 @@ export default async function PlatformPage({ params, searchParams }: PlatformPag
         categoryCounts={categoryCounts}
         selectedPlatform={selectedPlatform}
         locale={locale}
-        searchQuery={searchQuery}
-        selectedCategory={selectedCategory}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={totalItems}
+        searchQuery=""
+        selectedCategory="all"
+        currentPage={1}
+        totalPages={Math.max(1, Math.ceil(listEmojis.length / PLATFORM_PAGE_SIZE))}
+        totalItems={listEmojis.length}
       />
     </>
   );

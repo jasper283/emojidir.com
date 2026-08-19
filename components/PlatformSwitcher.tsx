@@ -3,7 +3,7 @@
 import { VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
 import type { PlatformType } from '@/types/emoji';
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 const PLATFORMS = Object.values(VISIBLE_PLATFORM_CONFIGS);
@@ -14,7 +14,6 @@ interface PlatformSwitcherProps {
 
 export default function PlatformSwitcher({ currentPlatform }: PlatformSwitcherProps) {
   const locale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
@@ -44,10 +43,10 @@ export default function PlatformSwitcher({ currentPlatform }: PlatformSwitcherPr
     if (pathParts.length >= 3 && pathParts[1].includes('-emoji')) {
       // 在详情页，保持在详情页并切换平台
       const slug = pathParts[2];
-      router.push(`/${locale}/${platformSlug}/${slug}`);
+      window.location.assign(`/${locale}/${platformSlug}/${slug}`);
     } else {
       // 在首页或其他页面，跳转到该平台的首页
-      router.push(`/${locale}/${platformSlug}`);
+      window.location.assign(`/${locale}/${platformSlug}`);
     }
 
     setIsOpen(false);

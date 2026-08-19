@@ -2,7 +2,7 @@
 
 import { localeNames, locales, type Locale } from '@/i18n/config';
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 // 语言对应的国旗 emoji
@@ -17,7 +17,6 @@ const localeFlags: Record<Locale, string> = {
 
 export default function LanguageSwitcher() {
   const locale = useLocale() as Locale;
-  const router = useRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -40,7 +39,7 @@ export default function LanguageSwitcher() {
     segments[1] = newLocale;
     const newPathname = segments.join('/');
 
-    router.push(newPathname);
+    window.location.assign(newPathname);
     setIsOpen(false);
   };
 

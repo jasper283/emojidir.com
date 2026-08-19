@@ -8,6 +8,8 @@ import type { MetadataRoute } from 'next';
 import compactEmojiIndexData from '@/data/emoji-index.json';
 import emojiSeoData from '@/data/emoji-seo.json';
 
+export const dynamic = 'force-static';
+
 const baseUrl = 'https://emojidir.com';
 const platformSlugs = Object.keys(VISIBLE_PLATFORM_CONFIGS).map((platform) => `${platform}-emoji`);
 const indexedDetailPlatformSlug = 'fluent-emoji';

@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og'
 
+export const dynamic = 'force-static'
+
 // 图像元数据 - Next.js 会自动生成多种尺寸
 export const size = {
   width: 512,
@@ -37,4 +39,3 @@ export default function Icon() {
     }
   )
 }
-

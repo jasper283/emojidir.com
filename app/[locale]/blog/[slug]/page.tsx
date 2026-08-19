@@ -11,7 +11,7 @@ import { enUS, ja, ko, ptBR, zhCN } from 'date-fns/locale'
 import { ArrowLeft, Calendar, Clock, Tag, User } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import Link from 'next/link'
+import Link from '@/components/StaticLink'
 import { notFound } from 'next/navigation'
 import remarkGfm from 'remark-gfm'
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import Link from '@/components/StaticLink';
 
 export default function NotFound() {
   const t = useTranslations('common');
@@ -22,4 +22,3 @@ export default function NotFound() {
     </div>
   );
 }
-

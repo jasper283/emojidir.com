@@ -4,7 +4,10 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 移除 output: 'export' 以支持完整的 Next.js 功能
+  // Cloudflare Pages serves the generated files directly. Keep runtime work
+  // out of the request path so traffic cannot create ISR or Function usage.
+  output: 'export',
+  trailingSlash: true,
   images: {
     // 关闭图片优化，避免使用付费服务
     unoptimized: true,
@@ -24,30 +27,6 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
-  // 优化静态资源缓存
-  async headers() {
-    return [
-      {
-        source: '/assets/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/data/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=86400',
-          },
-        ],
-      },
-    ];
-  },
 }
 
 module.exports = withNextIntl(nextConfig)
-

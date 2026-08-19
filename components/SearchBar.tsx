@@ -27,6 +27,12 @@ export default function SearchBar({ value, onChange, onSubmit }: SearchBarProps)
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            submit();
+          }
+        }}
         placeholder={t('searchPlaceholder')}
         className="h-12 pl-11 pr-12 text-sm"
       />

@@ -1,21 +1,14 @@
-import EmojiDetailClient from '@/components/EmojiDetailClient';
+import StaticEmojiDetailClient from '@/components/StaticEmojiDetailClient';
 import { EmojiDetailStructuredData } from '@/components/StructuredData';
 import { getAssetUrl } from '@/config/cdn';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
-import {
-  getEmojiSavePngAssetPath,
-  hasEmojiSavePngAsset,
-  type EmojiSavePlatform,
-} from '@/lib/emojisave-assets';
 import { getEmojiSeoData, getEmojiSeoKeywords } from '@/lib/emoji-seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
-import { getEmojiDataForPlatform, PLATFORM_CONFIGS, VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
+import { getEmojiDataForPlatform, PLATFORM_CONFIGS } from '@/lib/platforms';
 import { getEmojipediaEmojiData } from '@/lib/emojipedia';
 import type { Emoji, PlatformType } from '@/types/emoji';
 import { useTranslations } from 'next-intl';
 import { notFound } from 'next/navigation';
-
-const emojiSavePlatforms = new Set<PlatformType>(['fluent', 'nato', 'apple', 'microsoft', 'twitter']);
 
 interface EmojiDetailPageProps {
   params: Promise<{
@@ -54,37 +47,6 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
   const fallbackKeywords = getEmojiKeywords(emoji, locale);
   const displayKeywords = seoKeywords.length > 0 ? seoKeywords : fallbackKeywords;
 
-  // 获取其他平台的emoji数据
-  const platforms = Object.keys(VISIBLE_PLATFORM_CONFIGS) as PlatformType[];
-  const otherPlatforms = platforms
-    .filter(p => p !== selectedPlatform)
-    .map(platform => {
-      const platformData = getEmojiDataForPlatform(platform, localizedEmojiData);
-      const platformEmoji = platformData.emojis.find((e: Emoji) => e.id === emoji.id);
-      return {
-        platform,
-        emoji: platformEmoji,
-        // 这里需要在客户端组件中获取翻译
-        name: platform
-      };
-    })
-    .filter(item =>
-      item.emoji &&
-      Object.values(item.emoji.styles).some((stylePath) => Boolean(stylePath))
-    );
-
-  const variantRootId = emoji.variantOf || emoji.id;
-  const variantEmojis = emojiData.emojis
-    .filter((candidate: Emoji) =>
-      candidate.id !== emoji.id &&
-      (candidate.id === variantRootId || candidate.variantOf === variantRootId)
-    )
-    .sort((a: Emoji, b: Emoji) => {
-      if (a.id === variantRootId) return -1;
-      if (b.id === variantRootId) return 1;
-      return a.name.localeCompare(b.name);
-    });
-
   // 获取第一个可用样式的图片URL用于结构化数据
   const getAllAvailableStyles = (): string[] => {
     const allStyles = Object.keys(emoji.styles);
@@ -119,11 +81,6 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
   const availableStyles = getAllAvailableStyles();
   const firstAvailableStyle = availableStyles.length > 0 ? availableStyles[0] : '3d';
   const currentStyleUrl = getCurrentStyleUrl(firstAvailableStyle);
-  const pngAssetPath = emojiSavePlatforms.has(selectedPlatform) &&
-    hasEmojiSavePngAsset(selectedPlatform as EmojiSavePlatform, emoji.id)
-    ? getEmojiSavePngAssetPath(selectedPlatform as EmojiSavePlatform, emoji.id)
-    : undefined;
-
   return (
     <>
       {/* JSON-LD结构化数据 - 在服务端渲染 */}
@@ -147,18 +104,11 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
         imageUrl={currentStyleUrl ? getAssetUrl(currentStyleUrl) : undefined}
       />
 
-      {/* 客户端交互组件 */}
-      <EmojiDetailClient
-        emoji={emoji}
-        seoData={seoData}
-        emojipediaData={emojipediaData}
-        selectedPlatform={selectedPlatform}
-        otherPlatforms={otherPlatforms}
-        variantEmojis={variantEmojis}
-        pngAssetPath={pngAssetPath}
+      {/* The interactive detail body loads its data from static JSON in the browser. */}
+      <StaticEmojiDetailClient
         locale={locale}
-        localeParam={locale}
         platformSlug={platformSlug}
+        slug={slugParam}
       />
     </>
   );

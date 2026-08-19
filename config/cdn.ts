@@ -4,8 +4,7 @@
  * 否则从本地 assets 加载
  */
 
-// export const CDN_URL = process.env.R2_PUBLIC_CDN_URL || '';
-export const CDN_URL = 'https://object.emojidir.com';
+export const CDN_URL = process.env.NEXT_PUBLIC_R2_PUBLIC_CDN_URL || 'https://object.emojidir.com';
 
 /**
  * 获取资源的完整 URL
@@ -20,4 +19,3 @@ export function getAssetUrl(path: string): string {
   // 从本地加载 - 浏览器会自动处理
   return `/${path}`;
 }
-

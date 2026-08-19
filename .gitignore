@@ -53,6 +53,9 @@ next-env.d.ts
 # generated data
 # 注意：data/emoji-index.json 需要提交到仓库，因为构建时需要导入
 # 但如果文件太大，可以考虑使用 Git LFS
+/public/data/emoji-seo.json
+/public/data/emojipedia-content.json
+/public/data/emojisave-assets.json
 
 # assets directory - emoji images and resources
 /assets/

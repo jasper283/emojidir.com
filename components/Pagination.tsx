@@ -3,8 +3,9 @@
 import { buildPlatformPageHref } from '@/lib/platform-pagination';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
-import Link from 'next/link';
+import Link from '@/components/StaticLink';
 import { useTranslations } from 'next-intl';
+import type { MouseEvent } from 'react';
 
 interface PaginationProps {
   currentPage: number;
@@ -14,6 +15,7 @@ interface PaginationProps {
   basePath: string;
   searchQuery?: string;
   category?: string;
+  onNavigate?: (page: number) => void;
 }
 
 export default function Pagination({
@@ -24,6 +26,7 @@ export default function Pagination({
   basePath,
   searchQuery = '',
   category = 'all',
+  onNavigate,
 }: PaginationProps) {
   const t = useTranslations('pagination');
 
@@ -33,6 +36,11 @@ export default function Pagination({
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
   const getPageHref = (page: number) =>
     buildPlatformPageHref(basePath, page, searchQuery, category);
+  const handleNavigate = (event: MouseEvent<HTMLAnchorElement>, page: number) => {
+    if (!onNavigate) return;
+    event.preventDefault();
+    onNavigate(page);
+  };
   const iconLinkClass = buttonVariants({ variant: 'outline', size: 'icon' });
 
   // 生成页码数组（根据屏幕大小调整）
@@ -100,7 +108,7 @@ export default function Pagination({
             <ChevronsLeft className="h-4 w-4" />
           </span>
         ) : (
-          <Link href={getPageHref(1)} className={`${iconLinkClass} hidden sm:flex h-9 w-9`} aria-label={t('first')}>
+          <Link href={getPageHref(1)} onClick={(event) => handleNavigate(event, 1)} className={`${iconLinkClass} hidden sm:flex h-9 w-9`} aria-label={t('first')}>
             <ChevronsLeft className="h-4 w-4" />
           </Link>
         )}
@@ -111,7 +119,7 @@ export default function Pagination({
             <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
           </span>
         ) : (
-          <Link href={getPageHref(currentPage - 1)} className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9`} aria-label={t('previous')}>
+          <Link href={getPageHref(currentPage - 1)} onClick={(event) => handleNavigate(event, currentPage - 1)} className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9`} aria-label={t('previous')}>
             <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
           </Link>
         )}
@@ -131,6 +139,7 @@ export default function Pagination({
               <Link
                 key={page}
                 href={getPageHref(page as number)}
+                onClick={(event) => handleNavigate(event, page as number)}
                 aria-current={currentPage === page ? 'page' : undefined}
                 className={`${buttonVariants({ variant: currentPage === page ? 'default' : 'outline' })} h-9 w-9`}
               >
@@ -155,6 +164,7 @@ export default function Pagination({
               <Link
                 key={page}
                 href={getPageHref(page as number)}
+                onClick={(event) => handleNavigate(event, page as number)}
                 aria-current={currentPage === page ? 'page' : undefined}
                 className={`${buttonVariants({ variant: currentPage === page ? 'default' : 'outline' })} h-8 w-8 text-xs`}
               >
@@ -170,7 +180,7 @@ export default function Pagination({
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
           </span>
         ) : (
-          <Link href={getPageHref(currentPage + 1)} className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9`} aria-label={t('next')}>
+          <Link href={getPageHref(currentPage + 1)} onClick={(event) => handleNavigate(event, currentPage + 1)} className={`${iconLinkClass} h-8 w-8 sm:h-9 sm:w-9`} aria-label={t('next')}>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
           </Link>
         )}
@@ -181,7 +191,7 @@ export default function Pagination({
             <ChevronsRight className="h-4 w-4" />
           </span>
         ) : (
-          <Link href={getPageHref(totalPages)} className={`${iconLinkClass} hidden sm:flex h-9 w-9`} aria-label={t('last')}>
+          <Link href={getPageHref(totalPages)} onClick={(event) => handleNavigate(event, totalPages)} className={`${iconLinkClass} hidden sm:flex h-9 w-9`} aria-label={t('last')}>
             <ChevronsRight className="h-4 w-4" />
           </Link>
         )}

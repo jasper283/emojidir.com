@@ -4,7 +4,7 @@ import type { Locale } from '@/i18n/config'
 import type { BlogPost } from '@/lib/mdx'
 import { format } from 'date-fns'
 import { enUS, ja, ko, ptBR, zhCN } from 'date-fns/locale'
-import Link from 'next/link'
+import Link from '@/components/StaticLink'
 
 const dateLocales = {
   'zh-CN': zhCN,

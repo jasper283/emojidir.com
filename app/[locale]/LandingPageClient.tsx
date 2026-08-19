@@ -4,20 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { VISIBLE_PLATFORM_CONFIGS } from '@/lib/platforms';
 import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from '@/components/StaticLink';
 import { useState } from 'react';
 
 export default function LandingPageClient() {
   const t = useTranslations();
   const locale = useLocale();
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/${locale}/fluent-emoji?search=${encodeURIComponent(searchQuery)}`);
+      window.location.assign(`/${locale}/fluent-emoji?search=${encodeURIComponent(searchQuery)}`);
     }
   };
 

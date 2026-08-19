@@ -9,8 +9,7 @@ import type { Emoji, EmojiSeoData, EmojipediaEmojiData, PlatformType } from '@/t
 import { ArrowLeft, Copy, Download, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from '@/components/StaticLink';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 function getAssetExtension(url: string): 'svg' | 'webp' | 'png' {
@@ -49,7 +48,6 @@ export default function EmojiDetailClient({
   platformSlug,
 }: EmojiDetailClientProps) {
   const t = useTranslations();
-  const router = useRouter();
 
   const [copiedType, setCopiedType] = useState<'glyph' | 'unicode' | null>(null);
   const [copiedVariantUnicode, setCopiedVariantUnicode] = useState<string | null>(null);
@@ -182,12 +180,12 @@ export default function EmojiDetailClient({
   const emojiVersionUrl = 'https://unicode.org/emoji/charts/emoji-versions.html';
 
   const handleCategoryClick = useCallback(() => {
-    router.push(`/${localeParam}/${platformSlug}?category=${encodeURIComponent(emoji.group)}`);
-  }, [emoji, router, localeParam, platformSlug]);
+    window.location.assign(`/${localeParam}/${platformSlug}?category=${encodeURIComponent(emoji.group)}`);
+  }, [emoji, localeParam, platformSlug]);
 
   const handleKeywordClick = useCallback((keyword: string) => {
-    router.push(`/${localeParam}/${platformSlug}?search=${encodeURIComponent(keyword)}`);
-  }, [router, localeParam, platformSlug]);
+    window.location.assign(`/${localeParam}/${platformSlug}?search=${encodeURIComponent(keyword)}`);
+  }, [localeParam, platformSlug]);
 
   const formatRelatedEmojiName = (slug: string): string => slug
     .split('-')
@@ -197,7 +195,9 @@ export default function EmojiDetailClient({
   const downloadEmoji = async (url: string, filename: string) => {
     setDownloading(true);
     try {
-      const response = await fetch(`/api/download?url=${encodeURIComponent(url)}`);
+      // Fetch from R2 directly. This keeps downloads out of the Next.js
+      // runtime; the fallback still works when the bucket does not expose CORS.
+      const response = await fetch(url, { mode: 'cors' });
 
       if (!response.ok) {
         throw new Error('Download failed');
@@ -213,8 +213,15 @@ export default function EmojiDetailClient({
       document.body.removeChild(link);
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
-      console.error(`${t('common.downloadFailed')}:`, error);
-      alert(t('common.downloadFailedMessage'));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.target = '_blank';
+      link.rel = 'noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      console.warn(`${t('common.downloadFailed')}; opened the R2 asset directly.`, error);
     } finally {
       setDownloading(false);
     }
@@ -250,7 +257,7 @@ export default function EmojiDetailClient({
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => router.push(`/${localeParam}/${platformSlug}`)}
+                onClick={() => window.location.assign(`/${localeParam}/${platformSlug}`)}
                 className="flex-shrink-0 rounded-full hover:bg-card/70"
               >
                 <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />

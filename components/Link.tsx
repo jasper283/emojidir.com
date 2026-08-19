@@ -1,14 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import type { LinkProps } from 'next/link'
-import Link from 'next/link'
-import { AnchorHTMLAttributes } from 'react'
+import type { AnchorHTMLAttributes } from 'react'
 
-const CustomLink = ({ href, ...rest }: Omit<LinkProps, 'href'> & AnchorHTMLAttributes<HTMLAnchorElement> & { href?: string }) => {
+const CustomLink = ({ href, ...rest }: AnchorHTMLAttributes<HTMLAnchorElement> & { href?: string }) => {
   const isInternalLink = href && href.startsWith('/')
   const isAnchorLink = href && href.startsWith('#')
 
   if (isInternalLink) {
-    return <Link className="break-words" href={href} {...rest} />
+    return <a className="break-words" href={href} {...rest} />
   }
 
   if (isAnchorLink) {

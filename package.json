@@ -7,8 +7,10 @@
     "node": ">=20.9.0"
   },
   "scripts": {
+    "prebuild": "node scripts/prepare-static-data.js",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/cleanup-static-export.js",
     "build:dev": "npm run generate-index && next build",
     "build:with-assets": "npm run generate-index && next build && npm run copy-assets",
     "indexnow": "node scripts/submit-indexnow.js",

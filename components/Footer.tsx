@@ -1,10 +1,11 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
+import Link from '@/components/StaticLink';
 
 export default function Footer() {
   const t = useTranslations('footer');
+  const locale = useLocale();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -85,7 +86,7 @@ export default function Footer() {
               <ul role="list" className="mt-6 space-y-4">
                 <li>
                   <Link
-                    href="/privacy"
+                    href={`/${locale}/privacy`}
                     className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.privacy')}
@@ -93,7 +94,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/terms"
+                    href={`/${locale}/terms`}
                     className="text-sm/6 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     {t('links.terms')}

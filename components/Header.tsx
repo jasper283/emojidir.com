@@ -3,7 +3,7 @@
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/StaticLink';
 import { useState } from 'react';
 
 export default function Header() {
