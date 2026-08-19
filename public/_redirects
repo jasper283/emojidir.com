@@ -1,0 +1,27 @@
+# Keep one generated detail page per emoji and proxy alternate platform URLs
+# to it. StaticEmojiDetailClient reads the original browser pathname.
+/en/nato-emoji/* /en/fluent-emoji/:splat 200
+/en/apple-emoji/* /en/fluent-emoji/:splat 200
+/en/microsoft-emoji/* /en/fluent-emoji/:splat 200
+/en/twitter-emoji/* /en/fluent-emoji/:splat 200
+/en/unicode-emoji/* /en/fluent-emoji/:splat 200
+/ja/nato-emoji/* /ja/fluent-emoji/:splat 200
+/ja/apple-emoji/* /ja/fluent-emoji/:splat 200
+/ja/microsoft-emoji/* /ja/fluent-emoji/:splat 200
+/ja/twitter-emoji/* /ja/fluent-emoji/:splat 200
+/ja/unicode-emoji/* /ja/fluent-emoji/:splat 200
+/ko/nato-emoji/* /ko/fluent-emoji/:splat 200
+/ko/apple-emoji/* /ko/fluent-emoji/:splat 200
+/ko/microsoft-emoji/* /ko/fluent-emoji/:splat 200
+/ko/twitter-emoji/* /ko/fluent-emoji/:splat 200
+/ko/unicode-emoji/* /ko/fluent-emoji/:splat 200
+/zh-CN/nato-emoji/* /zh-CN/fluent-emoji/:splat 200
+/zh-CN/apple-emoji/* /zh-CN/fluent-emoji/:splat 200
+/zh-CN/microsoft-emoji/* /zh-CN/fluent-emoji/:splat 200
+/zh-CN/twitter-emoji/* /zh-CN/fluent-emoji/:splat 200
+/zh-CN/unicode-emoji/* /zh-CN/fluent-emoji/:splat 200
+/zh-TW/nato-emoji/* /zh-TW/fluent-emoji/:splat 200
+/zh-TW/apple-emoji/* /zh-TW/fluent-emoji/:splat 200
+/zh-TW/microsoft-emoji/* /zh-TW/fluent-emoji/:splat 200
+/zh-TW/twitter-emoji/* /zh-TW/fluent-emoji/:splat 200
+/zh-TW/unicode-emoji/* /zh-TW/fluent-emoji/:splat 200

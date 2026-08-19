@@ -157,11 +157,26 @@ export default function StaticEmojiDetailClient({
   platformSlug,
   slug,
 }: StaticEmojiDetailClientProps) {
+  const [route, setRoute] = useState({ locale, platformSlug, slug });
   const [detail, setDetail] = useState<Awaited<ReturnType<typeof loadEmojiDetail>> | null>(null);
+
+  // Cloudflare Pages proxies alternate platform detail URLs to the generated
+  // Fluent HTML to stay within the free file limit. Recover the original URL
+  // here so the browser loads the requested platform's data and assets.
+  useEffect(() => {
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    if (parts.length >= 3) {
+      setRoute({
+        locale: parts[0],
+        platformSlug: parts[1],
+        slug: parts.slice(2).join('/'),
+      });
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
-    loadEmojiDetail(locale, platformSlug, slug)
+    loadEmojiDetail(route.locale, route.platformSlug, route.slug)
       .then((loadedDetail) => {
         if (!cancelled) setDetail(loadedDetail);
       })
@@ -172,7 +187,7 @@ export default function StaticEmojiDetailClient({
     return () => {
       cancelled = true;
     };
-  }, [locale, platformSlug, slug]);
+  }, [route]);
 
   if (!detail) {
     return <div className="min-h-screen bg-transparent" aria-busy="true" />;
@@ -187,9 +202,9 @@ export default function StaticEmojiDetailClient({
       otherPlatforms={detail.otherPlatforms}
       variantEmojis={detail.variantEmojis}
       pngAssetPath={detail.pngAssetPath}
-      locale={locale}
-      localeParam={locale}
-      platformSlug={platformSlug}
+      locale={route.locale}
+      localeParam={route.locale}
+      platformSlug={route.platformSlug}
     />
   );
 }
