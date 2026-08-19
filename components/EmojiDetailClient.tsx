@@ -52,6 +52,7 @@ export default function EmojiDetailClient({
   const [copiedType, setCopiedType] = useState<'glyph' | 'unicode' | null>(null);
   const [copiedVariantUnicode, setCopiedVariantUnicode] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState(false);
 
   // 获取所有可用的样式
   const getAllAvailableStyles = useCallback((): string[] => {
@@ -194,9 +195,10 @@ export default function EmojiDetailClient({
 
   const downloadEmoji = async (url: string, filename: string) => {
     setDownloading(true);
+    setDownloadError(false);
     try {
-      // Fetch from R2 directly. This keeps downloads out of the Next.js
-      // runtime; the fallback still works when the bucket does not expose CORS.
+      // R2 CORS allows us to turn the response into a same-origin Blob URL,
+      // which makes the browser honor the requested download filename.
       const response = await fetch(url, { mode: 'cors' });
 
       if (!response.ok) {
@@ -213,15 +215,8 @@ export default function EmojiDetailClient({
       document.body.removeChild(link);
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      link.target = '_blank';
-      link.rel = 'noreferrer';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      console.warn(`${t('common.downloadFailed')}; opened the R2 asset directly.`, error);
+      setDownloadError(true);
+      console.warn(t('common.downloadFailed'), error);
     } finally {
       setDownloading(false);
     }
@@ -342,6 +337,12 @@ export default function EmojiDetailClient({
                   })}
                 </Button>
               </div>
+            )}
+
+            {downloadError && (
+              <p className="text-center text-sm text-destructive" role="alert">
+                {t('common.downloadFailedMessage')}
+              </p>
             )}
 
             {/* Download Section - Noto Emoji */}

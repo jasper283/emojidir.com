@@ -17,13 +17,14 @@ The build creates every locale, platform landing page, blog page, and SEO emoji 
 
 Keep `NEXT_PUBLIC_R2_PUBLIC_CDN_URL` pointed at the public R2 custom domain used by `config/cdn.ts` (`https://object.emojidir.com` in this repository). If the variable is omitted, the repository default is used.
 
-For the fastest download behavior, configure the bucket CORS policy to allow `GET` and `HEAD` from:
+To make the download buttons save files instead of opening images in the browser, configure the R2 bucket CORS policy with the JSON in [`r2-cors-policy.json`](./r2-cors-policy.json). In Cloudflare Dashboard, open **R2 Object Storage > find-emoji-assets > Settings > CORS Policy > Add CORS policy**, paste the JSON, and save it.
 
-- `https://emojidir.com`
-- `https://www.emojidir.com`
-- local development origins when needed
+After saving the policy, purge the cache for `object.emojidir.com`, then verify that this command returns an `access-control-allow-origin` response header:
 
-The UI falls back to opening the R2 asset directly when CORS is unavailable, so image browsing still works without this setting.
+```bash
+curl -I -H 'Origin: https://emojidir.com' \
+  'https://object.emojidir.com/assets/1st-place-medal/3d/1st_place_medal_3d.png'
+```
 
 ## Custom domain
 
