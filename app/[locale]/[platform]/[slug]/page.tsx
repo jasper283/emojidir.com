@@ -1,6 +1,7 @@
 import StaticEmojiDetailClient from '@/components/StaticEmojiDetailClient';
 import { EmojiDetailStructuredData } from '@/components/StructuredData';
 import { getAssetUrl } from '@/config/cdn';
+import { getFirstEmojiAssetPath } from '@/lib/emoji-assets';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
 import { getEmojiSeoData, getEmojiSeoKeywords } from '@/lib/emoji-seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
@@ -47,40 +48,8 @@ export default async function EmojiDetailPage({ params }: EmojiDetailPageProps) 
   const fallbackKeywords = getEmojiKeywords(emoji, locale);
   const displayKeywords = seoKeywords.length > 0 ? seoKeywords : fallbackKeywords;
 
-  // 获取第一个可用样式的图片URL用于结构化数据
-  const getAllAvailableStyles = (): string[] => {
-    const allStyles = Object.keys(emoji.styles);
-    const standardStyles = allStyles.filter(style =>
-      ['3d', 'color', 'flat', 'high-contrast'].includes(style)
-    );
-
-    if (standardStyles.length === 0) {
-      return allStyles.filter(style =>
-        !style.includes('-default') &&
-        !style.includes('dark') &&
-        !style.includes('light') &&
-        !style.includes('medium') &&
-        style !== 'default'
-      );
-    }
-
-    return standardStyles;
-  };
-
-  const getCurrentStyleUrl = (style: string): string => {
-    let imagePath = emoji.styles[style] || '';
-
-    if (!imagePath && ['3d', 'color', 'flat', 'high-contrast'].includes(style)) {
-      const defaultStyleKey = `${style}-default`;
-      imagePath = emoji.styles[defaultStyleKey] || '';
-    }
-
-    return imagePath;
-  };
-
-  const availableStyles = getAllAvailableStyles();
-  const firstAvailableStyle = availableStyles.length > 0 ? availableStyles[0] : '3d';
-  const currentStyleUrl = getCurrentStyleUrl(firstAvailableStyle);
+  // 获取第一个真实图片文件用于结构化数据
+  const currentStyleUrl = getFirstEmojiAssetPath(emoji.styles);
   return (
     <>
       {/* JSON-LD结构化数据 - 在服务端渲染 */}

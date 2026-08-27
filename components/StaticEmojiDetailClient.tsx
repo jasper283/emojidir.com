@@ -2,6 +2,7 @@
 
 import EmojiDetailClient from '@/components/EmojiDetailClient';
 import { getAssetUrl } from '@/config/cdn';
+import { getFirstEmojiAssetPath } from '@/lib/emoji-assets';
 import { mergeEmojiIndexWithLocale } from '@/lib/emoji-i18n';
 import {
   getClientEmojiDataForPlatform,
@@ -73,14 +74,7 @@ function localizeEmojipedia(
 }
 
 function getFirstStyleUrl(emoji: Emoji) {
-  const standardStyles = Object.keys(emoji.styles).filter((style) =>
-    ['3d', 'color', 'flat', 'high-contrast'].includes(style)
-  );
-  const styles = standardStyles.length > 0
-    ? standardStyles
-    : Object.keys(emoji.styles).filter((style) => !style.includes('-default'));
-  const style = styles[0] || '3d';
-  return emoji.styles[style] || emoji.styles[`${style}-default`] || '';
+  return getFirstEmojiAssetPath(emoji.styles);
 }
 
 async function loadEmojiDetail(locale: string, platformSlug: string, slug: string) {

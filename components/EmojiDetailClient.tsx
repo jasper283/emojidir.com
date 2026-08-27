@@ -4,6 +4,11 @@ import PlatformSwitcher from '@/components/PlatformSwitcher';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAssetUrl } from '@/config/cdn';
+import {
+  getEmojiAvailableStyles,
+  getEmojiStylePath,
+  getFirstEmojiAssetPath,
+} from '@/lib/emoji-assets';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
 import type { Emoji, EmojiSeoData, EmojipediaEmojiData, PlatformType } from '@/types/emoji';
 import { ArrowLeft, Copy, Download, ExternalLink } from 'lucide-react';
@@ -56,39 +61,17 @@ export default function EmojiDetailClient({
 
   // 获取所有可用的样式
   const getAllAvailableStyles = useCallback((): string[] => {
-    const allStyles = Object.keys(emoji.styles);
-    const standardStyles = allStyles.filter(style =>
-      ['3d', 'color', 'flat', 'high-contrast'].includes(style)
-    );
-
-    if (standardStyles.length === 0) {
-      return allStyles.filter(style =>
-        !style.includes('-default') &&
-        !style.includes('dark') &&
-        !style.includes('light') &&
-        !style.includes('medium') &&
-        style !== 'default'
-      );
-    }
-
-    return standardStyles;
+    return getEmojiAvailableStyles(emoji.styles);
   }, [emoji]);
 
   const availableStyles = useMemo(() => getAllAvailableStyles(), [getAllAvailableStyles]);
 
   const getCurrentStyleUrl = useCallback((style: string): string => {
-    let imagePath = emoji.styles[style] || '';
-
-    if (!imagePath && ['3d', 'color', 'flat', 'high-contrast'].includes(style)) {
-      const defaultStyleKey = `${style}-default`;
-      imagePath = emoji.styles[defaultStyleKey] || '';
-    }
-
-    return imagePath;
+    return getEmojiStylePath(emoji.styles, style);
   }, [emoji]);
 
   const isStyleAvailable = useCallback((style: string): boolean => {
-    return !!(emoji.styles[style] || emoji.styles[`${style}-default`]);
+    return Boolean(getEmojiStylePath(emoji.styles, style));
   }, [emoji]);
 
   const trulyAvailableStyles = useMemo(() =>
@@ -229,17 +212,7 @@ export default function EmojiDetailClient({
   const getPreviewImageUrl = (item: Emoji | undefined): string => {
     if (!item?.styles) return '';
 
-    const styles = item.styles;
-    if (styles['color']) return styles['color'];
-    if (styles['3d']) return styles['3d'];
-    if (styles['flat']) return styles['flat'];
-    if (styles['high-contrast']) return styles['high-contrast'];
-    if (styles['color-default']) return styles['color-default'];
-    if (styles['3d-default']) return styles['3d-default'];
-    if (styles['flat-default']) return styles['flat-default'];
-
-    const firstStyle = Object.keys(styles)[0];
-    return firstStyle ? styles[firstStyle] || '' : '';
+    return getFirstEmojiAssetPath(item.styles);
   };
 
   return (

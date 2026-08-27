@@ -42,6 +42,12 @@ function firstExisting(ids, candidates) {
   return candidates.find(candidate => candidate && ids.has(candidate)) || null;
 }
 
+function getAssetFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && !entry.name.startsWith('.'))
+    .map((entry) => entry.name);
+}
+
 function determineEmojiVariantFields(id, ids) {
   for (const suffix of SKIN_TONE_SUFFIXES) {
     if (id.endsWith(`-${suffix}`)) {
@@ -133,7 +139,7 @@ function generateIndex() {
 
         subDirs.forEach(styleDir => {
           const stylePath = path.join(stylesDir, styleDir);
-          const files = fs.readdirSync(stylePath).filter(f => !f.startsWith('.'));
+          const files = getAssetFiles(stylePath);
 
           if (files.length > 0) {
             // 标准化样式名称作为 key
@@ -154,7 +160,7 @@ function generateIndex() {
 
           defaultSubDirs.forEach(styleDir => {
             const stylePath = path.join(defaultDir, styleDir);
-            const files = fs.readdirSync(stylePath).filter(f => !f.startsWith('.'));
+            const files = getAssetFiles(stylePath);
 
             if (files.length > 0) {
               // 为深浅色主题添加特殊的样式键

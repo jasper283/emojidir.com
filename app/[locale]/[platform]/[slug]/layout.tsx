@@ -1,4 +1,5 @@
 import { getAssetUrl } from '@/config/cdn';
+import { getFirstEmojiAssetPath } from '@/lib/emoji-assets';
 import { locales } from '@/i18n/config';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
 import { getEmojiSeoKeywords } from '@/lib/emoji-seo';
@@ -90,20 +91,9 @@ export async function generateMetadata({
 
   // 获取表情图片 URL - 优先使用 color、3d 或 flat 样式
   const getEmojiImageUrl = (): string => {
-    if (emoji.styles['color']) {
-      return getAssetUrl(emoji.styles['color']);
-    }
-    if (emoji.styles['3d']) {
-      return getAssetUrl(emoji.styles['3d']);
-    }
-    if (emoji.styles['flat']) {
-      return getAssetUrl(emoji.styles['flat']);
-    }
-    // 降级到第一个可用的样式
-    const firstStyle = Object.keys(emoji.styles)[0];
-    if (firstStyle && emoji.styles[firstStyle]) {
-      return getAssetUrl(emoji.styles[firstStyle]);
-    }
+    const firstAssetPath = getFirstEmojiAssetPath(emoji.styles);
+    if (firstAssetPath) return getAssetUrl(firstAssetPath);
+
     // 最后的降级方案
     return `${baseUrl}/favicon.svg`;
   };
