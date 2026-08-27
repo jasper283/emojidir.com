@@ -62,7 +62,15 @@ export async function generateMetadata({
   const seoKeywords = displayKeywords.length > 0 ? displayKeywords : fallbackKeywords;
 
   // SEO优化的标题格式
-  const title = `${emoji.glyph} ${displayName} — Copy, Paste & Download | ${platformName}`;
+  const titleTemplates: Record<string, string> = {
+    'en': `${emoji.glyph} ${displayName} Emoji: Meaning, Copy & Paste, HD Download | ${platformName}`,
+    'zh-CN': `${emoji.glyph} ${displayName}表情符号：含义、一键复制与图片下载 | ${platformName}`,
+    'zh-TW': `${emoji.glyph} ${displayName}表情符號：含義、一鍵複製與圖片下載 | ${platformName}`,
+    'ja': `${emoji.glyph} ${displayName} 絵文字：意味、コピー＆ペースト、画像ダウンロード | ${platformName}`,
+    'ko': `${emoji.glyph} ${displayName} 이모지: 뜻, 복사하기 및 이미지 다운로드 | ${platformName}`,
+    'pt-BR': `${emoji.glyph} Emoji ${displayName}: Significado, Copiar e Colar, Baixar Imagem | ${platformName}`,
+  };
+  const title = titleTemplates[locale] || titleTemplates['en'];
 
   // 多语言描述模板
   const descriptionTemplates: Record<string, string> = {

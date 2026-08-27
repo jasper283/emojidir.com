@@ -20,7 +20,8 @@ import {
   type EmojiIndex,
   type PlatformType,
 } from '@/types/emoji';
-import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 
 interface StaticEmojiDetailClientProps {
   locale: string;
@@ -151,25 +152,29 @@ export default function StaticEmojiDetailClient({
   platformSlug,
   slug,
 }: StaticEmojiDetailClientProps) {
-  const [route, setRoute] = useState({ locale, platformSlug, slug });
+  const pathname = usePathname();
+  const route = useMemo(() => {
+    const parts = pathname?.split('/').filter(Boolean) ?? [];
+    if (parts.length >= 3) {
+      return {
+        locale: parts[0],
+        platformSlug: parts[1],
+        slug: parts.slice(2).join('/'),
+      };
+    }
+
+    return { locale, platformSlug, slug };
+  }, [locale, pathname, platformSlug, slug]);
   const [detail, setDetail] = useState<Awaited<ReturnType<typeof loadEmojiDetail>> | null>(null);
 
   // Cloudflare Pages proxies alternate platform detail URLs to the generated
   // Fluent HTML to stay within the free file limit. Recover the original URL
-  // here so the browser loads the requested platform's data and assets.
-  useEffect(() => {
-    const parts = window.location.pathname.split('/').filter(Boolean);
-    if (parts.length >= 3) {
-      setRoute({
-        locale: parts[0],
-        platformSlug: parts[1],
-        slug: parts.slice(2).join('/'),
-      });
-    }
-  }, []);
+  // from the active pathname so client-side platform switches reload the
+  // requested platform's data and assets.
 
   useEffect(() => {
     let cancelled = false;
+    setDetail(null);
     loadEmojiDetail(route.locale, route.platformSlug, route.slug)
       .then((loadedDetail) => {
         if (!cancelled) setDetail(loadedDetail);
@@ -181,7 +186,7 @@ export default function StaticEmojiDetailClient({
     return () => {
       cancelled = true;
     };
-  }, [route]);
+  }, [route.locale, route.platformSlug, route.slug]);
 
   if (!detail) {
     return <div className="min-h-screen bg-transparent" aria-busy="true" />;
@@ -189,6 +194,7 @@ export default function StaticEmojiDetailClient({
 
   return (
     <EmojiDetailClient
+      key={`${route.locale}/${route.platformSlug}/${route.slug}`}
       emoji={detail.emoji}
       seoData={detail.seoData}
       emojipediaData={detail.emojipediaData}
