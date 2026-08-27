@@ -25,3 +25,8 @@
 /zh-TW/microsoft-emoji/* /zh-TW/fluent-emoji/:splat 200
 /zh-TW/twitter-emoji/* /zh-TW/fluent-emoji/:splat 200
 /zh-TW/unicode-emoji/* /zh-TW/fluent-emoji/:splat 200
+/pt-BR/nato-emoji/* /pt-BR/fluent-emoji/:splat 200
+/pt-BR/apple-emoji/* /pt-BR/fluent-emoji/:splat 200
+/pt-BR/microsoft-emoji/* /pt-BR/fluent-emoji/:splat 200
+/pt-BR/twitter-emoji/* /pt-BR/fluent-emoji/:splat 200
+/pt-BR/unicode-emoji/* /pt-BR/fluent-emoji/:splat 200

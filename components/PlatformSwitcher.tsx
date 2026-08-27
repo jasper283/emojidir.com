@@ -43,7 +43,7 @@ export default function PlatformSwitcher({ currentPlatform }: PlatformSwitcherPr
     if (pathParts.length >= 3 && pathParts[1].includes('-emoji')) {
       // 在详情页，保持在详情页并切换平台
       const slug = pathParts[2];
-      window.location.assign(`/${locale}/${platformSlug}/${slug}`);
+      window.location.assign(`/${locale}/${platformSlug}/${slug}/`);
     } else {
       // 在首页或其他页面，跳转到该平台的首页
       window.location.assign(`/${locale}/${platformSlug}`);

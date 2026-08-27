@@ -386,7 +386,7 @@ export default function EmojiDetailClient({
                     return (
                       <Link
                         key={platform}
-                        href={`/${localeParam}/${platformSlugName}/${emoji.id}`}
+                        href={`/${localeParam}/${platformSlugName}/${emoji.id}/`}
                         className="group flex items-center gap-3 rounded-xl bg-card/80 p-2.5 transition-colors duration-200 hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         title={t('common.viewOnPlatform', { platform: platformName })}
                       >
@@ -424,7 +424,7 @@ export default function EmojiDetailClient({
                     return (
                       <Link
                         key={variantEmoji.id}
-                        href={`/${localeParam}/${platformSlug}/${variantEmoji.id}`}
+                        href={`/${localeParam}/${platformSlug}/${variantEmoji.id}/`}
                         className="group flex items-center gap-3 rounded-xl bg-card/80 p-2.5 transition-colors duration-200 hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         title={variantName}
                       >
@@ -613,7 +613,7 @@ export default function EmojiDetailClient({
                     return (
                       <Link
                         key={related.slug}
-                        href={`/${localeParam}/fluent-emoji/${related.slug}`}
+                        href={`/${localeParam}/fluent-emoji/${related.slug}/`}
                         className="flex min-h-11 items-center gap-2 rounded-xl bg-card/80 px-2 py-1.5 transition-colors hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         title={relatedName}
                       >
