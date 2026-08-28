@@ -1,12 +1,12 @@
 import { getAssetUrl } from '@/config/cdn';
-import { getFirstEmojiAssetPath } from '@/lib/emoji-assets';
 import { locales } from '@/i18n/config';
+import { getFirstEmojiAssetPath } from '@/lib/emoji-assets';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
 import { getEmojiSeoKeywords } from '@/lib/emoji-seo';
-import { getEmojipediaEmojiData } from '@/lib/emojipedia';
-import { createMetaDescription } from '@/lib/seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
+import { getLocalizedEmojipediaMeaning } from '@/lib/emojipedia';
 import { PLATFORM_CONFIGS } from '@/lib/platforms';
+import { createMetaDescription } from '@/lib/seo';
 import type { CompactEmojiIndex, Emoji, PlatformType } from '@/types/emoji';
 import { expandEmojiIndex } from '@/types/emoji';
 import type { Metadata } from 'next';
@@ -43,12 +43,12 @@ export async function generateMetadata({
 
   // 平台名称多语言映射
   const platformNames: Record<string, Record<string, string>> = {
-    'en': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'System Emoji' },
-    'zh-CN': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'Emoji大全' },
-    'zh-TW': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'Emoji全集' },
-    'ja': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'システムEmoji' },
-    'ko': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: '시스テムEmoji', },
-    'pt-BR': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'Emoji Nativo' },
+    'en': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'System Emoji', apple: 'Apple Emoji', microsoft: 'Microsoft Emoji', twitter: 'Twitter Emoji' },
+    'zh-CN': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'Emoji大全', apple: 'Apple Emoji', microsoft: '微软 Emoji', twitter: 'Twitter Emoji' },
+    'zh-TW': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'Emoji全集', apple: 'Apple Emoji', microsoft: '微軟 Emoji', twitter: 'Twitter Emoji' },
+    'ja': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'システムEmoji', apple: 'Apple Emoji', microsoft: 'Microsoft Emoji', twitter: 'Twitter Emoji' },
+    'ko': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: '시스템 Emoji', apple: 'Apple Emoji', microsoft: 'Microsoft Emoji', twitter: 'Twitter Emoji' },
+    'pt-BR': { fluent: 'Microsoft 3D Emoji', nato: 'Google Noto Emoji', unicode: 'Emoji Nativo', apple: 'Apple Emoji', microsoft: 'Microsoft Emoji', twitter: 'Twitter Emoji' },
   };
 
   const platformName = platformNames[locale]?.[platformId]
@@ -57,7 +57,7 @@ export async function generateMetadata({
     || 'Emoji Directory';
   const displayName = getEmojiName(emoji, locale);
   const displayKeywords = getEmojiSeoKeywords(emoji.id, locale);
-  const emojipediaData = getEmojipediaEmojiData(emoji.id, locale);
+  const localizedMeaning = getLocalizedEmojipediaMeaning(emoji.id, locale);
   const fallbackKeywords = getEmojiKeywords(emoji, locale);
   const seoKeywords = displayKeywords.length > 0 ? displayKeywords : fallbackKeywords;
 
@@ -74,12 +74,12 @@ export async function generateMetadata({
 
   // 多语言描述模板
   const descriptionTemplates: Record<string, string> = {
-    'en': `Easily copy, paste, and download ${displayName} in ${platformName}. Free, fast, and ready for all platforms.`,
-    'zh-CN': `轻松复制、粘贴和下载${displayName}表情符号，来自${platformName}。免费、快速，支持所有平台。`,
-    'zh-TW': `輕鬆複製、貼上和下載${displayName}表情符號，來自${platformName}。免費、快速，支援所有平台。`,
-    'ja': `${displayName}の絵文字を簡単にコピー、貼り付け、ダウンロード。${platformName}から。無料、高速、すべてのプラットフォームに対応。`,
-    'ko': `${displayName} 이모지를 쉽게 복사, 붙여넣기, 다운로드하세요. ${platformName}에서 제공. 무료, 빠르고, 모든 플랫폼 지원.`,
-    'pt-BR': `Copie, cole e baixe facilmente ${displayName} em ${platformName}. Gratuito, rápido e pronto para todas as plataformas.`,
+    'en': `Discover the true meaning of ${emoji.glyph} ${displayName} emoji! Copy and paste this symbol, view cross-platform designs (Apple, Google、Microsoft、X(Twitter)), and download high-resolution images for free.`,
+    'zh-CN': `了解 ${emoji.glyph} ${displayName} 表情符号的真正含义！本站提供苹果、谷歌、微软、推特（X）等各大平台高清图片对比、支持一键复制符号及免费图片下载功能。`,
+    'zh-TW': `瞭解 ${emoji.glyph} ${displayName} 表情符號的真正含義！本站提供 Apple、Google、Microsoft、Twitter（X） 等各大平台的高畫質圖片比較，支援一鍵複製符號及免費下載圖片。`,
+    'ja': `${emoji.glyph} ${displayName} 絵文字の本当の意味をチェック！ワンクリックでコピー＆ペースト、各プラットフォームでのデザイン比較、高画質画像の無料ダウンロードが可能。`,
+    'ko': `${emoji.glyph} ${displayName} 이모지의 진짜 뜻을 알아보세요! 원클릭 복사하기, 애플·구글 등 플랫폼별 디자인 비교 및 고화질 이미지 무료 다운로드 제공.`,
+    'pt-BR': `Descubra o verdadeiro significado do emoji ${emoji.glyph} ${displayName}! Copie e cole o símbolo, compare designs em diferentes plataformas (Apple, Google、Microsoft、X(Twitter)) e baixe imagens em alta definição grátis.`,
   };
   const meaningDescriptionSuffixes: Record<string, string> = {
     'en': `Copy, paste, and download ${displayName} in ${platformName}.`,
@@ -91,8 +91,8 @@ export async function generateMetadata({
   };
 
   const description = createMetaDescription(
-    emojipediaData?.meaning
-      ? `${emojipediaData.meaning} ${meaningDescriptionSuffixes[locale] || meaningDescriptionSuffixes['en']}`
+    localizedMeaning
+      ? `${localizedMeaning} ${meaningDescriptionSuffixes[locale] || meaningDescriptionSuffixes['en']}`
       : descriptionTemplates[locale] || descriptionTemplates['en'],
     locale
   );

@@ -60,6 +60,11 @@ export async function generateMetadata({
       description: 'Fluent Emoji, Google Noto Emoji 및 시스템 플랫폼에서 수천 개의 이모지를 탐색하세요. 3D, 컬러, 플랫, 고대비 등 여러 스타일의 이모지를 검색, 다운로드 및 복사하세요.',
       keywords: '이모지, emoji 검색, emoji 디렉토리, fluent emoji, noto emoji, 이모지 다운로드, 이모지 복사, 3d 이모지, 플랫 이모지, 마이크로소프트 이모지, 구글 이모지'
     },
+    'pt-BR': {
+      title: 'Emoji Directory - Explore e Pesquise Coleções de Emojis',
+      description: 'Explore milhares de emojis das plataformas Fluent Emoji, Google Noto Emoji e do sistema. Pesquise, baixe e copie emojis em vários estilos, incluindo 3D, Colorido, Plano e Alto Contraste.',
+      keywords: 'emoji, pesquisa de emoji, diretório de emojis, fluent emoji, noto emoji, baixar emoji, copiar emoji, emoji 3d, emoji plano, emoji microsoft, emoji google'
+    },
   };
 
   const metadata = metadataByLocale[validLocale] || metadataByLocale['en'];

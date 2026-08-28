@@ -29,6 +29,25 @@ const legalDescriptions = {
   },
 } satisfies Record<'privacy' | 'terms', Record<string, string>>;
 
+const legalTitles: Record<'privacy' | 'terms', Record<string, string>> = {
+  privacy: {
+    en: 'Privacy Policy',
+    'zh-CN': '隐私政策',
+    'zh-TW': '隱私政策',
+    ja: 'プライバシーポリシー',
+    ko: '개인정보 처리방침',
+    'pt-BR': 'Política de Privacidade',
+  },
+  terms: {
+    en: 'Terms of Service',
+    'zh-CN': '服务条款',
+    'zh-TW': '服務條款',
+    ja: '利用規約',
+    ko: '서비스 이용약관',
+    'pt-BR': 'Termos de Serviço',
+  },
+};
+
 function clampMetaDescription(description: string): string {
   const characters = Array.from(description.replace(/\s+/g, ' ').trim());
 
@@ -60,4 +79,12 @@ export function createLegalMetaDescription(
 ): string {
   const descriptions: Record<string, string> = legalDescriptions[document];
   return clampMetaDescription(descriptions[locale] || descriptions.en);
+}
+
+export function createLegalMetaTitle(
+  document: 'privacy' | 'terms',
+  locale: string,
+): string {
+  const titles = legalTitles[document];
+  return titles[locale] || titles.en;
 }

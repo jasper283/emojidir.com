@@ -1,6 +1,6 @@
 import MDXComponents from '@/components/MDXComponents'
 import { getLegalDocument } from '@/lib/legal'
-import { createLegalMetaDescription } from '@/lib/seo'
+import { createLegalMetaDescription, createLegalMetaTitle } from '@/lib/seo'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { notFound } from 'next/navigation'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -13,7 +13,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   return {
-    title: 'Terms of Service - Emoji Directory',
+    title: createLegalMetaTitle('terms', locale),
     description: createLegalMetaDescription('terms', locale),
   };
 }

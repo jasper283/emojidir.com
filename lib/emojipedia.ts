@@ -51,3 +51,14 @@ export function getEmojipediaEmojiData(id: string, locale = 'en'): EmojipediaEmo
     sourceUrl: localized.sourceUrl || emoji.sourceUrl,
   };
 }
+
+/** Return a meaning only when it is genuinely localized for the requested locale. */
+export function getLocalizedEmojipediaMeaning(id: string, locale: string): string | undefined {
+  const emoji = emojisBySlug.get(id);
+  if (!emoji) return undefined;
+  if (locale === 'en') return emoji.meaning ?? undefined;
+
+  const meaning = emoji.localizedContent?.[locale]?.meaning;
+  if (!meaning || meaning === emoji.meaning) return undefined;
+  return meaning;
+}
