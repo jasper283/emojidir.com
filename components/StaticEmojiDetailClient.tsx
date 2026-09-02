@@ -1,8 +1,6 @@
 'use client';
 
 import EmojiDetailClient from '@/components/EmojiDetailClient';
-import { getAssetUrl } from '@/config/cdn';
-import { getFirstEmojiAssetPath } from '@/lib/emoji-assets';
 import { mergeEmojiIndexWithLocale } from '@/lib/emoji-i18n';
 import {
   getClientEmojiDataForPlatform,
@@ -20,6 +18,7 @@ import {
   type EmojiIndex,
   type PlatformType,
 } from '@/types/emoji';
+import type { EmojiDetailData } from '@/types/emoji-detail';
 import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -27,6 +26,7 @@ interface StaticEmojiDetailClientProps {
   locale: string;
   platformSlug: string;
   slug: string;
+  initialDetail?: EmojiDetailData;
 }
 
 interface EmojiSeoIndex {
@@ -74,11 +74,7 @@ function localizeEmojipedia(
   };
 }
 
-function getFirstStyleUrl(emoji: Emoji) {
-  return getFirstEmojiAssetPath(emoji.styles);
-}
-
-async function loadEmojiDetail(locale: string, platformSlug: string, slug: string) {
+async function loadEmojiDetail(locale: string, platformSlug: string, slug: string): Promise<EmojiDetailData> {
   const platform = platformSlug.replace('-emoji', '') as PlatformType;
   const [baseResponse, localeResponse, seoResponse, emojipediaResponse, assetsResponse] = await Promise.all([
     fetch('/data/emoji-index.json', { cache: 'force-cache' }),
@@ -143,7 +139,6 @@ async function loadEmojiDetail(locale: string, platformSlug: string, slug: strin
     variantEmojis,
     pngAssetPath,
     platform,
-    imageUrl: getFirstStyleUrl(emoji) ? getAssetUrl(getFirstStyleUrl(emoji)) : undefined,
   };
 }
 
@@ -151,6 +146,7 @@ export default function StaticEmojiDetailClient({
   locale,
   platformSlug,
   slug,
+  initialDetail,
 }: StaticEmojiDetailClientProps) {
   const pathname = usePathname();
   const route = useMemo(() => {
@@ -165,7 +161,8 @@ export default function StaticEmojiDetailClient({
 
     return { locale, platformSlug, slug };
   }, [locale, pathname, platformSlug, slug]);
-  const [detail, setDetail] = useState<Awaited<ReturnType<typeof loadEmojiDetail>> | null>(null);
+  const [detail, setDetail] = useState<EmojiDetailData | null>(initialDetail ?? null);
+  const initialRoute = `${locale}/${platformSlug}/${slug}`;
 
   // Cloudflare Pages proxies alternate platform detail URLs to the generated
   // Fluent HTML to stay within the free file limit. Recover the original URL
@@ -173,6 +170,9 @@ export default function StaticEmojiDetailClient({
   // requested platform's data and assets.
 
   useEffect(() => {
+    const currentRoute = `${route.locale}/${route.platformSlug}/${route.slug}`;
+    if (initialDetail && currentRoute === initialRoute) return;
+
     let cancelled = false;
     setDetail(null);
     loadEmojiDetail(route.locale, route.platformSlug, route.slug)
@@ -186,7 +186,7 @@ export default function StaticEmojiDetailClient({
     return () => {
       cancelled = true;
     };
-  }, [route.locale, route.platformSlug, route.slug]);
+  }, [initialDetail, initialRoute, route.locale, route.platformSlug, route.slug]);
 
   if (!detail) {
     return <div className="min-h-screen bg-transparent" aria-busy="true" />;
