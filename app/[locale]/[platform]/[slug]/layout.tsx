@@ -4,7 +4,6 @@ import { getFirstEmojiAssetPath } from '@/lib/emoji-assets';
 import { getEmojiKeywords, getEmojiName } from '@/lib/emoji-i18n';
 import { getEmojiSeoKeywords } from '@/lib/emoji-seo';
 import { loadEmojiIndexServer } from '@/lib/emoji-server';
-import { getLocalizedEmojipediaMeaning } from '@/lib/emojipedia';
 import { PLATFORM_CONFIGS } from '@/lib/platforms';
 import { createMetaDescription } from '@/lib/seo';
 import type { CompactEmojiIndex, Emoji, PlatformType } from '@/types/emoji';
@@ -28,7 +27,7 @@ export async function generateMetadata({
   const canonicalPlatformSlug = platformSlug === primaryPlatformSlug
     ? platformSlug
     : primaryPlatformSlug;
-  const canonicalUrl = `${baseUrl}/${locale}/${canonicalPlatformSlug}/${slug}`;
+  const canonicalUrl = `${baseUrl}/${locale}/${canonicalPlatformSlug}/${slug}/`;
 
   // Metadata 使用与页面正文相同的本地化服务端数据
   const localizedEmojiData = await loadEmojiIndexServer(locale);
@@ -57,7 +56,6 @@ export async function generateMetadata({
     || 'Emoji Directory';
   const displayName = getEmojiName(emoji, locale);
   const displayKeywords = getEmojiSeoKeywords(emoji.id, locale);
-  const localizedMeaning = getLocalizedEmojipediaMeaning(emoji.id, locale);
   const fallbackKeywords = getEmojiKeywords(emoji, locale);
   const seoKeywords = displayKeywords.length > 0 ? displayKeywords : fallbackKeywords;
 
@@ -81,19 +79,9 @@ export async function generateMetadata({
     'ko': `${emoji.glyph} ${displayName} 이모지의 진짜 뜻을 알아보세요! 원클릭 복사하기, 애플·구글 등 플랫폼별 디자인 비교 및 고화질 이미지 무료 다운로드 제공.`,
     'pt-BR': `Descubra o verdadeiro significado do emoji ${emoji.glyph} ${displayName}! Copie e cole o símbolo, compare designs em diferentes plataformas (Apple, Google、Microsoft、X(Twitter)) e baixe imagens em alta definição grátis.`,
   };
-  const meaningDescriptionSuffixes: Record<string, string> = {
-    'en': `Copy, paste, and download ${displayName} in ${platformName}.`,
-    'zh-CN': `复制、粘贴并下载${platformName}中的${displayName}。`,
-    'zh-TW': `複製、貼上並下載${platformName}中的${displayName}。`,
-    'ja': `${platformName}の${displayName}をコピー、貼り付け、ダウンロードできます。`,
-    'ko': `${platformName}의 ${displayName} 이모지를 복사, 붙여넣기, 다운로드하세요.`,
-    'pt-BR': `Copie, cole e baixe ${displayName} em ${platformName}.`,
-  };
 
   const description = createMetaDescription(
-    localizedMeaning
-      ? `${localizedMeaning} ${meaningDescriptionSuffixes[locale] || meaningDescriptionSuffixes['en']}`
-      : descriptionTemplates[locale] || descriptionTemplates['en'],
+    descriptionTemplates[locale] || descriptionTemplates['en'],
     locale
   );
 
@@ -116,7 +104,7 @@ export async function generateMetadata({
       // Fluent is the primary detail index; other platform views are resource variants.
       canonical: canonicalUrl,
       languages: Object.fromEntries(
-        locales.map(loc => [loc, `${baseUrl}/${loc}/${canonicalPlatformSlug}/${slug}`])
+        locales.map(loc => [loc, `${baseUrl}/${loc}/${canonicalPlatformSlug}/${slug}/`])
       ),
     },
     openGraph: {

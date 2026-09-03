@@ -114,44 +114,53 @@ export function EmojiDetailStructuredData({
   emoji,
   imageUrl,
 }: EmojiDetailStructuredDataProps) {
+  const homeUrl = `https://emojidir.com/${locale}/`;
+  const collectionUrl = `${homeUrl}${platform}/`;
+  const detailUrl = `${collectionUrl}${emoji.id}/`;
   const structuredData = {
     '@context': 'https://schema.org',
-    '@type': 'ImageObject',
-    name: `${emoji.name} emoji`,
-    description: emoji.meaning || `${emoji.name} emoji (${emoji.glyph}) from ${platformName}. Unicode: U+${emoji.unicode.toUpperCase()}${emoji.unicodeVersion ? `. ${emoji.unicodeVersion}.` : ''}${emoji.releaseVersion ? ` ${emoji.releaseVersion}.` : ''}`,
-    contentUrl: imageUrl || `https://emojidir.com/favicon.svg`,
-    url: `https://emojidir.com/${locale}/${platform}/${emoji.id}`,
-    inLanguage: locale,
-    keywords: emoji.keywords.join(', '),
-    sameAs: emoji.sourceUrl ? [emoji.sourceUrl] : undefined,
-    breadcrumb: {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Home',
-          item: `https://emojidir.com/${locale}`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: platformName,
-          item: `https://emojidir.com/${locale}/${platform}`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
+    '@graph': [
+      {
+        '@type': 'ImageObject',
+        '@id': `${detailUrl}#primaryimage`,
+        name: `${emoji.name} emoji`,
+        description: emoji.meaning || `${emoji.name} emoji (${emoji.glyph}) from ${platformName}. Unicode: U+${emoji.unicode.toUpperCase()}${emoji.unicodeVersion ? `. ${emoji.unicodeVersion}.` : ''}${emoji.releaseVersion ? ` ${emoji.releaseVersion}.` : ''}`,
+        contentUrl: imageUrl || 'https://emojidir.com/favicon.svg',
+        url: detailUrl,
+        inLanguage: locale,
+        keywords: emoji.keywords.join(', '),
+        sameAs: emoji.sourceUrl ? [emoji.sourceUrl] : undefined,
+        about: {
+          '@type': 'Thing',
           name: emoji.name,
-          item: `https://emojidir.com/${locale}/${platform}/${emoji.id}`,
+          description: `${emoji.group} emoji`,
         },
-      ],
-    },
-    about: {
-      '@type': 'Thing',
-      name: emoji.name,
-      description: `${emoji.group} emoji`,
-    },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${detailUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: homeUrl,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: platformName,
+            item: collectionUrl,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: emoji.name,
+            item: detailUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (
